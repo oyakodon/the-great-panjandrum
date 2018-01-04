@@ -9,8 +9,11 @@
 void Main()
 {
 	Window::Resize(1280, 720);
+	// Window::SetFullscreen(true, Size(1920, 1080));
+
+	ScalableWindow::Setup(1280, 720);
+
 	Window::SetTitle(GameInfo::Title);
-	Graphics::SetBackground(GameInfo::BackgroundColor);
 	System::SetExitEvent(WindowEvent::CloseButton);
 
 	//////////////////////////////////////////////////////////////
@@ -18,7 +21,6 @@ void Main()
 	//  使用するシーン
 	//
 	MyApp manager;
-	manager.setFadeColor(GameInfo::FadeInColor);
 	manager.add<Title>(L"Title");
 	manager.add<Game>(L"Game");
 	manager.add<Result>(L"Result");
@@ -28,9 +30,9 @@ void Main()
 	//
 	//  使用するフォント
 	//
-	FontAsset::Register(L"Title", GameInfo::TitleFontSize, Typeface::Heavy, FontStyle::Outline);
-	FontAsset(L"Title").changeOutlineStyle(TextOutlineStyle(Color(60), Color(255), GameInfo::TitleFontSize * 0.05));
-	FontAsset::Register(L"Menu", GameInfo::MenuFontSize, Typeface::Bold);
+	FontAsset::Register(L"Title", 72, Typeface::Heavy, FontStyle::Outline);
+	FontAsset(L"Title").changeOutlineStyle(TextOutlineStyle(Color(60), Color(255), 72 * 0.05));
+	FontAsset::Register(L"Menu", 24, Typeface::Bold);
 	FontAsset::Register(L"Version", 14, Typeface::Regular);
 	FontAsset::Register(L"CountDown", 72, Typeface::Bold);
 	FontAsset::Register(L"Result", 80, Typeface::Bold);
@@ -45,10 +47,28 @@ void Main()
 	//
 	while (System::Update())
 	{
-		if (!manager.updateAndDraw())
 		{
-			break;
+			const auto transformer = ScalableWindow::CreateTransformer();
+			
+			if (!manager.updateAndDraw())
+			{
+				break;
+			}
 		}
+
+		ScalableWindow::DrawBlackBars();
+
+		// Escキーが3秒以上押され続けたら終了
+		if (Input::KeyEscape.pressedDuration >= 3000)
+		{
+			System::Exit();
+		}
+
+		if (Input::KeyEscape.pressedDuration >= 1000)
+		{
+			Rect(Window::Size()).draw(ColorF(0, 0, 0, (Input::KeyEscape.pressedDuration - 1000) / 1500.0f));
+		}
+
 	}
 
 }

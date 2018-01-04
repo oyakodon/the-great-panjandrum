@@ -23,9 +23,9 @@ private:
 
 	Array<String> m_menuTexts =
 	{
-		GameInfo::MenuGameStart,
-		GameInfo::MenuScore,
-		GameInfo::MenuExit
+		L"ゲームスタート",
+		L"スコア",
+		L"終了"
 	};
 
 public:
@@ -94,7 +94,7 @@ public:
 
 		const double titleHeight = FontAsset(L"Title")(GameInfo::Title).region().h;
 
-		FontAsset(L"Title")(GameInfo::Title).drawAt(Window::Center().x, titleHeight);
+		FontAsset(L"Title")(GameInfo::Title).drawAt(Window::BaseCenter().x, titleHeight);
 
 		for (auto i : step(m_menuBoxes.size()))
 		{
@@ -105,6 +105,6 @@ public:
 
 		const Size versionSize = FontAsset(L"Version")(GameInfo::Version).region().size;
 
-		FontAsset(L"Version")(GameInfo::Version).drawAt(Window::Size().moveBy(-versionSize));
+		FontAsset(L"Version")(GameInfo::Version).drawAt(Window::BaseSize().moveBy(-versionSize));
 	}
 };

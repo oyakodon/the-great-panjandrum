@@ -77,13 +77,13 @@ public:
 
 			if (countDown > 0)
 			{
-				Transformer2D t(Mat3x2::Scale(1.0 + e * 2, Window::Center()));
-				FontAsset(L"CountDown")(countDown).drawAt(Window::Center());
+				Transformer2D t(Mat3x2::Scale(1.0 + e * 2, Window::BaseCenter()));
+				FontAsset(L"CountDown")(countDown).drawAt(Window::BaseCenter());
 			}
 			else
 			{
-				Transformer2D t(Mat3x2::Scale(1.0 + (1.0 - e) * 2, Window::Center()));
-				FontAsset(L"CountDown")(L"START").drawAt(Window::Center(), AlphaF(e));
+				Transformer2D t(Mat3x2::Scale(1.0 + (1.0 - e) * 2, Window::BaseCenter()));
+				FontAsset(L"CountDown")(L"START").drawAt(Window::BaseCenter(), AlphaF(e));
 			}
 		}
 
@@ -91,6 +91,7 @@ public:
 		{
 			return;
 		}
+
 
 		const int32 timeLeftMillisec = Max(gameTimeMillisec - m_gameTimer.ms(), 0);
 
