@@ -163,8 +163,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Wiimote.cpp" />
-    <ClCompile Include="wm4s3d.cpp" />
+    <ClCompile Include="Wiimote\Wiimote.cpp" />
+    <ClCompile Include="Wiimote\wm4s3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
@@ -279,12 +279,19 @@
     <Font Include="Example\YomogiFont.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Scene\Game.hpp" />
     <ClInclude Include="Scene\GameData.hpp" />
     <ClInclude Include="Scene\Result.hpp" />
+    <ClInclude Include="Scene\Score.hpp" />
+    <ClInclude Include="Scene\Setting.hpp" />
+    <ClInclude Include="Scene\Stage\Editor.hpp" />
+    <ClInclude Include="Scene\Stage\Endless.hpp" />
+    <ClInclude Include="Scene\Stage\Stage.hpp" />
+    <ClInclude Include="Scene\Stage\Story.hpp" />
+    <ClInclude Include="Scene\Stage\VS.hpp" />
     <ClInclude Include="Scene\Title.hpp" />
-    <ClInclude Include="Wiimote.hpp" />
-    <ClInclude Include="wm4s3d.hpp" />
+    <ClInclude Include="Scene\Wiimgr.hpp" />
+    <ClInclude Include="Wiimote\Wiimote.hpp" />
+    <ClInclude Include="Wiimote\wm4s3d.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

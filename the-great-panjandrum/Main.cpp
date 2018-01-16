@@ -1,7 +1,14 @@
 ﻿#include "Scene\GameData.hpp"
 #include "Scene\Title.hpp"
-#include "Scene\Game.hpp"
+#include "Scene\Wiimgr.hpp"
+#include "Scene\Setting.hpp"
 #include "Scene\Result.hpp"
+#include "Scene\Score.hpp"
+
+#include "Scene\Stage\Editor.hpp"
+#include "Scene\Stage\Endless.hpp"
+#include "Scene\Stage\Story.hpp"
+#include "Scene\Stage\VS.hpp"
 
 #include <Siv3D.hpp>
 #include <HamFramework.hpp>
@@ -21,8 +28,8 @@ void Main()
 	//  使用するシーン
 	//
 	MyApp manager;
+	manager.add<Wiimgr>(L"Wiimgr");
 	manager.add<Title>(L"Title");
-	manager.add<Game>(L"Game");
 	manager.add<Result>(L"Result");
 	manager.add<Score>(L"Score");
 
@@ -57,18 +64,6 @@ void Main()
 		}
 
 		ScalableWindow::DrawBlackBars();
-
-		// Escキーが3秒以上押され続けたら終了
-		if (Input::KeyEscape.pressedDuration >= 3000)
-		{
-			System::Exit();
-		}
-
-		if (Input::KeyEscape.pressedDuration >= 1000)
-		{
-			Rect(Window::Size()).draw(ColorF(0, 0, 0, (Input::KeyEscape.pressedDuration - 1000) / 1500.0f));
-		}
-
 	}
 
 }

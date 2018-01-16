@@ -77,18 +77,27 @@
       <UniqueIdentifier>{eb86b9be-05b8-45c6-89c8-f91a5437157c}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Scene">
-      <UniqueIdentifier>{8c509c9a-6a00-4d02-a56e-8de077fbe907}</UniqueIdentifier>
+      <UniqueIdentifier>{51c4562e-c422-4b95-8775-a8fac9b9ec3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Stage">
+      <UniqueIdentifier>{b9d349af-952a-49bd-9cbb-52dab2846492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Wiimote">
+      <UniqueIdentifier>{6c5d41ad-b0f0-44fa-8e8f-5d89da14b5ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Wiimote">
+      <UniqueIdentifier>{f987e2fb-16f5-4b22-bb8d-b1441a3a7784}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="wm4s3d.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Wiimote\Wiimote.cpp">
+      <Filter>ソース ファイル\Wiimote</Filter>
     </ClCompile>
-    <ClCompile Include="Wiimote.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Wiimote\wm4s3d.cpp">
+      <Filter>ソース ファイル\Wiimote</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -404,23 +413,44 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="wm4s3d.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Wiimote.hpp">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Scene\Result.hpp">
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\GameData.hpp">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Game.hpp">
+    <ClInclude Include="Scene\Score.hpp">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Result.hpp">
+    <ClInclude Include="Scene\Setting.hpp">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\Title.hpp">
       <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Wiimgr.hpp">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Stage\Editor.hpp">
+      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Stage\Endless.hpp">
+      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Stage\Stage.hpp">
+      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Stage\Story.hpp">
+      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Stage\VS.hpp">
+      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Wiimote\wm4s3d.hpp">
+      <Filter>ヘッダー ファイル\Wiimote</Filter>
+    </ClInclude>
+    <ClInclude Include="Wiimote\Wiimote.hpp">
+      <Filter>ヘッダー ファイル\Wiimote</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

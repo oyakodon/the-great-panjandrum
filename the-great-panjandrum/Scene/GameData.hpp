@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../wm4s3d.hpp"
+#include "../Wiimote/wm4s3d.hpp"
 
 #include <Siv3D.hpp>
 #include <HamFramework.hpp>
@@ -14,11 +14,11 @@ namespace GameInfo
 	// ゲームのタイトル
 	const String Title = L"The Great Panjandrum";
 
-	// ゲームのバージョン（空の文字列も OK）
-	const String Version = L"ver. 0.1.002";
+	// ゲームのバージョン
+	const String Version = L"Ver. 0.1.2";
 
 	// セーブデータの保存場所
-	const FilePath SaveFilePath = L"Save/Score.dat";
+	const FilePath SaveFilePath = L"save.dat";
 
 }
 
@@ -32,3 +32,42 @@ struct GameData
 };
 
 using MyApp = SceneManager<String, GameData>;
+
+enum class PlayMode
+{
+	Story,
+	Endless,
+	VS
+};
+
+///////////////////////////////////////////////////////////////////////
+//
+//  セーブ用スコアデータ
+//
+struct ScoreData
+{
+	int32 score;
+
+	DateTime date;
+
+	PlayMode mode;
+
+	template <class Archive>
+	void serialize(Archive& archive)
+	{
+		archive(score, date, mode);
+	}
+};
+
+///////////////////////////////////////////////////////////////////////
+//
+//  デフォルトのハイスコア
+//
+const std::array<ScoreData, 5> defaultHighScores
+{
+	ScoreData{ 50, DateTime(2018,1,1), PlayMode::Story },
+	ScoreData{ 40, DateTime(2018,1,1), PlayMode::Story },
+	ScoreData{ 30, DateTime(2018,1,1), PlayMode::Story },
+	ScoreData{ 20, DateTime(2018,1,1), PlayMode::Endless },
+	ScoreData{ 10, DateTime(2018,1,1), PlayMode::VS },
+};

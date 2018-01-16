@@ -13,18 +13,15 @@ class Title : public MyApp::Scene
 {
 private:
 
-	Effect m_effect;
-
-	Stopwatch m_effectBackgroundStopwatch{ true };
-
-	Stopwatch m_effectMenuItemStopwatch{ true };
-
 	Array<Rect> m_menuBoxes;
 
 	Array<String> m_menuTexts =
 	{
-		L"ゲームスタート",
+		L"ノーマルモード",
+		L"エンドレスモード",
+		L"VSモード",
 		L"スコア",
+		L"設定",
 		L"終了"
 	};
 
@@ -64,17 +61,14 @@ public:
 
 			if (item.leftClicked)
 			{
-				if (i == 0)
+				switch (i)
 				{
-					changeScene(L"Game");
-				}
-				else if (i == 1)
-				{
-					changeScene(L"Score");
-				}
-				else
-				{
-					System::Exit();
+					case 0: changeScene(L"StageNormal"); break;
+					case 1: changeScene(L"StageEndless"); break;
+					case 2: changeScene(L"StageVS"); break;
+					case 3: changeScene(L"Score"); break;
+					case 4: changeScene(L"Setting"); break;
+					default: System::Exit(); break;
 				}
 
 				break;
@@ -86,12 +80,6 @@ public:
 
 	void draw() const override
 	{
-		Graphics2D::SetBlendState(BlendState::Additive);
-
-		m_effect.update();
-
-		Graphics2D::SetBlendState(BlendState::Default);
-
 		const double titleHeight = FontAsset(L"Title")(GameInfo::Title).region().h;
 
 		FontAsset(L"Title")(GameInfo::Title).drawAt(Window::BaseCenter().x, titleHeight);
