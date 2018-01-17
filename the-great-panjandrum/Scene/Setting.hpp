@@ -14,7 +14,7 @@ public:
 
 	void update() override
 	{
-		if (Input::MouseL.clicked)
+		if (Input::MouseL.clicked || Input::KeyEnter.clicked)
 		{
 			changeScene(L"Title");
 		}
@@ -23,7 +23,7 @@ public:
 
 	void draw() const override
 	{
-		FontAsset(L"Title")(L"Setting").drawCenter(Window::BaseCenter());
+		FontAsset(L"Debug")(L"[ Setting ]").drawCenter(Window::BaseCenter());
 
 	}
 };

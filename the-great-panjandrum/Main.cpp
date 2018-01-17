@@ -17,8 +17,6 @@
 void Main()
 {
 	Window::Resize(1280, 720);
-	// Window::SetFullscreen(true, Size(1920, 1080));
-
 	ScalableWindow::Setup(1280, 720);
 
 	Window::SetTitle(GameInfo::Title);
@@ -66,6 +64,21 @@ void Main()
 			{
 				break;
 			}
+		}
+
+		// フルスクリーン
+		if (Input::KeyF11.clicked)
+		{
+			if (Window::IsFullSceen())
+			{
+				Window::SetFullscreen(false, Size(1280, 720));
+			}
+			else
+			{
+				const Array<Size> resolutions = Graphics::GetFullScreenSize();
+				Window::SetFullscreen(true, resolutions[resolutions.size() - 1]);
+			}
+			
 		}
 
 		ScalableWindow::DrawBlackBars();

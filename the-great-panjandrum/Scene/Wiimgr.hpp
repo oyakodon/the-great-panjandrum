@@ -25,7 +25,7 @@ public:
 
 	void draw() const override
 	{
-		FontAsset(L"Title")(L"Wiimote Manager").drawCenter(Window::BaseCenter());
+		FontAsset(L"Debug")(L"[ Wiimote Manager ]").drawCenter(Window::BaseCenter());
 
 	}
 };

@@ -20,6 +20,13 @@ namespace GameInfo
 	// セーブデータの保存場所
 	const FilePath SaveFilePath = L"save.dat";
 
+	// ロゴ画面中央下部に表示される説明
+	const Array<String> Descriptions = {
+		L"プログラミング部 部内プロコン2017",
+		L"個人制作作品",
+		L"By Oyakodon"
+	};
+
 }
 
 ///////////////////////////////////////////////////////////////////////

@@ -24,9 +24,12 @@ public:
 
 	void draw() const override
 	{
-		siv3dLogo.drawAt(Window::BaseCenter());
+		siv3dLogo.drawAt(Window::BaseCenter() + Vec2(0, -100));
 
-
+		for (int i : step(GameInfo::Descriptions.size()))
+		{
+			FontAsset(L"Menu")(GameInfo::Descriptions[i]).drawCenter(Window::BaseCenter() + Vec2(0, 100 + i * 75));
+		}
 
 	}
 };
