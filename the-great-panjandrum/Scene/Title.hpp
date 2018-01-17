@@ -17,9 +17,9 @@ private:
 
 	Array<String> m_menuTexts =
 	{
-		L"ノーマルモード",
-		L"エンドレスモード",
-		L"VSモード",
+		L"ノーマル",
+		L"エンドレス",
+		L"VS",
 		L"スコア",
 		L"設定",
 		L"終了"
@@ -35,17 +35,17 @@ public:
 	void init() override
 	{
 		m_menuBoxes.resize(m_menuTexts.size());
-
-		int32 boxWidth = 0;
-
-		for (const auto& text : m_menuTexts)
+		
+		int box_width = 250;
+		for (auto i : step(3))
 		{
-			boxWidth = Max(boxWidth, FontAsset(L"Menu")(text).region().w);
+			m_menuBoxes[i].set(Window::BaseCenter().x + (i - 1) * (box_width + 40) - box_width / 2, 280, box_width, 120);
 		}
 
-		for (auto i : step(m_menuBoxes.size()))
+		box_width = 280;
+		for (auto i : step(3))
 		{
-			m_menuBoxes[i].set(240, 280 + i * 80, boxWidth + 80, 60);
+			m_menuBoxes[3 + i].set(Window::BaseCenter().x - box_width / 2, 450 + i * 80, box_width, 60);
 		}
 	}
 
@@ -63,7 +63,7 @@ public:
 			{
 				switch (i)
 				{
-					case 0: changeScene(L"StageNormal"); break;
+					case 0: changeScene(L"StageStory"); break;
 					case 1: changeScene(L"StageEndless"); break;
 					case 2: changeScene(L"StageVS"); break;
 					case 3: changeScene(L"Score"); break;

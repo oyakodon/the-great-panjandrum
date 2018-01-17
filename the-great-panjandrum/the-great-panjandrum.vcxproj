@@ -280,12 +280,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\GameData.hpp" />
+    <ClInclude Include="Scene\Logo.hpp" />
     <ClInclude Include="Scene\Result.hpp" />
     <ClInclude Include="Scene\Score.hpp" />
     <ClInclude Include="Scene\Setting.hpp" />
+    <ClInclude Include="Scene\Stage\Block.hpp" />
     <ClInclude Include="Scene\Stage\Editor.hpp" />
     <ClInclude Include="Scene\Stage\Endless.hpp" />
-    <ClInclude Include="Scene\Stage\Stage.hpp" />
+    <ClInclude Include="Scene\Stage\Player.hpp" />
     <ClInclude Include="Scene\Stage\Story.hpp" />
     <ClInclude Include="Scene\Stage\VS.hpp" />
     <ClInclude Include="Scene\Title.hpp" />

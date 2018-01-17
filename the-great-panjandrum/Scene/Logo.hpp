@@ -2,15 +2,14 @@
 
 #include "GameData.hpp"
 
-#include "../Wiimote/wm4s3d.hpp"
-
 #include <Siv3D.hpp>
 #include <HamFramework.hpp>
 
-class Wiimgr : public MyApp::Scene
+class Logo : public MyApp::Scene
 {
 private:
 
+	const Texture siv3dLogo = Texture(L"Engine/Splash.png");
 
 public:
 
@@ -18,15 +17,16 @@ public:
 	{
 		if (Input::MouseL.clicked || Input::KeyEnter.clicked)
 		{
-			changeScene(L"Title");
+			changeScene(L"Wiimgr");
 		}
 
 	}
 
 	void draw() const override
 	{
-		FontAsset(L"Title")(L"Wiimote Manager").drawCenter(Window::BaseCenter());
+		siv3dLogo.drawAt(Window::BaseCenter());
+
+
 
 	}
 };
-

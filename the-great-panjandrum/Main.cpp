@@ -1,4 +1,5 @@
 ﻿#include "Scene\GameData.hpp"
+#include "Scene\Logo.hpp"
 #include "Scene\Title.hpp"
 #include "Scene\Wiimgr.hpp"
 #include "Scene\Setting.hpp"
@@ -28,10 +29,13 @@ void Main()
 	//  使用するシーン
 	//
 	MyApp manager;
+	manager.add<Logo>(L"Logo");
 	manager.add<Wiimgr>(L"Wiimgr");
 	manager.add<Title>(L"Title");
+	manager.add<StageStory>(L"StageStory");
 	manager.add<Result>(L"Result");
 	manager.add<Score>(L"Score");
+	manager.add<Setting>(L"Setting");
 
 	//////////////////////////////////////////////////////////////
 	//
@@ -47,6 +51,7 @@ void Main()
 	FontAsset::Register(L"GameTime", 40, Typeface::Light);
 	FontAsset::Register(L"ScoreList", 50, Typeface::Heavy);
 	FontAsset::Register(L"ScoreListDate", 25, Typeface::Regular, FontStyle::Italic);
+	FontAsset::Register(L"Debug", 18, L"Meiryo UI", FontStyle::Regular);
 
 	//////////////////////////////////////////////////////////////
 	//

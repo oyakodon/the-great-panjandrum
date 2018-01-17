@@ -437,9 +437,6 @@
     <ClInclude Include="Scene\Stage\Endless.hpp">
       <Filter>ヘッダー ファイル\Scene\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Stage\Stage.hpp">
-      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\Stage\Story.hpp">
       <Filter>ヘッダー ファイル\Scene\Stage</Filter>
     </ClInclude>
@@ -451,6 +448,15 @@
     </ClInclude>
     <ClInclude Include="Wiimote\Wiimote.hpp">
       <Filter>ヘッダー ファイル\Wiimote</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Stage\Player.hpp">
+      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Stage\Block.hpp">
+      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Logo.hpp">
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

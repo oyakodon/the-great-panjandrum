@@ -15,7 +15,7 @@ namespace GameInfo
 	const String Title = L"The Great Panjandrum";
 
 	// ゲームのバージョン
-	const String Version = L"Ver. 0.1.2";
+	const String Version = L"Ver. 0.1.3";
 
 	// セーブデータの保存場所
 	const FilePath SaveFilePath = L"save.dat";
@@ -28,7 +28,7 @@ namespace GameInfo
 //
 struct GameData
 {
-	Wii wii;
+	Wii wii[2];
 };
 
 using MyApp = SceneManager<String, GameData>;
