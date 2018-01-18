@@ -82,10 +82,10 @@ bool isBluetoothActive();
 
 Wiimote::Wiimote()
 {
-	// Bluetoothが使えなかったらabort()
+	// Bluetooth使用不可
 	if (!isBluetoothActive())
 	{
-		abort();
+		return;
 	}
 
 	// スキャンの時の為にとっておく

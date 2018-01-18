@@ -34,7 +34,7 @@ public:
 		blocks.push_back(Block({ 400, 400, 200, 200 }));
 		blocks.push_back(Block({ 800, 400, 200, 200 }));
 		blocks.push_back(Block({ 1000, 400, 200, 200 }));
-		blocks.push_back(Block({ 1300, 200, 400, 30 }));
+		blocks.push_back(Block({ 1300, 200, 400, 200 }));
 
 	}
 

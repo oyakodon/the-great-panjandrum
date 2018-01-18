@@ -17,7 +17,7 @@ private:
 
 	// 地面に接しているか否か
 	bool m_isGrounded;
-
+	
 	// 残りのジャンプ時間
 	int m_jumpFrame;
 
@@ -36,13 +36,11 @@ public:
 		m_jumpFrame(0),
 		m_isAlive(true) {}
 
-	// 位置を取得する関数
 	Vec2 getPos() const
 	{
 		return m_position;
 	}
 
-	// 地面に接しているかを更新する関数
 	void checkGround(const Array<Block>& blocks)
 	{
 		m_isGrounded = false;
@@ -61,13 +59,11 @@ public:
 		m_bottom = value;
 	}
 
-	// 生きているかどうかを返す関数
 	bool isAlive()
 	{
 		return m_isAlive;
 	}
 
-	// 描画以外の操作をする関数
 	void update()
 	{
 		if (m_isGrounded)
@@ -103,7 +99,6 @@ public:
 
 	}
 
-	// 描画をする関数（描画操作以外行わないこと.）
 	void draw() const
 	{
 		RectF(Vec2(-100, -200) + Window::BaseCenter(), 200, 200)(m_texture).draw();
