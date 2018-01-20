@@ -34,9 +34,15 @@ public:
 		return m_region.intersects(pos);
 	}
 
-	void draw() const
+	void draw(const bool debugMode) const
 	{
 		m_region.movedBy(-m_playerPosition + Window::BaseCenter())(m_texture).draw();
+
+		if (debugMode)
+		{
+			m_region.movedBy(-m_playerPosition + Window::BaseCenter()).drawFrame(1.0, 0.0, Palette::Red);
+		}
+
 	}
 
 };

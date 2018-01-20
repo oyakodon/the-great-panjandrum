@@ -10,16 +10,19 @@ enum class Threshould : int
 	Strong = 700
 };
 
-class Button
+namespace wm4s3d
 {
-public:
-	Button();
-	bool pressed;
-	bool clicked;
-	bool released;
-	int32 pressedDuration;
-	std::chrono::time_point<std::chrono::system_clock> pressedStart;
-};
+	class Button
+	{
+	public:
+		Button();
+		bool pressed;
+		bool clicked;
+		bool released;
+		int32 pressedDuration;
+		std::chrono::time_point<std::chrono::system_clock> pressedStart;
+	};
+}
 
 class Wii
 {
@@ -30,7 +33,7 @@ private:
 	};
 
 	std::unordered_map<ButtonType, bool> m_pressed;
-	std::unordered_map<ButtonType, Button*> m_buttons;
+	std::unordered_map<ButtonType, wm4s3d::Button*> m_buttons;
 
 	bool m_connected;
 
@@ -214,19 +217,19 @@ public:
 	/// <summary>
 	/// ボタン
 	/// </summary>
-	Button buttonA;
-	Button buttonB;
-	Button buttonOne;
-	Button buttonTwo;
-	Button buttonPlus;
-	Button buttonMinus;
-	Button buttonHome;
-	Button buttonUp;
-	Button buttonDown;
-	Button buttonLeft;
-	Button buttonRight;
-	Button nunchukC;
-	Button nunchukZ;
+	wm4s3d::Button buttonA;
+	wm4s3d::Button buttonB;
+	wm4s3d::Button buttonOne;
+	wm4s3d::Button buttonTwo;
+	wm4s3d::Button buttonPlus;
+	wm4s3d::Button buttonMinus;
+	wm4s3d::Button buttonHome;
+	wm4s3d::Button buttonUp;
+	wm4s3d::Button buttonDown;
+	wm4s3d::Button buttonLeft;
+	wm4s3d::Button buttonRight;
+	wm4s3d::Button nunchukC;
+	wm4s3d::Button nunchukZ;
 
 	/// <summary>
 	/// ポインターの位置 (要センサーバー)

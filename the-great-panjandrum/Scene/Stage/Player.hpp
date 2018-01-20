@@ -99,9 +99,15 @@ public:
 
 	}
 
-	void draw() const
+	void draw(const bool debugMode) const
 	{
 		RectF(Vec2(-100, -200) + Window::BaseCenter(), 200, 200)(m_texture).draw();
+
+		if (debugMode)
+		{
+			RectF(Vec2(-100, -200) + Window::BaseCenter(), 200, 200).drawFrame(1.0, 0.0, Palette::Red);
+		}
+			
 	}
 
 };

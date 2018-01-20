@@ -62,14 +62,22 @@ public:
 
 		for (size_t i = 0; i < blocks.size(); i++)
 		{
-			blocks[i].draw();
+			blocks[i].draw(m_data->debugMode);
 		}
 
-		player.draw();
+		player.draw(m_data->debugMode);
 
-		Line({ player.getPos().x - Window::BaseWidth() / 2, 600 }, { player.getPos().x + Window::BaseWidth() / 2, 600}).moveBy(-player.getPos() + Window::BaseCenter()).draw(Palette::Red);
+		if (m_data->debugMode)
+		{
+			Line({ player.getPos().x - Window::BaseWidth() / 2, 600 }, { player.getPos().x + Window::BaseWidth() / 2, 600 }).moveBy(-player.getPos() + Window::BaseCenter()).draw(2.0, Palette::Orange);
+		}
 
-		FontAsset(L"Debug")(L"player.getPos(): ", player.getPos()).draw();
+		// デバッグモード表示
+		if (m_data->debugMode)
+		{
+			const Size debugSize = FontAsset(L"Debug")(L"DEBUGMODE").region().size;
+			FontAsset(L"Debug")(L"DEBUGMODE").drawAt(Window::BaseSize().moveBy(-debugSize), Palette::Orange);
+		}
 
 	}
 

@@ -15,7 +15,7 @@ public:
 
 	void update() override
 	{
-		if (Input::MouseL.clicked || Input::KeyEnter.clicked)
+		if ((Input::MouseL | Input::KeyEnter | Input::KeyEscape).clicked)
 		{
 			changeScene(L"Wiimgr");
 		}
@@ -26,7 +26,7 @@ public:
 	{
 		siv3dLogo.drawAt(Window::BaseCenter() + Vec2(0, -100));
 
-		for (int i : step(GameInfo::Descriptions.size()))
+		for (size_t i : step(GameInfo::Descriptions.size()))
 		{
 			FontAsset(L"Menu")(GameInfo::Descriptions[i]).drawCenter(Window::BaseCenter() + Vec2(0, 100 + i * 75));
 		}

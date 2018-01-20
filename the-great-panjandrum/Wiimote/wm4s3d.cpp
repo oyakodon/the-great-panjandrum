@@ -1,6 +1,6 @@
 #include "wm4s3d.hpp"
 
-Button::Button()
+wm4s3d::Button::Button()
 {
 	pressed = clicked = released = false;
 	pressedDuration = 0;

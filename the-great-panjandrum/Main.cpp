@@ -43,13 +43,9 @@ void Main()
 	FontAsset(L"Title").changeOutlineStyle(TextOutlineStyle(Color(60), Color(255), 72 * 0.05));
 	FontAsset::Register(L"Menu", 24, Typeface::Bold);
 	FontAsset::Register(L"Version", 14, Typeface::Regular);
-	FontAsset::Register(L"CountDown", 72, Typeface::Bold);
-	FontAsset::Register(L"Result", 80, Typeface::Bold);
-	FontAsset::Register(L"ResultButton", 32, Typeface::Regular);
-	FontAsset::Register(L"GameTime", 40, Typeface::Light);
-	FontAsset::Register(L"ScoreList", 50, Typeface::Heavy);
-	FontAsset::Register(L"ScoreListDate", 25, Typeface::Regular, FontStyle::Italic);
-	FontAsset::Register(L"Debug", 18, L"Meiryo UI", FontStyle::Regular);
+	FontAsset::Register(L"UI_Small", 14, L"Meiryo UI", FontStyle::Regular);
+	FontAsset::Register(L"UI", 18, L"Meiryo UI", FontStyle::Regular);
+	FontAsset::Register(L"UI_Large", 28, L"Meiryo UI", FontStyle::Bold);
 
 	//////////////////////////////////////////////////////////////
 	//
