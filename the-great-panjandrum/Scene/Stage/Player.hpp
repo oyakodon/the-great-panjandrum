@@ -9,19 +9,16 @@ class Player
 {
 private:
 
-	// プレイヤーの座標
 	Vec2 m_position;
 
-	// 地面に接しているか否か
 	bool m_isGrounded;
-	
-	// 残りのジャンプ時間
+
 	int m_jumpFrame;
 
-	// 最低高度
 	int m_bottom;
 
-	// 生きているかどうか
+	double m_jumpedY;
+
 	bool m_isAlive;
 
 public:
@@ -57,40 +54,40 @@ public:
 
 	bool isAlive()
 	{
-		return m_isAlive;
+		return m_position.y < m_bottom;
 	}
 
 	void update()
 	{
 		if (m_isGrounded)
 		{
+			m_jumpFrame = 0;
+
 			if (Input::KeySpace.clicked && m_jumpFrame <= 0)
 			{
-				m_jumpFrame = 30;
+				m_jumpFrame = 48;
+				m_jumpedY = m_position.y;
 			}
 		}
-		else
+		else if (m_jumpFrame == 0)
 		{
-			m_position.y += 10.0;
+			m_position.y += 16.0;
 		}
 
 		if (m_jumpFrame > 0)
 		{
-			m_position.y -= 20.0;
+			m_position.y = m_jumpedY + 2 * (12 - 0.5 * (m_jumpFrame - 1)) * (12 - 0.5 * (m_jumpFrame - 1)) - 288;
 			m_jumpFrame--;
 		}
+
 		if (Input::KeyRight.pressed)
 		{
-			m_position.x += 5.0;
-		}
-		if (Input::KeyLeft.pressed)
-		{
-			m_position.x -= 5.0;
+			m_position.x += 7.5;
 		}
 
-		if (m_isAlive && m_position.y >= m_bottom)
+		if (Input::KeyLeft.pressed)
 		{
-			m_isAlive = false;
+			m_position.x -= 7.5;
 		}
 
 	}

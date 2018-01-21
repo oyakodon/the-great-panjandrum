@@ -43,7 +43,7 @@ public:
 		const Vec2 pos = -m_playerPosition + Window::BaseCenter() + m_region.pos;
 		const RectF edge(pos, edgeWidth, m_region.h);
 		// 黒い線がでないように真ん中をちょっと左右に被せる
-		const RectF region = RectF(pos + Vec2(edgeWidth - 10, 0), Max(0.0, m_region.w - edgeWidth) * 2 + 20, m_region.h);
+		const RectF region = RectF(pos + Vec2(edgeWidth - 10, 0), Max(0.0, m_region.w - edgeWidth * 2) + 20, m_region.h);
 
 		// 端っこは黒い線が出るのでちょっとテクスチャをトリミング
 		edge(TextureAsset(L"table_white_left")(2, 0, 183, 550)).draw();

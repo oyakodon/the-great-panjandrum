@@ -27,7 +27,7 @@ public:
 
 	void update() override
 	{
-		if ((Input::MouseL | Input::KeyEnter | Input::KeyEscape).clicked)
+		if (Input::AnyKeyClicked() | Input::MouseL.clicked)
 		{
 			changeScene(L"Wiimgr");
 		}

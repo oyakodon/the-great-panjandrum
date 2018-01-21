@@ -16,7 +16,7 @@ public:
 
 	void update() override
 	{
-		if (Input::MouseL.clicked || Input::KeyEnter.clicked)
+		if (Input::AnyKeyClicked() | Input::MouseL.clicked)
 		{
 			changeScene(L"Title");
 		}
