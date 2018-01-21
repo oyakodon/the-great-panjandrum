@@ -12,9 +12,6 @@ private:
 	// プレイヤーの座標
 	Vec2 m_position;
 
-	// プレイヤーのテクスチャ（画像）
-	const Texture m_texture;
-
 	// 地面に接しているか否か
 	bool m_isGrounded;
 	
@@ -31,7 +28,6 @@ public:
 
 	Player() :
 		m_position(100, 200),
-		m_texture(L"Asset/panjandrum.png"),
 		m_isGrounded(false),
 		m_jumpFrame(0),
 		m_isAlive(true) {}
@@ -101,7 +97,7 @@ public:
 
 	void draw(const bool debugMode) const
 	{
-		RectF(Vec2(-100, -200) + Window::BaseCenter(), 200, 200)(m_texture).draw();
+		RectF(Vec2(-100, -200) + Window::BaseCenter(), 200, 200)(TextureAsset(L"panjandrum")).draw();
 
 		if (debugMode)
 		{

@@ -49,6 +49,31 @@ void Main()
 
 	//////////////////////////////////////////////////////////////
 	//
+	//  使用する音
+	//
+	SoundAsset::Register(L"one01", L"Asset/one01.mp3");
+
+	//////////////////////////////////////////////////////////////
+	//
+	//  使用する画像
+	//
+	TextureAsset::Register(L"bg_natural_umi", L"Asset/bg_natural_umi.jpg");
+
+	// Block
+	TextureAsset::Register(L"table_white_left", L"Asset/table_white_left.png");
+	TextureAsset::Register(L"table_white_center", L"Asset/table_white_center.png");
+	TextureAsset::Register(L"table_white_right", L"Asset/table_white_right.png");
+	
+	// Player
+	TextureAsset::Register(L"panjandrum", L"Asset/panjandrum.png");
+
+	// DebugビルドならdebugMode = true
+#ifdef _DEBUG
+	manager.get()->debugMode = true;
+#endif
+
+	//////////////////////////////////////////////////////////////
+	//
 	//  メインループ
 	//
 	while (System::Update())
@@ -60,8 +85,24 @@ void Main()
 			{
 				break;
 			}
-		}
 
+			// デバッグモード表示
+			if (manager.get()->debugMode)
+			{
+				// Ctrl + Shiftでマウス座標を右上に表示する
+				if (Input::KeyLControl.pressed && Input::KeyLShift.pressed)
+				{
+					FontAsset(L"Debug")(L"マウス座標: ", Mouse::PosF()).draw({0, 0}, Palette::Red);
+					Line(Mouse::PosF() - Vec2(5, 0), Mouse::PosF() + Vec2(5, 0)).draw(Palette::Red);
+					Line(Mouse::PosF() - Vec2(0, 5), Mouse::PosF() + Vec2(0, 5)).draw(Palette::Red);
+				}
+
+				const Size debugSize = FontAsset(L"Debug")(L"DEBUGMODE").region().size;
+				FontAsset(L"Debug")(L"DEBUGMODE").drawAt(Window::BaseSize().moveBy(-debugSize), Palette::Orange);
+			}
+
+		}
+		
 		// フルスクリーン
 		if (Input::KeyF11.clicked)
 		{

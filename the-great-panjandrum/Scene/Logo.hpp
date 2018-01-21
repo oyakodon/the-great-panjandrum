@@ -13,6 +13,18 @@ private:
 
 public:
 
+	~Logo()
+	{
+		SoundAsset(L"one01").stop();
+		SoundAsset(L"one01").setVolume(1.0);
+	}
+
+	void init() override
+	{
+		SoundAsset(L"one01").setVolume(0.1);
+		SoundAsset(L"one01").play();
+	}
+
 	void update() override
 	{
 		if ((Input::MouseL | Input::KeyEnter | Input::KeyEscape).clicked)
