@@ -12,12 +12,12 @@ private:
 	Vec2 m_position;
 
 	bool m_isGrounded;
+	int m_intersectsBlock; // -1: ç∂, 0: ñ≥Çµ, 1: âE
 
 	int m_jumpFrame;
+	double m_jumpedY;
 
 	int m_bottom;
-
-	double m_jumpedY;
 
 	bool m_isAlive;
 
@@ -26,6 +26,7 @@ public:
 	Player() :
 		m_position(100, 200),
 		m_isGrounded(false),
+		m_intersectsBlock(0),
 		m_jumpFrame(0),
 		m_isAlive(true) {}
 
@@ -37,13 +38,33 @@ public:
 	void checkGround(const Array<Block>& blocks)
 	{
 		m_isGrounded = false;
+		m_intersectsBlock = 0;
 
-		for (size_t i = 0; i < blocks.size(); i++)
+		const Line top(m_position + Vec2(-90, 0), m_position + Vec2(90, 0));
+		const RectF player(m_position + Vec2(-100, -200), Vec2(200, 200));
+
+		for (const auto block : blocks)
 		{
-			if (blocks[i].intersects(Line(m_position + Vec2(-90, 0), m_position + Vec2(90, 0))))
+			const RectF region = block.getRect();
+
+			// Top
+			if (top.intersects(RectF(region.pos, Vec2(region.w, 20))))
 			{
 				m_isGrounded = true;
 			}
+
+			// Right
+			if (player.intersects(region.center + Vec2(-region.w / 2, 0)))
+			{
+				m_intersectsBlock = 1;
+			}
+
+			// Left
+			if (player.intersects(region.center + Vec2(region.w / 2, 0)))
+			{
+				m_intersectsBlock = -1;
+			}
+
 		}
 	}
 
@@ -80,12 +101,12 @@ public:
 			m_jumpFrame--;
 		}
 
-		if (Input::KeyRight.pressed)
+		if (Input::KeyRight.pressed && m_intersectsBlock != 1)
 		{
 			m_position.x += 7.5;
 		}
 
-		if (Input::KeyLeft.pressed)
+		if (Input::KeyLeft.pressed && m_intersectsBlock != -1)
 		{
 			m_position.x -= 7.5;
 		}

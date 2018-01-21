@@ -22,7 +22,7 @@ public:
 
 		// add blocks
 		blocks.push_back(Block({ -400, 400, 1000, 200 }));
-		blocks.push_back(Block({ 200, 200, 200, 200 }));
+		blocks.push_back(Block({ 200, 260, 200, 200 }));
 		blocks.push_back(Block({ 800, 400, 400, 200 }));
 		blocks.push_back(Block({ 1300, 200, 400, 200 }));
 
