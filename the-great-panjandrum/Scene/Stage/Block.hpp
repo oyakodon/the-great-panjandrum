@@ -40,7 +40,7 @@ public:
 
 	void draw(const bool debugMode) const
 	{
-		const Vec2 pos = -m_playerPosition + Window::BaseCenter() + m_region.pos;
+		const Vec2 pos = -m_playerPosition + Window::BaseCenter() + Vec2(0, 150) + m_region.pos;
 		const RectF edge(pos, edgeWidth, m_region.h);
 		// •‚¢ü‚ª‚Å‚È‚¢‚æ‚¤‚É^‚ñ’†‚ğ‚¿‚å‚Á‚Æ¶‰E‚É”í‚¹‚é
 		const RectF region = RectF(pos + Vec2(edgeWidth - 10, 0), Max(0.0, m_region.w - edgeWidth * 2) + 20, m_region.h);
@@ -52,7 +52,7 @@ public:
 
 		if (debugMode)
 		{
-			m_region.movedBy(-m_playerPosition + Window::BaseCenter()).drawFrame(1.0, 0.0, Palette::Red);
+			m_region.movedBy(-m_playerPosition + Window::BaseCenter() + Vec2(0, 150)).drawFrame(1.0, 0.0, Palette::Red);
 		}
 
 	}

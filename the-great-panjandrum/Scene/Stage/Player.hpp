@@ -115,11 +115,11 @@ public:
 
 	void draw(const bool debugMode) const
 	{
-		RectF(Vec2(-100, -200) + Window::BaseCenter(), 200, 200)(TextureAsset(L"panjandrum")).draw();
+		RectF(Vec2(-100, -50) + Window::BaseCenter(), 200, 200)(TextureAsset(L"panjandrum")).draw();
 
 		if (debugMode)
 		{
-			RectF(Vec2(-100, -200) + Window::BaseCenter(), 200, 200).drawFrame(1.0, 0.0, Palette::Red);
+			RectF(Vec2(-100, -50) + Window::BaseCenter(), 200, 200).drawFrame(1.0, 0.0, Palette::Red);
 		}
 			
 	}

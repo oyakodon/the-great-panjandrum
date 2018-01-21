@@ -22,7 +22,7 @@ public:
 
 		// add blocks
 		blocks.push_back(Block({ -400, 400, 1000, 200 }));
-		blocks.push_back(Block({ 200, 260, 200, 200 }));
+		blocks.push_back(Block({ 150, 250, 250, 200 }));
 		blocks.push_back(Block({ 800, 400, 400, 200 }));
 		blocks.push_back(Block({ 1300, 200, 400, 200 }));
 
@@ -59,7 +59,7 @@ public:
 
 		if (m_data->debugMode)
 		{
-			Line({ player.getPos().x - Window::BaseWidth() / 2, 600 }, { player.getPos().x + Window::BaseWidth() / 2, 600 }).moveBy(-player.getPos() + Window::BaseCenter()).draw(2.0, Palette::Orange);
+			Line({ player.getPos().x - Window::BaseWidth() / 2, 600 }, { player.getPos().x + Window::BaseWidth() / 2, 600 }).moveBy(-player.getPos() + Vec2(0, 150) + Window::BaseCenter()).draw(2.0, Palette::Orange);
 		}
 
 	}
