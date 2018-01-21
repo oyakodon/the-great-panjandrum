@@ -40,7 +40,7 @@ public:
 
 		for (size_t i = 0; i < blocks.size(); i++)
 		{
-			if (blocks[i].intersects(m_position))
+			if (blocks[i].intersects(Line(m_position + Vec2(-90, 0), m_position + Vec2(90, 0))))
 			{
 				m_isGrounded = true;
 			}

@@ -33,9 +33,10 @@ public:
 
 	void update() {}
 
-	bool intersects(const Vec2& pos) const
+	bool intersects(const Line& line) const
 	{
-		return m_region.intersects(pos);
+		const RectF top(m_region.pos, Vec2(m_region.w, 20));
+		return top.intersects(line);
 	}
 
 	void draw(const bool debugMode) const
