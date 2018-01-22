@@ -267,4 +267,9 @@ public:
 	/// </summary>
 	bool isPlaying();
 
+	/// <summary>
+	/// Bluetooth‚ª—LŒø‚©‚Ç‚¤‚©
+	/// </summary>
+	static bool isBluetoothActive();
+
 };

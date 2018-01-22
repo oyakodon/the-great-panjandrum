@@ -78,7 +78,6 @@ static bool regestWiimote(BLUETOOTH_DEVICE_INFO& btdi, bool doPair);
 static bool setServiceState(BLUETOOTH_DEVICE_INFO& btdi, bool enabled);
 static bool disconnectWiimote(BLUETOOTH_DEVICE_INFO& btdi);
 static bool removeWiimote(BLUETOOTH_DEVICE_INFO& btdi);
-bool isBluetoothActive();
 
 Wiimote::Wiimote()
 {
@@ -239,7 +238,7 @@ void Wiimote::updateScanThread()
 	}
 }
 
-bool isBluetoothActive()
+bool Wiimote::isBluetoothActive()
 {
 	BLUETOOTH_FIND_RADIO_PARAMS param;
 	param.dwSize = sizeof(BLUETOOTH_FIND_RADIO_PARAMS);
