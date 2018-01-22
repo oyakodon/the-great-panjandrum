@@ -47,25 +47,67 @@ public:
 
 			buttonCancel.update();
 
-			if (buttonCancel.isClicked() | Input::KeyEscape.clicked)
+			if (buttonCancel.isClicked())
 			{
 				changeScene(L"Title");
 			}
 
+			for (int i = 0; i < 2; i++)
+			{
+				if (m_data->wii[i].hasConnected())
+				{
+					std::thread([&]
+					{
+						int num = i;
+						System::Sleep(100);
+						m_data->wii[num].setLED(num, true);
+						System::Sleep(500);
+						m_data->wii[num].controller.playSound("wii_sound.raw", 65);
+					}).detach();
+				}
+
+				if (m_data->wii[i].isConnected())
+				{
+					m_data->wii[i].update();
+
+					if (m_data->wii[i].buttonA.pressed & m_data->wii[i].buttonB.pressed)
+					{
+						changeScene(L"Title");
+					}
+				}
+
+			}
+
 		}
 
-		if (dialog.isClosed())
+		if (dialog.isClosed() | Input::KeyEscape.clicked)
 		{
 			changeScene(L"Title");
 		}
 
-		Cursor::SetStyle(dialog.mouseOver() ? CursorStyle::Hand : CursorStyle::Default);
+		Cursor::SetStyle(dialog.mouseOver() | buttonCancel.mouseOver() ? CursorStyle::Hand : CursorStyle::Default);
 
 	}
-
+	
 	void draw() const override
 	{
-		// FontAsset(L"UI")(L"[ Wiimote Manager ]").drawCenter(Window::BaseCenter());
+		// Background
+		RoundRect(100, 100, Window::BaseWidth() - 200, 400, 15).draw(Palette::Lightgrey).drawFrame(0.0, 2.0, Palette::Darkgray);
+
+		// 1P
+		RoundRect(150, 150, Window::BaseWidth() - 300, 75, 10).draw(Palette::Gray).drawFrame(0.0, 2.0, Palette::White);
+		FontAsset(L"UI_Large")(L"1P").drawCenter({350, 182.5}, Palette::Cyan);
+		FontAsset(L"UI")(L"A+Bボタンでスタート").drawCenter({640, 182.5}, Palette::Black);
+		FontAsset(L"UI_Large")(m_data->wii[0].isConnected() ? L"OK" : L"検索中...").drawCenter({ 930, 182.5 }, m_data->wii[0].isConnected() ? Palette::Lime : Palette::Yellow);
+
+		// 2P
+		RoundRect(150, 265, Window::BaseWidth() - 300, 75, 10).draw(Palette::Gray).drawFrame(0.0, 2.0, Palette::White);
+		FontAsset(L"UI_Large")(L"2P").drawCenter({ 350, 297.5 }, Palette::Red);
+		FontAsset(L"UI")(L"A+Bボタンでスタート").drawCenter({ 640, 297.5 }, Palette::Black);
+		FontAsset(L"UI_Large")(m_data->wii[1].isConnected() ? L"OK" : L"検索中...").drawCenter({ 930, 297.5 }, m_data->wii[1].isConnected() ? Palette::Lime : Palette::Yellow);
+
+		// 説明
+		FontAsset(L"UI_Large")(L"①+②ボタンを押してください。").drawCenter(Window::BaseCenter() + Vec2(0, 50), Palette::Black);
 
 		dialog.draw();
 

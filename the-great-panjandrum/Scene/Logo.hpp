@@ -11,6 +11,8 @@ private:
 
 	const Texture siv3dLogo = Texture(L"Engine/Splash.png");
 
+	Stopwatch sw = Stopwatch(true);
+
 public:
 
 	~Logo()
@@ -27,7 +29,7 @@ public:
 
 	void update() override
 	{
-		if (Input::AnyKeyClicked() | Input::MouseL.clicked)
+		if (Input::AnyKeyClicked() || Input::MouseL.clicked || sw.s() >= 3)
 		{
 			changeScene(L"Wiimgr");
 		}
