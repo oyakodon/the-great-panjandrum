@@ -461,5 +461,11 @@
     <ClInclude Include="Scene\UI.hpp">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Stage\Item.hpp">
+      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Stage\Generator.hpp">
+      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

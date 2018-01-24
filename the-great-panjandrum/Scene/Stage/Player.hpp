@@ -2,9 +2,13 @@
 
 #include "../GameData.hpp"
 #include "Block.hpp"
+#include "Item.hpp"
 
 #include <Siv3D.hpp>
 
+/// <summary>
+/// プレイヤー(パンジャンドラム)
+/// </summary>
 class Player
 {
 private:
@@ -21,6 +25,8 @@ private:
 
 	bool m_isAlive;
 
+	int m_tp; // TeaPoint
+
 public:
 
 	Player() :
@@ -28,7 +34,9 @@ public:
 		m_isGrounded(false),
 		m_intersectsBlock(0),
 		m_jumpFrame(0),
-		m_isAlive(true) {}
+		m_isAlive(true),
+		m_tp(100)
+	{}
 
 	Vec2 getPos() const
 	{
@@ -68,6 +76,27 @@ public:
 		}
 	}
 
+	void checkItem(Array<Item>& items)
+	{
+		const RectF player(m_position + Vec2(-100, -200), Vec2(200, 200));
+
+		auto it = items.begin();
+		while (it != items.end())
+		{
+			if (it->intersects(player))
+			{
+				m_tp += static_cast<int>(it->getType());
+
+				it = items.erase(it);
+			}
+			else
+			{
+				it++;
+			}
+		}
+
+	}
+
 	void setBottom(int value)
 	{
 		m_bottom = value;
@@ -76,6 +105,11 @@ public:
 	bool isAlive()
 	{
 		return m_position.y < m_bottom;
+	}
+
+	int getTP()
+	{
+		return m_tp;
 	}
 
 	void update()

@@ -4,6 +4,10 @@
 
 namespace tgpUI
 {
+
+	/// <summary>
+	/// トグルスイッチ(ON/OFF)
+	/// </summary>
 	class ToggleSwitch
 	{
 	private:
@@ -108,6 +112,9 @@ namespace tgpUI
 
 	};
 
+	/// <summary>
+	/// ボタン
+	/// </summary>
 	class Button
 	{
 	private:
@@ -173,6 +180,9 @@ namespace tgpUI
 
 	};
 
+	/// <summary>
+	/// スライダー
+	/// </summary>
 	class Slider
 	{
 	private:
@@ -292,6 +302,9 @@ namespace tgpUI
 
 	};
 
+	/// <summary>
+	///  ダイアログ
+	/// </summary>
 	class Dialog
 	{
 	private:

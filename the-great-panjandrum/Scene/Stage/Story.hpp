@@ -6,6 +6,9 @@
 #include <Siv3D.hpp>
 #include <HamFramework.hpp>
 
+/// <summary>
+/// ノーマルステージ(ストーリーモード)
+/// </summary>
 class StageStory : public MyApp::Scene
 {
 private:
@@ -14,17 +17,20 @@ private:
 
 	Array<Block> blocks;
 
+	Array<Item> items;
+
 public:
 
 	void init() override
 	{
-		player.setBottom(700);
-
 		// add blocks
+		// StageEditor::LoadStage(L"Stage/stage_1.csv", blocks, items);
 		blocks.push_back(Block({ -400, 400, 1000, 200 }));
 		blocks.push_back(Block({ 150, 250, 250, 200 }));
 		blocks.push_back(Block({ 800, 400, 400, 200 }));
 		blocks.push_back(Block({ 1300, 200, 400, 200 }));
+
+		player.setBottom(700);
 
 	}
 
@@ -37,6 +43,7 @@ public:
 		}
 
 		player.checkGround(blocks);
+		player.checkItem(items);
 		player.update();
 
 		if (!player.isAlive())
@@ -53,6 +60,11 @@ public:
 		for (size_t i = 0; i < blocks.size(); i++)
 		{
 			blocks[i].draw(m_data->debugMode);
+		}
+
+		for (const auto item : items)
+		{
+			item.draw();
 		}
 
 		player.draw(m_data->debugMode);
