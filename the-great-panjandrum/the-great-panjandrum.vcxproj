@@ -287,6 +287,7 @@
     <ClInclude Include="Scene\Stage\Block.hpp" />
     <ClInclude Include="Scene\Stage\Editor.hpp" />
     <ClInclude Include="Scene\Stage\Endless.hpp" />
+    <ClInclude Include="Scene\Stage\Enemy.hpp" />
     <ClInclude Include="Scene\Stage\Generator.hpp" />
     <ClInclude Include="Scene\Stage\Item.hpp" />
     <ClInclude Include="Scene\Stage\Player.hpp" />

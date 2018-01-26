@@ -467,5 +467,8 @@
     <ClInclude Include="Scene\Stage\Generator.hpp">
       <Filter>ヘッダー ファイル\Scene\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Stage\Enemy.hpp">
+      <Filter>ヘッダー ファイル\Scene\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
