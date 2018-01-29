@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../GameData.hpp"
+#include "Editor.hpp"
 #include "Block.hpp"
 #include "Item.hpp"
 
@@ -13,7 +14,7 @@ class Player
 {
 private:
 
-	Vec2 m_position;
+	Vec2 m_pos;
 
 	bool m_isGrounded;
 	int m_intersectsBlock; // -1: ç∂, 0: ñ≥Çµ, 1: âE
@@ -30,7 +31,7 @@ private:
 public:
 
 	Player() :
-		m_position(100, 200),
+		m_pos(100, 200),
 		m_isGrounded(false),
 		m_intersectsBlock(0),
 		m_jumpFrame(0),
@@ -40,7 +41,7 @@ public:
 
 	Vec2 getPos() const
 	{
-		return m_position;
+		return m_pos;
 	}
 
 	void checkGround(const Array<Block>& blocks)
@@ -48,10 +49,10 @@ public:
 		m_isGrounded = false;
 		m_intersectsBlock = 0;
 
-		const Line top(m_position + Vec2(-90, 0), m_position + Vec2(90, 0));
-		const RectF player(m_position + Vec2(-100, -200), Vec2(200, 200));
+		const Line top(m_pos + Vec2(-90, 0), m_pos + Vec2(90, 0));
+		const RectF player(m_pos + Vec2(-100, -200), Vec2(200, 200));
 
-		for (const auto block : blocks)
+		for (const auto& block : blocks)
 		{
 			const RectF region = block.getRect();
 
@@ -78,7 +79,7 @@ public:
 
 	void checkItem(Array<Item>& items)
 	{
-		const RectF player(m_position + Vec2(-100, -200), Vec2(200, 200));
+		const RectF player(m_pos + Vec2(-100, -200), Vec2(200, 200));
 
 		auto it = items.begin();
 		while (it != items.end())
@@ -97,6 +98,11 @@ public:
 
 	}
 
+	void setPos(const Vec2& pos)
+	{
+		m_pos = pos;
+	}
+
 	void setBottom(int value)
 	{
 		m_bottom = value;
@@ -104,7 +110,7 @@ public:
 
 	bool isAlive()
 	{
-		return m_position.y < m_bottom;
+		return m_pos.y < m_bottom;
 	}
 
 	int getTP()
@@ -121,28 +127,28 @@ public:
 			if (Input::KeySpace.clicked && m_jumpFrame <= 0)
 			{
 				m_jumpFrame = 48;
-				m_jumpedY = m_position.y;
+				m_jumpedY = m_pos.y;
 			}
 		}
 		else if (m_jumpFrame == 0)
 		{
-			m_position.y += 16.0;
+			m_pos.y += 16.0;
 		}
 
 		if (m_jumpFrame > 0)
 		{
-			m_position.y = m_jumpedY + 2 * (12 - 0.5 * (m_jumpFrame - 1)) * (12 - 0.5 * (m_jumpFrame - 1)) - 288;
+			m_pos.y = m_jumpedY + 2 * (12 - 0.5 * (m_jumpFrame - 1)) * (12 - 0.5 * (m_jumpFrame - 1)) - 288;
 			m_jumpFrame--;
 		}
 
 		if (Input::KeyRight.pressed && m_intersectsBlock != 1)
 		{
-			m_position.x += 7.5;
+			m_pos.x += 7.5;
 		}
 
 		if (Input::KeyLeft.pressed && m_intersectsBlock != -1)
 		{
-			m_position.x -= 7.5;
+			m_pos.x -= 7.5;
 		}
 
 	}

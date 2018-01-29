@@ -18,16 +18,21 @@ class Item
 {
 private:
 
-	const RectF m_region;
-
 	const ItemType m_type;
+
+	RectF m_region;
 
 public:
 	
-	Item(const RectF region, const ItemType type)
-		: m_region(region),
-		  m_type(type)
+	Item(const Vec2& pos, const ItemType& type)
+		: m_type(type)
 	{
+		m_region = RectF(
+			pos.x - 15,
+			pos.y - 15,
+			30,
+			30
+		);
 
 	}
 
@@ -48,11 +53,12 @@ public:
 
 	void draw() const
 	{
+		m_region.draw(Palette::Yellow);
 
-		switch (m_type)
+		/*switch (m_type)
 		{
 			default: break;
-		}
+		}*/
 
 	}
 

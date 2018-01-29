@@ -47,10 +47,16 @@ public:
 /// <summary>
 /// Immovable, 動かないけど当たると痛い
 /// </summary>
-class Immovable : Enemy
+class EnemyImmovable : Enemy
 {
 
 public:
+
+	EnemyImmovable(const Vec2& pos)
+		: Enemy(pos)
+	{
+		
+	}
 
 	void update()
 	{
@@ -72,10 +78,16 @@ public:
 /// <summary>
 /// Totter, よちよちブロックの上を左右に動く。当たると痛い。
 /// </summary>
-class Totter : Enemy
+class EnemyTotter : Enemy
 {
 
 public:
+
+	EnemyTotter(const Vec2& pos)
+		: Enemy(pos)
+	{
+
+	}
 
 	void update()
 	{
@@ -97,10 +109,16 @@ public:
 /// <summary>
 /// Barrage, 空に浮かびながら弾を打ってくる。弾幕ってほどでもない。
 /// </summary>
-class Barrage : Enemy
+class EnemyBarrage : Enemy
 {
 
 public:
+
+	EnemyBarrage(const Vec2& pos)
+		: Enemy(pos)
+	{
+
+	}
 
 	void update()
 	{
