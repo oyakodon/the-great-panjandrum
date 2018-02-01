@@ -37,6 +37,16 @@ public:
 		if (toggleDebug.isChanged())
 		{
 			m_data->debugMode = toggleDebug.getValue();
+
+			if (m_data->debugMode)
+			{
+				Console::Open();
+			}
+			else
+			{
+				Console::Close();
+			}
+
 		}
 
 		if (sliderVol.isChanged())

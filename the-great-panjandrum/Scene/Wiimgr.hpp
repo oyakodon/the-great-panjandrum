@@ -42,7 +42,14 @@ public:
 	{
 		dialog.update();
 
-		if (!dialog.isShown())
+		if (dialog.isShown())
+		{
+			if (Input::KeyEnter.clicked)
+			{
+				changeScene(L"Title");
+			}
+		}
+		else
 		{
 
 			buttonCancel.update();

@@ -21,15 +21,8 @@ public:
 
 	void init() override
 	{
-		// add blocks
 		StageEditor::LoadStage(L"Stage/stage_1.csv", stage);
-
-		//blocks.emplace_back(NormalBlock({ -400, 400, 1000, 200 }));
-		//blocks.emplace_back(NormalBlock({ 150, 250, 250, 200 }));
-		//blocks.emplace_back(NormalBlock({ 800, 400, 400, 200 }));
-		//blocks.emplace_back(NormalBlock({ 1300, 200, 400, 200 }));
-
-		player.setBottom(700);
+		player.setBottom(stage.deadLine);
 
 	}
 
@@ -37,8 +30,8 @@ public:
 	{
 		for (size_t i = 0; i < stage.blocks.size(); i++)
 		{
-			stage.blocks[i].setPlayerPos(player.getPos());
-			stage.blocks[i].update();
+			stage.blocks[i].get()->setPlayerPos(player.getPos());
+			stage.blocks[i].get()->update();
 		}
 
 		player.checkGround(stage.blocks);
@@ -58,19 +51,21 @@ public:
 
 		for (size_t i = 0; i < stage.blocks.size(); i++)
 		{
-			stage.blocks[i].draw(m_data->debugMode);
+			stage.blocks[i].get()->draw(m_data->debugMode);
 		}
 
 		for (size_t i = 0; i < stage.items.size(); i++)
 		{
-			stage.items[i]draw();
+			stage.items[i].get()->draw();
 		}
 
 		player.draw(m_data->debugMode);
 
 		if (m_data->debugMode)
 		{
-			Line({ player.getPos().x - Window::BaseWidth() / 2, 600 }, { player.getPos().x + Window::BaseWidth() / 2, 600 }).moveBy(-player.getPos() + Vec2(0, 150) + Window::BaseCenter()).draw(2.0, Palette::Orange);
+			const Vec2 p = { player.getPos().x, stage.deadLine };
+			const Vec2 w_half = { Window::BaseWidth() / 2, 0 };
+			Line(p.movedBy(-w_half), p.movedBy(w_half)).moveBy(-player.getPos() + Vec2(0, GameInfo::playerPosOffset) + Window::BaseCenter()).draw(2.0, Palette::Orange);
 		}
 
 	}

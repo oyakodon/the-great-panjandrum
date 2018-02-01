@@ -67,9 +67,10 @@ void Main()
 	// Player
 	TextureAsset::Register(L"panjandrum", L"Asset/panjandrum.png");
 
-	// DebugビルドならdebugMode = true
+	// Debugビルドならデバッグモードに
 #ifdef _DEBUG
 	manager.get()->debugMode = true;
+	Console::Open();
 #endif
 
 	//////////////////////////////////////////////////////////////

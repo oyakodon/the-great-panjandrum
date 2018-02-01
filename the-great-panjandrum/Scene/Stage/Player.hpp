@@ -22,7 +22,7 @@ private:
 	int m_jumpFrame;
 	double m_jumpedY;
 
-	int m_bottom;
+	double m_bottom;
 
 	bool m_isAlive;
 
@@ -44,7 +44,7 @@ public:
 		return m_pos;
 	}
 
-	void checkGround(const Array<Block>& blocks)
+	void checkGround(const Array<std::shared_ptr<Block>>& blocks)
 	{
 		m_isGrounded = false;
 		m_intersectsBlock = 0;
@@ -54,7 +54,7 @@ public:
 
 		for (const auto& block : blocks)
 		{
-			const RectF region = block.getRect();
+			const RectF region = block.get()->getRect();
 
 			// Top
 			if (top.intersects(RectF(region.pos, Vec2(region.w, 20))))
@@ -77,16 +77,16 @@ public:
 		}
 	}
 
-	void checkItem(Array<Item>& items)
+	void checkItem(Array<std::shared_ptr<Item>>& items)
 	{
 		const RectF player(m_pos + Vec2(-100, -200), Vec2(200, 200));
 
 		auto it = items.begin();
 		while (it != items.end())
 		{
-			if (it->intersects(player))
+			if (it->get()->intersects(player))
 			{
-				m_tp += static_cast<int>(it->getType());
+				m_tp += static_cast<int>(it->get()->getType());
 
 				it = items.erase(it);
 			}
@@ -103,7 +103,7 @@ public:
 		m_pos = pos;
 	}
 
-	void setBottom(int value)
+	void setBottom(double value)
 	{
 		m_bottom = value;
 	}
@@ -155,11 +155,11 @@ public:
 
 	void draw(const bool debugMode) const
 	{
-		RectF(Vec2(-100, -50) + Window::BaseCenter(), 200, 200)(TextureAsset(L"panjandrum")).draw();
+		RectF(Vec2(-100, GameInfo::playerPosOffset - 200) + Window::BaseCenter(), 200, 200)(TextureAsset(L"panjandrum")).draw();
 
 		if (debugMode)
 		{
-			RectF(Vec2(-100, -50) + Window::BaseCenter(), 200, 200).drawFrame(1.0, 0.0, Palette::Red);
+			RectF(Vec2(-100, GameInfo::playerPosOffset - 200) + Window::BaseCenter(), 200, 200).drawFrame(1.0, 0.0, Palette::Red);
 		}
 			
 	}

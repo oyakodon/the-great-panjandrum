@@ -15,7 +15,7 @@ namespace GameInfo
 	const String Title = L"The Great Panjandrum";
 
 	// ゲームのバージョン
-	const String Version = L"Ver. 0.1.6";
+	const String Version = L"Ver. 0.1.7";
 
 	// セーブデータの保存場所
 	const FilePath SaveFilePath = L"save.dat";
@@ -26,6 +26,9 @@ namespace GameInfo
 		L"個人制作作品",
 		L"By Oyakodon"
 	};
+
+	// 中心から見てプレイヤーの描画位置をどれくらいずらすか(中心より下なら+)
+	const int32 playerPosOffset = 100;
 
 }
 

@@ -47,7 +47,7 @@ public:
 /// <summary>
 /// Immovable, 動かないけど当たると痛い
 /// </summary>
-class EnemyImmovable : Enemy
+class EnemyImmovable : public Enemy
 {
 
 public:
@@ -78,7 +78,7 @@ public:
 /// <summary>
 /// Totter, よちよちブロックの上を左右に動く。当たると痛い。
 /// </summary>
-class EnemyTotter : Enemy
+class EnemyTotter : public Enemy
 {
 
 public:
@@ -109,7 +109,7 @@ public:
 /// <summary>
 /// Barrage, 空に浮かびながら弾を打ってくる。弾幕ってほどでもない。
 /// </summary>
-class EnemyBarrage : Enemy
+class EnemyBarrage : public Enemy
 {
 
 public:

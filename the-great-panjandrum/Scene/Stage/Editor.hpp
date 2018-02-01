@@ -11,18 +11,41 @@
 /// <summary>
 /// ステージ情報
 /// </summary>
-class StageData
+struct StageData
 {
-public:
+	/// <summary>
+	/// ブロック
+	/// </summary>
+	Array<std::shared_ptr<Block>> blocks;
 
-	Array<Block> blocks;
-	Array<Item> items;
-	Array<Enemy> enemies;
+	/// <summary>
+	/// アイテム
+	/// </summary>
+	Array<std::shared_ptr<Item>> items;
+	
+	/// <summary>
+	/// 敵
+	/// </summary>
+	Array<std::shared_ptr<Enemy>> enemies;
+
+	/// <summary>
+	/// プレイヤーの初期位置
+	/// </summary>
 	Vec2 initPlayerPos;
+
+	/// <summary>
+	/// ゴール地点
+	/// </summary>
 	Vec2 goalPos;
 
-};
+	/// <summary>
+	/// 死亡判定ライン
+	/// </summary>
+	double deadLine;
 
+	static constexpr double DEADLINE_MARGIN = 200;
+
+};
 
 /// <summary>
 /// ステージエディター
@@ -38,7 +61,7 @@ public:
 	/// </summary>
 	/// <param name="filepath">CSVファイルへのパス</param>
 	/// <param name="stage">ステージデータ</param>
-	static void LoadStage(const String& filepath, StageData stage)
+	static void LoadStage(const String& filepath, StageData& stage)
 	{
 		const CSVReader csv(filepath);
 
@@ -47,6 +70,9 @@ public:
 			throw "Cannot load csv file!";
 		}
 
+		// 最下点, y反対なので注意
+		double lowest = 0;
+
 		for (auto i : step(csv.rows))
 		{			
 			const String cmd = csv.get<String>(i, 0);
@@ -54,25 +80,28 @@ public:
 			if (cmd == L"CREATEBLOCK")
 			{
 				const String btype = csv.get<String>(i, 1);
+				const double x = csv.get<double>(i, 2);
+				const double y = csv.get<double>(i, 3);
+				const double w = csv.get<double>(i, 4);
+				const double h = csv.get<double>(i, 5);
+
 				if (btype == L"BLOCK")
 				{
 					// 通常ブロック
-					stage.blocks.emplace_back(NormalBlock({
-						csv.get<double>(i, 2),
-						csv.get<double>(i, 3),
-						csv.get<double>(i, 4),
-						csv.get<double>(i, 5)
-					}));
+					stage.blocks.push_back(std::shared_ptr<Block>(new NormalBlock({x, y, w, h})));
+
+					// 最下点更新
+					lowest = Max(y + h, lowest);
+
+					std::cout << "Created block. Type: Block, x:" << x << ", y:" << y << ", w:" << w << ", h:" << h << std::endl;
+
 				}
 				else if (btype == L"MOVINGBLOCK")
 				{
 					// 移動ブロック
-					stage.blocks.emplace_back(MovingBlock({
-						csv.get<double>(i, 2),
-						csv.get<double>(i, 3),
-						csv.get<double>(i, 4),
-						csv.get<double>(i, 5)
-					}));
+					stage.blocks.push_back(std::shared_ptr<Block>(new MovingBlock({x, y, w, h})));
+
+					std::cout << "Created block. Type: MovingBlock, x:" << x << ", y:" << y << ", w:" << w << ", h:" << h << std::endl;
 				}
 
 			}
@@ -93,13 +122,11 @@ public:
 
 				if (csv.get<String>(i, 1) == L"TEA")
 				{
-					Item item = Item(pos, ItemType::Tea);
-					// stage.items.push_back(item);
+					stage.items.push_back(std::shared_ptr<Item>( new Item(pos, ItemType::Tea)));
 				}
 				else if (csv.get<String>(i, 1) == L"MARMITE")
 				{
-					Item item = Item(pos, ItemType::Marmite);
-					// stage.items.push_back(item);
+					stage.items.push_back(std::shared_ptr<Item>(new Item(pos, ItemType::Marmite)));
 				}
 
 			}
@@ -109,21 +136,20 @@ public:
 
 				if (csv.get<String>(i, 1) == L"IMMOVABLE")
 				{
-					stage.enemies.emplace_back(EnemyImmovable(pos));
+					stage.enemies.push_back(std::shared_ptr<Enemy>( new EnemyImmovable(pos)));
 				}
 				else if (csv.get<String>(i, 1) == L"TOTTER")
 				{
-					stage.enemies.emplace_back(EnemyTotter(pos));
+					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyTotter(pos)));
 				}
 				else if (csv.get<String>(i, 1) == L"BARRAGE")
 				{
-					stage.enemies.emplace_back(EnemyBarrage(pos));
+					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyBarrage(pos)));
 				}
-
 			}
-
 		}
 
+		stage.deadLine = lowest + StageData::DEADLINE_MARGIN;
 
 	}
 
