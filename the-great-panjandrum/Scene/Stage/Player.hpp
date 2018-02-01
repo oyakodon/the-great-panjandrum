@@ -113,7 +113,7 @@ public:
 		return m_pos.y < m_bottom;
 	}
 
-	int getTP()
+	int getTP() const
 	{
 		return m_tp;
 	}

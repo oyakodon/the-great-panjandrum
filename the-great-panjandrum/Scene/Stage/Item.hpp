@@ -22,6 +22,8 @@ private:
 
 	RectF m_region;
 
+	Vec2 m_playerPos;
+
 public:
 	
 	Item(const Vec2& pos, const ItemType& type)
@@ -30,8 +32,8 @@ public:
 		m_region = RectF(
 			pos.x - 15,
 			pos.y - 15,
-			30,
-			30
+			75,
+			75
 		);
 
 	}
@@ -39,6 +41,11 @@ public:
 	void update()
 	{
 		
+	}
+
+	void setPlayerPos(const Vec2& pos)
+	{
+		m_playerPos = pos;
 	}
 
 	bool intersects(const RectF& region)
@@ -53,7 +60,8 @@ public:
 
 	void draw() const
 	{
-		m_region.draw(Palette::Yellow);
+		// Šm”F—p
+		m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).draw(Palette::Yellow).drawFrame(1.0, 0.0, Palette::Red);
 
 		/*switch (m_type)
 		{

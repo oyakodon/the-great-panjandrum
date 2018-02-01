@@ -116,35 +116,38 @@ public:
 			else if (cmd == L"CREATEITEM")
 			{
 				const Vec2 pos = {
-					csv.get<int32>(i, 2),
-					csv.get<int32>(i, 3)
+					csv.get<double>(i, 2),
+					csv.get<double>(i, 3)
 				};
 
 				if (csv.get<String>(i, 1) == L"TEA")
 				{
-					stage.items.push_back(std::shared_ptr<Item>( new Item(pos, ItemType::Tea)));
+					stage.items.push_back(std::shared_ptr<Item>( new Item(pos, ItemType::Tea) ));
 				}
 				else if (csv.get<String>(i, 1) == L"MARMITE")
 				{
-					stage.items.push_back(std::shared_ptr<Item>(new Item(pos, ItemType::Marmite)));
+					stage.items.push_back(std::shared_ptr<Item>(new Item(pos, ItemType::Marmite) ));
 				}
 
 			}
 			else if (cmd == L"CREATEENEMY")
 			{
-				const Vec2 pos = { csv.get<int32>(i, 2), csv.get<int32>(i, 3) };
+				const Vec2 pos = {
+					csv.get<double>(i, 2),
+					csv.get<double>(i, 3)
+				};
 
 				if (csv.get<String>(i, 1) == L"IMMOVABLE")
 				{
-					stage.enemies.push_back(std::shared_ptr<Enemy>( new EnemyImmovable(pos)));
+					stage.enemies.push_back(std::shared_ptr<Enemy>( new EnemyImmovable(pos) ));
 				}
 				else if (csv.get<String>(i, 1) == L"TOTTER")
 				{
-					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyTotter(pos)));
+					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyTotter(pos) ));
 				}
 				else if (csv.get<String>(i, 1) == L"BARRAGE")
 				{
-					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyBarrage(pos)));
+					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyBarrage(pos) ));
 				}
 			}
 		}

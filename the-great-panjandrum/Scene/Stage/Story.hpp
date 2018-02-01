@@ -19,11 +19,15 @@ private:
 
 public:
 
+	~StageStory()
+	{
+		ClearPrint();
+	}
+
 	void init() override
 	{
 		StageEditor::LoadStage(L"Stage/stage_1.csv", stage);
 		player.setBottom(stage.deadLine);
-
 	}
 
 	void update() override
@@ -32,6 +36,12 @@ public:
 		{
 			stage.blocks[i].get()->setPlayerPos(player.getPos());
 			stage.blocks[i].get()->update();
+		}
+
+		for (size_t i = 0; i < stage.items.size(); i++)
+		{
+			stage.items[i].get()->setPlayerPos(player.getPos());
+			stage.items[i].get()->update();
 		}
 
 		player.checkGround(stage.blocks);
@@ -63,6 +73,8 @@ public:
 
 		if (m_data->debugMode)
 		{
+			ClearPrint();
+			Println(L"Tea Point: ", player.getTP());
 			const Vec2 p = { player.getPos().x, stage.deadLine };
 			const Vec2 w_half = { Window::BaseWidth() / 2, 0 };
 			Line(p.movedBy(-w_half), p.movedBy(w_half)).moveBy(-player.getPos() + Vec2(0, GameInfo::playerPosOffset) + Window::BaseCenter()).draw(2.0, Palette::Orange);

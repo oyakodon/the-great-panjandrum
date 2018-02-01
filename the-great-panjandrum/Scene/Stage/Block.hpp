@@ -10,7 +10,7 @@ protected:
 
 	RectF m_region;
 
-	Vec2 m_playerPosition;
+	Vec2 m_playerPos;
 
 	const int edgeWidth = 60;
 
@@ -28,7 +28,7 @@ public:
 
 	void setPlayerPos(const Vec2& pos)
 	{
-		m_playerPosition = pos;
+		m_playerPos = pos;
 	}
 
 	virtual void update() = 0;
@@ -59,7 +59,7 @@ public:
 
 	void draw(const bool debugMode) const
 	{
-		const Vec2 pos = -m_playerPosition + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset) + m_region.pos;
+		const Vec2 pos = -m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset) + m_region.pos;
 		const RectF edge(pos, edgeWidth, m_region.h);
 		// 黒い線がでないように真ん中をちょっと左右に被せる
 		const RectF region = RectF(pos + Vec2(edgeWidth - 10, 0), Max(0.0, m_region.w - edgeWidth * 2) + 20, m_region.h);
@@ -71,7 +71,7 @@ public:
 
 		if (debugMode)
 		{
-			m_region.movedBy(-m_playerPosition + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).drawFrame(1.0, 0.0, Palette::Red);
+			m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).drawFrame(1.0, 0.0, Palette::Red);
 		}
 	}
 
@@ -94,7 +94,7 @@ public:
 
 	void draw(const bool debugMode) const
 	{
-		const Vec2 pos = -m_playerPosition + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset) + m_region.pos;
+		const Vec2 pos = -m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset) + m_region.pos;
 		const RectF edge(pos, edgeWidth, m_region.h);
 		// 黒い線がでないように真ん中をちょっと左右に被せる
 		const RectF region = RectF(pos + Vec2(edgeWidth - 10, 0), Max(0.0, m_region.w - edgeWidth * 2) + 20, m_region.h);
@@ -106,7 +106,7 @@ public:
 
 		if (debugMode)
 		{
-			m_region.movedBy(-m_playerPosition + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).drawFrame(1.0, 0.0, Palette::Red);
+			m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).drawFrame(1.0, 0.0, Palette::Red);
 		}
 	}
 };
