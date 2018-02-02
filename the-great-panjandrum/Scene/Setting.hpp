@@ -13,7 +13,6 @@ private:
 	tgpUI::ToggleSwitch toggleDebug = tgpUI::ToggleSwitch(Window::BaseCenter().movedBy(150, 140), 40, false);
 	tgpUI::Button buttonBack = tgpUI::Button(Rect(150, 600, 240, 60), L"< タイトルに戻る", Palette::White);
 	tgpUI::Slider sliderVol = tgpUI::Slider(Window::BaseCenter().movedBy(150, -150), 300, 15, 0, 100);
-	tgpUI::Meter meter = tgpUI::Meter(Window::BaseCenter(), 300, 15);
 
 public:
 
@@ -48,16 +47,6 @@ public:
 				Console::Close();
 			}
 
-		}
-
-		if (Input::KeyUp.clicked)
-		{
-			meter.setValue(meter.getValue() + 0.01);
-		}
-
-		if (Input::KeyDown.clicked)
-		{
-			meter.setValue(meter.getValue() - 0.01);
 		}
 
 		if (sliderVol.isChanged())
@@ -95,8 +84,6 @@ public:
 
 		FontAsset(L"Menu")(L"デバッグモード").drawCenter(Window::BaseCenter().movedBy(-150, 140));
 		toggleDebug.draw();
-
-		meter.draw();
 
 		buttonBack.draw();
 

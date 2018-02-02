@@ -426,7 +426,6 @@ namespace tgpUI
 		void setValue(double value)
 		{
 			m_value = Max(Min(value, 1.0), 0.0);
-			std::cout << m_value << std::endl;
 		}
 
 		/// <summary>
@@ -448,17 +447,22 @@ namespace tgpUI
 			const double R = m_height / 2;
 
 			// 背景
-			RoundRect(m_pos.x - m_width / 2, m_pos.y - R, m_width, m_height, R).draw(Palette::Lime);
+			RoundRect(m_pos.x - m_width / 2, m_pos.y - R, m_width, m_height, R).draw(Palette::Gray);
 
-			// 右端
-			if (0.0 < m_value && m_value < 1.0)
+			// メーター
+			if (0.0 < m_value)
 			{
-				if (m_width * m_value >= m_width - R / 2)
+				// 左端
+				Circle({ m_pos.x - m_width / 2 + R, m_pos.y }, R).draw(Palette::Lime);
+				// 半円にする
+				RectF(m_pos.x - m_width / 2 + R, m_pos.y - R, R, m_height).draw(Palette::Gray);
+				// メーター埋める
+				RectF(m_pos.x - m_width / 2 + R / 2, m_pos.y - R, Min(m_width * m_value, m_width - R), m_height).draw(Palette::Lime);
+				// 右端
+				if (m_value * m_width >= m_width - R)
 				{
-					Circle({ m_pos.x + m_width / 2 - R, m_pos.y }, R).draw(Palette::Gray);
+					Circle({ m_pos.x + m_width / 2 - R, m_pos.y }, R).draw(Palette::Lime);
 				}
-
-				RectF(m_pos.x - m_width / 2 + Max(m_width * m_value, R), m_pos.y - R, m_width * m_value - (m_width * m_value >= m_width - R / 2 ? -R / 2 : 0), m_height).draw(Palette::Gray);
 			}
 
 			// 枠
