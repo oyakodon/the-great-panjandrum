@@ -10,9 +10,10 @@ class Setting : public MyApp::Scene
 {
 private:
 
-	tgpUI::ToggleSwitch toggleDebug = tgpUI::ToggleSwitch(Window::BaseCenter().moveBy(150, 140), 40, false);
+	tgpUI::ToggleSwitch toggleDebug = tgpUI::ToggleSwitch(Window::BaseCenter().movedBy(150, 140), 40, false);
 	tgpUI::Button buttonBack = tgpUI::Button(Rect(150, 600, 240, 60), L"< タイトルに戻る", Palette::White);
-	tgpUI::Slider sliderVol = tgpUI::Slider(Window::BaseCenter().moveBy(150, -150), 300, 15, 0, 100);
+	tgpUI::Slider sliderVol = tgpUI::Slider(Window::BaseCenter().movedBy(150, -150), 300, 15, 0, 100);
+	tgpUI::Meter meter = tgpUI::Meter(Window::BaseCenter(), 300, 15);
 
 public:
 
@@ -49,6 +50,16 @@ public:
 
 		}
 
+		if (Input::KeyUp.clicked)
+		{
+			meter.setValue(meter.getValue() + 0.01);
+		}
+
+		if (Input::KeyDown.clicked)
+		{
+			meter.setValue(meter.getValue() - 0.01);
+		}
+
 		if (sliderVol.isChanged())
 		{
 			MasterVoice::SetVolume(sliderVol.getValue() / 100.0);
@@ -79,11 +90,13 @@ public:
 	{
 		FontAsset(L"UI_Large")(L"ゲーム設定").drawCenter(Window::BaseCenter().x, 75);
 
-		FontAsset(L"Menu")(L"音量").drawCenter(Window::BaseCenter() + Vec2(-150, -150));
+		FontAsset(L"Menu")(L"音量").drawCenter(Window::BaseCenter().movedBy(-150, -150));
 		sliderVol.draw();
 
-		FontAsset(L"Menu")(L"デバッグモード").drawCenter(Window::BaseCenter() + Vec2(-150, 140));
+		FontAsset(L"Menu")(L"デバッグモード").drawCenter(Window::BaseCenter().movedBy(-150, 140));
 		toggleDebug.draw();
+
+		meter.draw();
 
 		buttonBack.draw();
 

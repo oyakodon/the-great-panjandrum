@@ -36,7 +36,7 @@ public:
 		m_intersectsBlock(0),
 		m_jumpFrame(0),
 		m_isAlive(true),
-		m_tp(100)
+		m_tp(50)
 	{}
 
 	Vec2 getPos() const

@@ -27,13 +27,13 @@ void Main()
 	//  使用するシーン
 	//
 	MyApp manager;
+	manager.add<Setting>(L"Setting");
 	manager.add<Logo>(L"Logo");
 	manager.add<Wiimgr>(L"Wiimgr");
 	manager.add<Title>(L"Title");
 	manager.add<StageStory>(L"StageStory");
 	manager.add<Result>(L"Result");
 	manager.add<Score>(L"Score");
-	manager.add<Setting>(L"Setting");
 
 	//////////////////////////////////////////////////////////////
 	//

@@ -308,35 +308,35 @@ namespace tgpUI
 	class Dialog
 	{
 	private:
-	
+
 		const Point m_centerPos;
 		const Size m_size;
 		const String m_text;
 		Optional<String> m_title;
 
 		Button m_closeButton;
-	
+
 		bool m_shown;
 		bool m_closed;
-	
+
 	public:
-	
+
 		Dialog(const Point& pos, const Size& size, const String& text)
 			: m_centerPos(pos),
-			  m_size(size),
-			  m_text(text),
-			  m_shown(false),
-			  m_closed(false),
-			  m_closeButton(Rect(pos + size / 2 - Point(120, 70), { 100, 50 }), L"閉じる", Palette::White)
+			m_size(size),
+			m_text(text),
+			m_shown(false),
+			m_closed(false),
+			m_closeButton(Rect(pos + size / 2 - Point(120, 70), { 100, 50 }), L"閉じる", Palette::White)
 		{
-			
+
 		}
-	
+
 		void show()
 		{
 			m_shown = true;
 		}
-	
+
 		void setTitle(const String& text)
 		{
 			m_title = text;
@@ -356,7 +356,7 @@ namespace tgpUI
 		{
 			return m_shown && m_closeButton.mouseOver();
 		}
-	
+
 		void update()
 		{
 			m_closed = false;
@@ -364,17 +364,17 @@ namespace tgpUI
 			if (m_shown)
 			{
 				m_closeButton.update();
-	
+
 				if (m_closeButton.isClicked())
 				{
 					m_shown = false;
 					m_closed = true;
 				}
-	
+
 			}
-	
+
 		}
-	
+
 		void draw() const
 		{
 			if (m_shown)
@@ -390,10 +390,82 @@ namespace tgpUI
 				FontAsset(L"UI")(m_text).drawCenter(m_centerPos, Palette::Black);
 
 				m_closeButton.draw();
-			}	
+			}
 		}
-	
-	
+
+
 	};
+
+	/// <summary>
+	/// メーター
+	/// </summary>
+	class Meter
+	{
+	private:
+
+		const Vec2 m_pos;
+		const int m_width;
+		const int m_height;
+
+		double m_value;
+
+	public:
+
+		Meter(const Vec2& pos, const int w, const int h)
+			: m_pos(pos),
+			m_width(w),
+			m_height(h)
+		{
+			m_value = 0;
+		}
+
+		/// <summary>
+		/// メーターの値を設定します。
+		/// </summary>
+		/// <param name="value">値(0.0-1.0)</param>
+		void setValue(double value)
+		{
+			m_value = Max(Min(value, 1.0), 0.0);
+			std::cout << m_value << std::endl;
+		}
+
+		/// <summary>
+		/// メーターの値を返します。
+		/// </summary>
+		/// <returns>メーターの値</returns>
+		double getValue()
+		{
+			return m_value;
+		}
+
+		void update()
+		{
+
+		}
+
+		void draw() const
+		{
+			const double R = m_height / 2;
+
+			// 背景
+			RoundRect(m_pos.x - m_width / 2, m_pos.y - R, m_width, m_height, R).draw(Palette::Lime);
+
+			// 右端
+			if (0.0 < m_value && m_value < 1.0)
+			{
+				if (m_width * m_value >= m_width - R / 2)
+				{
+					Circle({ m_pos.x + m_width / 2 - R, m_pos.y }, R).draw(Palette::Gray);
+				}
+
+				RectF(m_pos.x - m_width / 2 + Max(m_width * m_value, R), m_pos.y - R, m_width * m_value - (m_width * m_value >= m_width - R / 2 ? -R / 2 : 0), m_height).draw(Palette::Gray);
+			}
+
+			// 枠
+			RoundRect(m_pos.x - m_width / 2, m_pos.y - R, m_width, m_height, R).drawFrame(2.0, 1.0, Palette::Black);
+		}
+
+	};
+
 
 }
