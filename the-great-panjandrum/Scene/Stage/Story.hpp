@@ -25,6 +25,7 @@ public:
 	{
 		StageEditor::LoadStage(L"Stage/stage_1.csv", m_stage);
 		m_player.setBottom(m_stage.deadLine);
+		m_player.setPos(m_stage.initPlayerPos);
 	}
 
 	void update() override
@@ -45,6 +46,22 @@ public:
 		m_player.checkItem(m_stage.items);
 		m_player.update();
 
+		if (m_player.checkGoal(m_stage.goalPos))
+		{
+			if (m_stage.nextStage == L"RESULT")
+			{
+				changeScene(L"Title");
+			}
+			else
+			{
+				StageData stage;
+				StageEditor::LoadStage(m_stage.nextStage, stage);
+				m_stage = stage;
+				m_player.setBottom(m_stage.deadLine);
+				m_player.setPos(m_stage.initPlayerPos);
+			}
+		}
+
 		if (!m_player.isAlive())
 		{
 			changeScene(L"Title");
@@ -56,28 +73,41 @@ public:
 
 	void draw() const override
 	{
+		// 背景
 		Window::BaseClientRect()(TextureAsset(L"bg_natural_umi")).draw(ColorF(0.5));
 
+		// ブロック
 		for (size_t i = 0; i < m_stage.blocks.size(); i++)
 		{
 			m_stage.blocks[i].get()->draw(m_data->debugMode);
 		}
 
+		// アイテム
 		for (size_t i = 0; i < m_stage.items.size(); i++)
 		{
 			m_stage.items[i].get()->draw();
 		}
 
+		// ゴールの旗
+		RectF(m_stage.goalPos.movedBy(-m_player.getPos() + Vec2(-50, GameInfo::playerPosOffset - 50) + Window::BaseCenter()), 100, 100)(TextureAsset(L"hata")).draw();
+
+		// プレイヤー
 		m_player.draw(m_data->debugMode);
 
 		if (m_data->debugMode)
 		{
+			// 死亡判定ライン描画
 			const Vec2 p = { m_player.getPos().x, m_stage.deadLine };
 			const Vec2 w_half = { Window::BaseWidth() / 2, 0 };
 			Line(p.movedBy(-w_half), p.movedBy(w_half)).moveBy(-m_player.getPos() + Vec2(0, GameInfo::playerPosOffset) + Window::BaseCenter()).draw(2.0, Palette::Orange);
 		}
 
+		// TPメーター
 		m_tpMeter.draw();
+
+		// ステージ名
+		const int nameWidth = FontAsset(L"UI")(m_stage.stageName).region().w;
+		FontAsset(L"UI")(m_stage.stageName).draw({ Window::BaseWidth() - nameWidth - 15, 5 });
 
 	}
 

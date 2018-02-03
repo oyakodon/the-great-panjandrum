@@ -57,7 +57,8 @@ void Main()
 	//
 	//  使用する画像
 	//
-	TextureAsset::Register(L"bg_natural_umi", L"Asset/bg_natural_umi.jpg");
+	TextureAsset::Register(L"bg_natural_umi", L"Asset/bg_natural_umi.jpg"); // 背景
+	TextureAsset::Register(L"hata", L"Asset/hata.png"); // 旗
 
 	// Block
 	TextureAsset::Register(L"table_white_left", L"Asset/table_white_left.png");
@@ -66,6 +67,7 @@ void Main()
 	
 	// Player
 	TextureAsset::Register(L"panjandrum", L"Asset/panjandrum.png");
+
 
 	// Debugビルドならデバッグモードに
 #ifdef _DEBUG

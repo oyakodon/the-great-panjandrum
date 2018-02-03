@@ -14,6 +14,11 @@
 struct StageData
 {
 	/// <summary>
+	/// ステージ名
+	/// </summary>
+	String stageName;
+
+	/// <summary>
 	/// ブロック
 	/// </summary>
 	Array<std::shared_ptr<Block>> blocks;
@@ -37,6 +42,11 @@ struct StageData
 	/// ゴール地点
 	/// </summary>
 	Vec2 goalPos;
+
+	/// <summary>
+	/// 次のステージのCSVファイルパス
+	/// </summary>
+	String nextStage;
 
 	/// <summary>
 	/// 死亡判定ライン
@@ -112,6 +122,7 @@ public:
 			else if (cmd == L"SETGOAL")
 			{
 				stage.goalPos = { csv.get<int32>(i, 1), csv.get<int32>(i, 2) };
+				stage.nextStage = csv.get<String>(i, 3);
 			}
 			else if (cmd == L"CREATEITEM")
 			{
@@ -149,6 +160,10 @@ public:
 				{
 					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyBarrage(pos) ));
 				}
+			}
+			else if (cmd == L"SETNAME")
+			{
+				stage.stageName = csv.get<String>(i, 1);
 			}
 		}
 

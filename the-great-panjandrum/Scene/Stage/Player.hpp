@@ -31,7 +31,7 @@ private:
 public:
 
 	Player() :
-		m_pos(100, 200),
+		m_pos(0, 0),
 		m_isGrounded(false),
 		m_intersectsBlock(0),
 		m_jumpFrame(0),
@@ -42,6 +42,12 @@ public:
 	Vec2 getPos() const
 	{
 		return m_pos;
+	}
+
+	bool checkGoal(const Vec2& goal)
+	{
+		const RectF player(m_pos + Vec2(-100, -200), Vec2(200, 200));
+		return player.intersects(goal);
 	}
 
 	void checkGround(const Array<std::shared_ptr<Block>>& blocks)
