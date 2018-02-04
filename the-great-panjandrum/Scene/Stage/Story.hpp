@@ -19,6 +19,9 @@ private:
 
 	tgpUI::Meter m_tpMeter = tgpUI::Meter({ 315, 20 }, 600, 20);
 
+	const ColorF FadeOutColor = Palette::Black;
+	Stopwatch m_swTransition;
+
 public:
 
 	void init() override
@@ -30,6 +33,20 @@ public:
 
 	void update() override
 	{
+		if (m_swTransition.isActive())
+		{
+			if (m_swTransition.ms() >= 1000)
+			{
+				m_swTransition.reset();
+				StageData stage;
+				StageEditor::LoadStage(m_stage.nextStage, stage);
+				m_stage = stage;
+				m_player.setBottom(m_stage.deadLine);
+				m_player.setPos(m_stage.initPlayerPos);
+			}
+			return;
+		}
+
 		for (size_t i = 0; i < m_stage.blocks.size(); i++)
 		{
 			m_stage.blocks[i].get()->setPlayerPos(m_player.getPos());
@@ -54,11 +71,7 @@ public:
 			}
 			else
 			{
-				StageData stage;
-				StageEditor::LoadStage(m_stage.nextStage, stage);
-				m_stage = stage;
-				m_player.setBottom(m_stage.deadLine);
-				m_player.setPos(m_stage.initPlayerPos);
+				m_swTransition.start();
 			}
 		}
 
@@ -108,6 +121,12 @@ public:
 		// ステージ名
 		const int nameWidth = FontAsset(L"UI")(m_stage.stageName).region().w;
 		FontAsset(L"UI")(m_stage.stageName).draw({ Window::BaseWidth() - nameWidth - 15, 5 });
+
+		if (m_swTransition.isActive())
+		{
+			ColorF fadeColor = FadeOutColor;
+			Window::ClientRect().draw(fadeColor.setAlpha(m_swTransition.ms() / 1000.0));
+		}
 
 	}
 
