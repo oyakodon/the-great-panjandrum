@@ -29,13 +29,7 @@ public:
 	Item(const Vec2& pos, const ItemType& type)
 		: m_type(type)
 	{
-		m_region = RectF(
-			pos.x - 15,
-			pos.y - 15,
-			75,
-			75
-		);
-
+		m_region = RectF(75).setCenter(pos);
 	}
 
 	void update()

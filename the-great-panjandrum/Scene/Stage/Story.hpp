@@ -33,6 +33,7 @@ public:
 
 	void update() override
 	{
+		// トランジション処理 (フェードアウト)
 		if (m_swTransition.isActive())
 		{
 			if (m_swTransition.ms() >= 1000)
@@ -47,20 +48,31 @@ public:
 			return;
 		}
 
+		// ブロック
 		for (size_t i = 0; i < m_stage.blocks.size(); i++)
 		{
 			m_stage.blocks[i].get()->setPlayerPos(m_player.getPos());
 			m_stage.blocks[i].get()->update();
 		}
 
+		// アイテム
 		for (size_t i = 0; i < m_stage.items.size(); i++)
 		{
 			m_stage.items[i].get()->setPlayerPos(m_player.getPos());
 			m_stage.items[i].get()->update();
 		}
 
+		// 敵
+		for (size_t i = 0; i < m_stage.enemies.size(); i++)
+		{
+			m_stage.enemies[i].get()->setPlayerPos(m_player.getPos());
+			m_stage.enemies[i].get()->update();
+		}
+
+		// プレイヤー
 		m_player.checkGround(m_stage.blocks);
 		m_player.checkItem(m_stage.items);
+		m_player.checkEnemy(m_stage.enemies);
 		m_player.update();
 
 		if (m_player.checkGoal(m_stage.goalPos))
@@ -80,6 +92,7 @@ public:
 			changeScene(L"Title");
 		}
 
+		// TPメーター更新
 		m_tpMeter.setValue(m_player.getTP() / 100.0);
 
 	}
@@ -99,6 +112,12 @@ public:
 		for (size_t i = 0; i < m_stage.items.size(); i++)
 		{
 			m_stage.items[i].get()->draw();
+		}
+
+		// 敵
+		for (size_t i = 0; i < m_stage.enemies.size(); i++)
+		{
+			m_stage.enemies[i].get()->draw();
 		}
 
 		// ゴールの旗

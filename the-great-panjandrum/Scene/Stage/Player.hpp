@@ -104,6 +104,26 @@ public:
 
 	}
 
+	void checkEnemy(Array<std::shared_ptr<Enemy>>& enemies)
+	{
+		const RectF player(m_pos + Vec2(-100, -200), Vec2(200, 200));
+
+		auto it = enemies.begin();
+		while (it != enemies.end())
+		{
+			if (it->get()->intersects(player))
+			{
+				m_tp -= it->get()->getDamage(true);
+
+				it = enemies.erase(it);
+			}
+			else
+			{
+				it++;
+			}
+		}
+	}
+
 	void setPos(const Vec2& pos)
 	{
 		m_pos = pos;

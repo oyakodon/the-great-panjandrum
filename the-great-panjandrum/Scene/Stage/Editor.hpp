@@ -154,7 +154,8 @@ public:
 				}
 				else if (csv.get<String>(i, 1) == L"TOTTER")
 				{
-					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyTotter(pos) ));
+					const int range = csv.get<int>(i, 4);
+					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyTotter(pos, range) ));
 				}
 				else if (csv.get<String>(i, 1) == L"BARRAGE")
 				{
