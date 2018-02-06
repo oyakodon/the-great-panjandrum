@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "../GameData.hpp"
 
@@ -21,7 +21,7 @@ public:
 	{
 		if (m_region.size.x < edgeWidth * 2)
 		{
-			LOG_ERROR(L"Block‚ÌƒTƒCƒY‚ªÅ’áƒTƒCƒYˆÈ‰º‚Å‚·B•\Ž¦‚ª—‚ê‚é‰Â”\«‚ª‚ ‚è‚Ü‚·B");
+			LOG_ERROR(L"Blockã®ã‚µã‚¤ã‚ºãŒæœ€ä½Žã‚µã‚¤ã‚ºä»¥ä¸‹ã§ã™ã€‚è¡¨ç¤ºãŒä¹±ã‚Œã‚‹å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚");
 		}
 
 	}
@@ -61,10 +61,10 @@ public:
 	{
 		const Vec2 pos = -m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset) + m_region.pos;
 		const RectF edge(pos, edgeWidth, m_region.h);
-		// •‚¢ü‚ª‚Å‚È‚¢‚æ‚¤‚É^‚ñ’†‚ð‚¿‚å‚Á‚Æ¶‰E‚É”í‚¹‚é
+		// é»’ã„ç·šãŒã§ãªã„ã‚ˆã†ã«çœŸã‚“ä¸­ã‚’ã¡ã‚‡ã£ã¨å·¦å³ã«è¢«ã›ã‚‹
 		const RectF region = RectF(pos + Vec2(edgeWidth - 10, 0), Max(0.0, m_region.w - edgeWidth * 2) + 20, m_region.h);
 
-		// ’[‚Á‚±‚Í•‚¢ü‚ªo‚é‚Ì‚Å‚¿‚å‚Á‚ÆƒeƒNƒXƒ`ƒƒ‚ðƒgƒŠƒ~ƒ“ƒO
+		// ç«¯ã£ã“ã¯é»’ã„ç·šãŒå‡ºã‚‹ã®ã§ã¡ã‚‡ã£ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ãƒˆãƒªãƒŸãƒ³ã‚°
 		edge(TextureAsset(L"table_white_left")(2, 0, 183, 550)).draw();
 		edge.movedBy(m_region.w - edgeWidth, 0)(TextureAsset(L"table_white_right")(0, 0, 180, 550)).draw();
 		region(TextureAsset(L"table_white_center")).draw();
@@ -96,10 +96,10 @@ public:
 	{
 		const Vec2 pos = -m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset) + m_region.pos;
 		const RectF edge(pos, edgeWidth, m_region.h);
-		// •‚¢ü‚ª‚Å‚È‚¢‚æ‚¤‚É^‚ñ’†‚ð‚¿‚å‚Á‚Æ¶‰E‚É”í‚¹‚é
+		// é»’ã„ç·šãŒã§ãªã„ã‚ˆã†ã«çœŸã‚“ä¸­ã‚’ã¡ã‚‡ã£ã¨å·¦å³ã«è¢«ã›ã‚‹
 		const RectF region = RectF(pos + Vec2(edgeWidth - 10, 0), Max(0.0, m_region.w - edgeWidth * 2) + 20, m_region.h);
 
-		// ’[‚Á‚±‚Í•‚¢ü‚ªo‚é‚Ì‚Å‚¿‚å‚Á‚ÆƒeƒNƒXƒ`ƒƒ‚ðƒgƒŠƒ~ƒ“ƒO
+		// ç«¯ã£ã“ã¯é»’ã„ç·šãŒå‡ºã‚‹ã®ã§ã¡ã‚‡ã£ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ãƒˆãƒªãƒŸãƒ³ã‚°
 		edge(TextureAsset(L"table_white_left")(2, 0, 183, 550)).draw();
 		edge.movedBy(m_region.w - edgeWidth, 0)(TextureAsset(L"table_white_right")(0, 0, 180, 550)).draw();
 		region(TextureAsset(L"table_white_center")).draw();

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "../GameData.hpp"
 #include "Editor.hpp"
@@ -8,7 +8,7 @@
 #include <Siv3D.hpp>
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[(ƒpƒ“ƒWƒƒƒ“ƒhƒ‰ƒ€)
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼(ãƒ‘ãƒ³ã‚¸ãƒ£ãƒ³ãƒ‰ãƒ©ãƒ )
 /// </summary>
 class Player
 {
@@ -17,7 +17,7 @@ private:
 	Vec2 m_pos;
 
 	bool m_isGrounded;
-	int m_intersectsBlock; // -1: ¶, 0: –³‚µ, 1: ‰E
+	int m_intersectsBlock; // -1: å·¦, 0: ç„¡ã—, 1: å³
 
 	int m_jumpFrame;
 	double m_jumpedY;

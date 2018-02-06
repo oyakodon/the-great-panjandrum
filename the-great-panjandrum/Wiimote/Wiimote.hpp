@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <vector>
 #include <thread>
@@ -8,7 +8,7 @@ class Wiimote
 {
 public:
 	/// <summary>
-	/// “_ (x, y)
+	/// ç‚¹ (x, y)
 	/// </summary>
 	class Point
 	{
@@ -17,7 +17,7 @@ public:
 	};
 
 private:
-	const unsigned short VID = 0x057e; // ”C“V“°
+	const unsigned short VID = 0x057e; // ä»»å¤©å ‚
 	const unsigned short PID = 0x0306; // Nintendo RVL-CNT-01
 
 	unsigned int m_sensitivityMode = 6;
@@ -96,7 +96,7 @@ private:
 
 public:
 	///<summary>
-	/// “ü—Íƒ{ƒ^ƒ“‚Ìó‘Ô
+	/// å…¥åŠ›ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹
 	///</summary>
 	class Button
 	{
@@ -105,7 +105,7 @@ public:
 	} buttons;
 
 	///<summary>
-	/// LED‚Ìó‘Ô
+	/// LEDã®çŠ¶æ…‹
 	///</summary>
 	class LED
 	{
@@ -114,7 +114,7 @@ public:
 	} LEDs;
 
 	///<summary>
-	/// ‰Á‘¬“x
+	/// åŠ é€Ÿåº¦
 	///</summary>
 	class Acceletion
 	{
@@ -123,7 +123,7 @@ public:
 	} acc;
 
 	/// <summary>
-	/// Ú‘±‚³‚ê‚Ä‚¢‚éŠg’£ƒRƒ“ƒgƒ[ƒ‰‚Ìí—Ş
+	/// æ¥ç¶šã•ã‚Œã¦ã„ã‚‹æ‹¡å¼µã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ç¨®é¡
 	/// </summary>
 	enum class ExtensionType : long long
 	{
@@ -132,12 +132,12 @@ public:
 	} extensionType;
 
 	///<summary>
-	/// ƒoƒbƒeƒŠ[c—Ê (0-100)
+	/// ãƒãƒƒãƒ†ãƒªãƒ¼æ®‹é‡ (0-100)
 	///</summary>
 	double Battery;
 
 	/// <summary>
-	/// ƒkƒ“ƒ`ƒƒƒN‚Ìó‘Ô
+	/// ãƒŒãƒ³ãƒãƒ£ã‚¯ã®çŠ¶æ…‹
 	/// </summary>
 	class Nunchuk
 	{
@@ -149,13 +149,13 @@ public:
 	} nunchuk;
 
 	///<summary>
-	///ÔŠOüƒZƒ“ƒT‚©‚çæ“¾‚µ‚½ˆÊ’uî•ñ
+	///èµ¤å¤–ç·šã‚»ãƒ³ã‚µã‹ã‚‰å–å¾—ã—ãŸä½ç½®æƒ…å ±
 	///</summary>
 	class Pointers
 	{
 	public:
 		///<summary>
-		/// ÔŠOü
+		/// èµ¤å¤–ç·š
 		///</summary>
 		class IRPointer
 		{
@@ -170,17 +170,17 @@ public:
 		Pointers();
 
 		///<summary>
-		/// ÔŠOü‚Ì“_‚ÌÀ•W‚ğ•Ô‚· (0-3)
+		/// èµ¤å¤–ç·šã®ç‚¹ã®åº§æ¨™ã‚’è¿”ã™ (0-3)
 		///</summary>
 		IRPointer& operator[](unsigned int n);
 
 		///<summary>
-		/// ÔŠOü‚Ì“_‚Ì‘å‚«‚³‚ªÅ‘å‚Ì“_‚ÌÀ•W‚ğ•Ô‚·
+		/// èµ¤å¤–ç·šã®ç‚¹ã®å¤§ãã•ãŒæœ€å¤§ã®ç‚¹ã®åº§æ¨™ã‚’è¿”ã™
 		///</summary>
 		IRPointer getMaximumPos();
 
 		///<summary>
-		/// 2“_‚ÌÔŠOüÀ•W‚Ì’†ŠÔ‚ÌÀ•W‚ğ•Ô‚· (ƒZƒ“ƒT[ƒo[‚Ì’†SÀ•W)
+		/// 2ç‚¹ã®èµ¤å¤–ç·šåº§æ¨™ã®ä¸­é–“ã®åº§æ¨™ã‚’è¿”ã™ (ã‚»ãƒ³ã‚µãƒ¼ãƒãƒ¼ã®ä¸­å¿ƒåº§æ¨™)
 		///</summary>
 		IRPointer getBarPos();
 
@@ -193,50 +193,50 @@ public:
 	~Wiimote();
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ÌÚ‘±‘Ò‹@‚ğŠJn‚·‚é
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã®æ¥ç¶šå¾…æ©Ÿã‚’é–‹å§‹ã™ã‚‹
 	/// </summary>
 	static void startScan();
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ÌÚ‘±‘Ò‹@‚ğI—¹‚·‚é
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã®æ¥ç¶šå¾…æ©Ÿã‚’çµ‚äº†ã™ã‚‹
 	/// </summary>
 	static void stopScan();
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ÌÚ‘±‚ªŠ®—¹‚·‚é‚Ü‚Å‘Ò‹@‚·‚é
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã®æ¥ç¶šãŒå®Œäº†ã™ã‚‹ã¾ã§å¾…æ©Ÿã™ã‚‹
 	/// </summary>
-	/// <param name="num">Ú‘±‘Ò‹@‚·‚é‘ä”</param>
-	/// <returns>true: Ú‘±Š®—¹, false: –¢Ú‘±AÚ‘±‘Ò‹@’†</returns>
+	/// <param name="num">æ¥ç¶šå¾…æ©Ÿã™ã‚‹å°æ•°</param>
+	/// <returns>true: æ¥ç¶šå®Œäº†, false: æœªæ¥ç¶šã€æ¥ç¶šå¾…æ©Ÿä¸­</returns>
 	static bool waitConnect(const int num);
 
 	/// <summary>
-	/// Œ»İ‚ÌÚ‘±‘ä”‚ğ•Ô‚·
+	/// ç¾åœ¨ã®æ¥ç¶šå°æ•°ã‚’è¿”ã™
 	/// </summary>
 	static int connectedCount();
 
 	///<summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ÌÚ‘±‚ğ•Â‚¶‚é
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã®æ¥ç¶šã‚’é–‰ã˜ã‚‹
 	///</summary>
 	void close();
 
 	///<summary>
-	///U“®‚ÌONEOFF
+	///æŒ¯å‹•ã®ONãƒ»OFF
 	///</summary>
 	void setRumble(bool on);
 
 	/// <summary>
-	/// U“®‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
+	/// æŒ¯å‹•ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹
 	/// </summary>
 	bool isRumble();
 
 	/// <summary>
-	/// w’èƒ~ƒŠ•bAWiiƒŠƒ‚ƒRƒ“‚ğU“®‚³‚¹‚é
+	/// æŒ‡å®šãƒŸãƒªç§’ã€Wiiãƒªãƒ¢ã‚³ãƒ³ã‚’æŒ¯å‹•ã•ã›ã‚‹
 	/// </summary>
-	/// <param name="ms">ƒ~ƒŠ•b</param>
+	/// <param name="ms">ãƒŸãƒªç§’</param>
 	void rumbleForMiliseconds(int ms);
 
 	///<summary>
-	///LED‚ğİ’è
+	///LEDã‚’è¨­å®š
 	///</summary>
 	void setLED(bool first, bool second, bool third, bool fourth);
 
@@ -246,29 +246,29 @@ public:
 	void setLED(unsigned char LED);
 
 	///<summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ÉÚ‘±‚µ‚Ä‚¢‚é‚©
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã«æ¥ç¶šã—ã¦ã„ã‚‹ã‹
 	///</summary>
 	bool isConnected();
 
 	/// <summary>
-	/// Ä¶‚ğ’â~‚µ‚Ü‚·
+	/// å†ç”Ÿã‚’åœæ­¢ã—ã¾ã™
 	/// </summary>
 	void stopSound();
 
 	/// <summary>
-	/// ƒXƒs[ƒJ[‚©‚ç‰¹ºƒtƒ@ƒCƒ‹‚ğÄ¶‚µ‚Ü‚·
+	/// ã‚¹ãƒ”ãƒ¼ã‚«ãƒ¼ã‹ã‚‰éŸ³å£°ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å†ç”Ÿã—ã¾ã™
 	/// </summary>
-	/// <param name="filename">ƒtƒ@ƒCƒ‹–¼(Œ`®‚ÍA8bitPCM)</param>
-	/// <param name="volume">‰¹—ÊB0-100</param>
+	/// <param name="filename">ãƒ•ã‚¡ã‚¤ãƒ«å(å½¢å¼ã¯ã€8bitPCM)</param>
+	/// <param name="volume">éŸ³é‡ã€‚0-100</param>
 	void playSound(const char* filename, const int volume, const bool doReport = false);
 
 	/// <summary>
-	/// ƒXƒs[ƒJ[‚Å‰¹‚ğÄ¶’†‚©‚Ç‚¤‚©
+	/// ã‚¹ãƒ”ãƒ¼ã‚«ãƒ¼ã§éŸ³ã‚’å†ç”Ÿä¸­ã‹ã©ã†ã‹
 	/// </summary>
 	bool isPlaying();
 
 	/// <summary>
-	/// Bluetooth‚ª—LŒø‚©‚Ç‚¤‚©
+	/// BluetoothãŒæœ‰åŠ¹ã‹ã©ã†ã‹
 	/// </summary>
 	static bool isBluetoothActive();
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "../GameData.hpp"
 #include "Block.hpp"
@@ -9,47 +9,47 @@
 #include <HamFramework.hpp>
 
 /// <summary>
-/// ƒXƒe[ƒWî•ñ
+/// ã‚¹ãƒ†ãƒ¼ã‚¸æƒ…å ±
 /// </summary>
 struct StageData
 {
 	/// <summary>
-	/// ƒXƒe[ƒW–¼
+	/// ã‚¹ãƒ†ãƒ¼ã‚¸å
 	/// </summary>
 	String stageName;
 
 	/// <summary>
-	/// ƒuƒƒbƒN
+	/// ãƒ–ãƒ­ãƒƒã‚¯
 	/// </summary>
 	Array<std::shared_ptr<Block>> blocks;
 
 	/// <summary>
-	/// ƒAƒCƒeƒ€
+	/// ã‚¢ã‚¤ãƒ†ãƒ 
 	/// </summary>
 	Array<std::shared_ptr<Item>> items;
 	
 	/// <summary>
-	/// “G
+	/// æ•µ
 	/// </summary>
 	Array<std::shared_ptr<Enemy>> enemies;
 
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[‚Ì‰ŠúˆÊ’u
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åˆæœŸä½ç½®
 	/// </summary>
 	Vec2 initPlayerPos;
 
 	/// <summary>
-	/// ƒS[ƒ‹’n“_
+	/// ã‚´ãƒ¼ãƒ«åœ°ç‚¹
 	/// </summary>
 	Vec2 goalPos;
 
 	/// <summary>
-	/// Ÿ‚ÌƒXƒe[ƒW‚ÌCSVƒtƒ@ƒCƒ‹ƒpƒX
+	/// æ¬¡ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã®CSVãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 	/// </summary>
 	String nextStage;
 
 	/// <summary>
-	/// €–S”»’èƒ‰ƒCƒ“
+	/// æ­»äº¡åˆ¤å®šãƒ©ã‚¤ãƒ³
 	/// </summary>
 	double deadLine;
 
@@ -58,7 +58,7 @@ struct StageData
 };
 
 /// <summary>
-/// ƒXƒe[ƒWƒGƒfƒBƒ^[
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼
 /// </summary>
 class StageEditor
 {
@@ -67,10 +67,10 @@ private:
 public:
 
 	/// <summary>
-	/// CSVƒtƒ@ƒCƒ‹‚©‚çƒXƒe[ƒWî•ñ‚ğ“Ç‚İ‚İ‚Ü‚·B
+	/// CSVãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸æƒ…å ±ã‚’èª­ã¿è¾¼ã¿ã¾ã™ã€‚
 	/// </summary>
-	/// <param name="filepath">CSVƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX</param>
-	/// <param name="stage">ƒXƒe[ƒWƒf[ƒ^</param>
+	/// <param name="filepath">CSVãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹</param>
+	/// <param name="stage">ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿</param>
 	static void LoadStage(const String& filepath, StageData& stage)
 	{
 		const CSVReader csv(filepath);
@@ -80,7 +80,7 @@ public:
 			throw "Cannot load csv file!";
 		}
 
-		// Å‰º“_, y”½‘Î‚È‚Ì‚Å’ˆÓ
+		// æœ€ä¸‹ç‚¹, yåå¯¾ãªã®ã§æ³¨æ„
 		double lowest = 0;
 
 		for (auto i : step(csv.rows))
@@ -97,10 +97,10 @@ public:
 
 				if (btype == L"BLOCK")
 				{
-					// ’ÊíƒuƒƒbƒN
+					// é€šå¸¸ãƒ–ãƒ­ãƒƒã‚¯
 					stage.blocks.push_back(std::shared_ptr<Block>(new NormalBlock({x, y, w, h})));
 
-					// Å‰º“_XV
+					// æœ€ä¸‹ç‚¹æ›´æ–°
 					lowest = Max(y + h, lowest);
 
 					std::cout << "Created block. Type: Block, x:" << x << ", y:" << y << ", w:" << w << ", h:" << h << std::endl;
@@ -108,7 +108,7 @@ public:
 				}
 				else if (btype == L"MOVINGBLOCK")
 				{
-					// ˆÚ“®ƒuƒƒbƒN
+					// ç§»å‹•ãƒ–ãƒ­ãƒƒã‚¯
 					stage.blocks.push_back(std::shared_ptr<Block>(new MovingBlock({x, y, w, h})));
 
 					std::cout << "Created block. Type: MovingBlock, x:" << x << ", y:" << y << ", w:" << w << ", h:" << h << std::endl;

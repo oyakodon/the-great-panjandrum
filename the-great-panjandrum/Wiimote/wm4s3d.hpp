@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <Siv3D.hpp>
 #include "Wiimote.hpp"
 #include <chrono>
@@ -49,12 +49,12 @@ public:
 	~Wii();
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚Ìƒ{ƒ^ƒ“î•ñ‚È‚Ç‚ðXV‚µ‚Ü‚· (ƒ‹[ƒv–ˆ‚ÉŒÄ‚Ño‚·)
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã®ãƒœã‚¿ãƒ³æƒ…å ±ãªã©ã‚’æ›´æ–°ã—ã¾ã™ (ãƒ«ãƒ¼ãƒ—æ¯Žã«å‘¼ã³å‡ºã™)
 	/// </summary>
 	void update();
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ªÚ‘±‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ãŒæŽ¥ç¶šã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹
 	/// </summary>
 	bool isConnected()
 	{
@@ -62,7 +62,7 @@ public:
 	}
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ªÚ‘±‚³‚ê‚½Žž‚ÍtrueA‚»‚êˆÈŠO‚Ífalse‚ð•Ô‚µ‚Ü‚·B
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ãŒæŽ¥ç¶šã•ã‚ŒãŸæ™‚ã¯trueã€ãã‚Œä»¥å¤–ã¯falseã‚’è¿”ã—ã¾ã™ã€‚
 	/// </summary>
 	bool hasConnected()
 	{
@@ -76,39 +76,39 @@ public:
 	}
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ðU“®‚³‚¹‚Ü‚·
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã‚’æŒ¯å‹•ã•ã›ã¾ã™
 	/// </summary>
-	/// <param name="ms">U“®‚³‚¹‚éŽžŠÔ (ƒ~ƒŠ•b)</param>
+	/// <param name="ms">æŒ¯å‹•ã•ã›ã‚‹æ™‚é–“ (ãƒŸãƒªç§’)</param>
 	void rumble(int ms)
 	{
 		controller.rumbleForMiliseconds(ms);
 	}
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ðU“®‚³‚¹‚Ü‚·
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã‚’æŒ¯å‹•ã•ã›ã¾ã™
 	/// </summary>
-	/// <param name="on">U“®</param>
+	/// <param name="on">æŒ¯å‹•</param>
 	void rumble(bool on)
 	{
 		controller.setRumble(on);
 	}
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ÌLED‚ð“_“”/Á“”‚³‚¹‚Ü‚·
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã®LEDã‚’ç‚¹ç¯/æ¶ˆç¯ã•ã›ã¾ã™
 	/// </summary>
-	/// <param name="one">¶‚©‚ç1”Ô–Ú‚ÌLED</param>
-	/// <param name="two">¶‚©‚ç2”Ô–Ú‚ÌLED</param>
-	/// <param name="three">¶‚©‚ç3”Ô–Ú‚ÌLED</param>
-	/// <param name="four">¶‚©‚ç4”Ô–Ú‚ÌLED</param>
+	/// <param name="one">å·¦ã‹ã‚‰1ç•ªç›®ã®LED</param>
+	/// <param name="two">å·¦ã‹ã‚‰2ç•ªç›®ã®LED</param>
+	/// <param name="three">å·¦ã‹ã‚‰3ç•ªç›®ã®LED</param>
+	/// <param name="four">å·¦ã‹ã‚‰4ç•ªç›®ã®LED</param>
 	void setLED(bool one, bool two, bool three, bool four)
 	{
 		controller.setLED(one, two, three, four);
 	}
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ÌLED‚ð“_“”/Á“”‚³‚¹‚Ü‚·
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã®LEDã‚’ç‚¹ç¯/æ¶ˆç¯ã•ã›ã¾ã™
 	/// </summary>
-	/// <param name="led">4Œ…‚ÅLED‚Ìó‘Ô (Á“”:0, “_“”:1)</param>
+	/// <param name="led">4æ¡ã§LEDã®çŠ¶æ…‹ (æ¶ˆç¯:0, ç‚¹ç¯:1)</param>
 	void setLED(const char* _led)
 	{
 		const String led = WidenAscii(_led);
@@ -123,10 +123,10 @@ public:
 	}
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ÌLED‚ð“_“”/Á“”‚³‚¹‚Ü‚·
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã®LEDã‚’ç‚¹ç¯/æ¶ˆç¯ã•ã›ã¾ã™
 	/// </summary>
-	/// <param name="num">LED”Ô† (0-3)</param>
-	/// <param name="on">LED‚ÌON/OFF</param>
+	/// <param name="num">LEDç•ªå· (0-3)</param>
+	/// <param name="on">LEDã®ON/OFF</param>
 	void setLED(int num, bool on)
 	{
 		bool one	= num == 0 ? on : getLED(0),
@@ -138,9 +138,9 @@ public:
 	}
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ÌLED‚Ìó‘Ô‚ð•Ô‚µ‚Ü‚·
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã®LEDã®çŠ¶æ…‹ã‚’è¿”ã—ã¾ã™
 	/// </summary>
-	/// <param name="num">LED”Ô† (0-3)</param>
+	/// <param name="num">LEDç•ªå· (0-3)</param>
 	bool getLED(int num)
 	{
 		switch (num)
@@ -154,7 +154,7 @@ public:
 	}
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚Ì‰Á‘¬“x‚ðŽæ“¾‚µ‚Ü‚·
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ã®åŠ é€Ÿåº¦ã‚’å–å¾—ã—ã¾ã™
 	/// </summary>
 	Vec3 acc()
 	{
@@ -162,7 +162,7 @@ public:
 	}
 
 	/// <summary>
-	/// U‚ç‚ê‚½‚±‚Æ‚ðŒŸ’m‚·‚éÛ‚Ì‚µ‚«‚¢’l‚ðÝ’è‚µ‚Ü‚·
+	/// æŒ¯ã‚‰ã‚ŒãŸã“ã¨ã‚’æ¤œçŸ¥ã™ã‚‹éš›ã®ã—ãã„å€¤ã‚’è¨­å®šã—ã¾ã™
 	/// </summary>
 	void setShakeThreshould(int thd)
 	{
@@ -170,7 +170,7 @@ public:
 	}
 
 	/// <summary>
-	/// U‚ç‚ê‚½‚±‚Æ‚ðŒŸ’m‚·‚éÛ‚Ì‚µ‚«‚¢’l‚ðÝ’è‚µ‚Ü‚·
+	/// æŒ¯ã‚‰ã‚ŒãŸã“ã¨ã‚’æ¤œçŸ¥ã™ã‚‹éš›ã®ã—ãã„å€¤ã‚’è¨­å®šã—ã¾ã™
 	/// </summary>
 	void setShakeThreshould(Threshould thd)
 	{
@@ -178,7 +178,7 @@ public:
 	}
 
 	/// <summary>
-	/// WiiƒŠƒ‚ƒRƒ“‚ªU‚ç‚ê‚½‚©‚Ç‚¤‚©
+	/// Wiiãƒªãƒ¢ã‚³ãƒ³ãŒæŒ¯ã‚‰ã‚ŒãŸã‹ã©ã†ã‹
 	/// </summary>
 	bool isShaked()
 	{
@@ -186,7 +186,7 @@ public:
 	}
 
 	/// <summary>
-	/// ƒkƒ“ƒ`ƒƒƒN‚ªŽg‚¦‚é‚©‚Ç‚¤‚©
+	/// ãƒŒãƒ³ãƒãƒ£ã‚¯ãŒä½¿ãˆã‚‹ã‹ã©ã†ã‹
 	/// </summary>
 	bool isNunchukConnected()
 	{
@@ -194,28 +194,28 @@ public:
 	}
 
 	/// <summary>
-	/// ƒEƒBƒ“ƒhƒEã‚Å‚Ìƒ|ƒCƒ“ƒ^[‚ÌˆÊ’u‚ðŒvŽZ‚µ‚Ä•Ô‚µ‚Ü‚·
+	/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä¸Šã§ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã®ä½ç½®ã‚’è¨ˆç®—ã—ã¦è¿”ã—ã¾ã™
 	/// </summary>
 	Point getPointerInWindow();
 
 	/// <summary>
-	/// ƒEƒBƒ“ƒhƒEã‚Å‚Ìƒ|ƒCƒ“ƒ^[‚ÌˆÊ’u‚ðŒvŽZ‚µ‚Ä•Ô‚µ‚Ü‚·
+	/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä¸Šã§ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã®ä½ç½®ã‚’è¨ˆç®—ã—ã¦è¿”ã—ã¾ã™
 	/// </summary>
-	/// <param name="shift">true‚È‚çÀ•W‚ð2”{‚µ‚ÄWindow::Size()‚Ì”¼•ª•ÀsˆÚ“®‚³‚¹‚½À•W‚ð•Ô‚µ‚Ü‚·</param>
+	/// <param name="shift">trueãªã‚‰åº§æ¨™ã‚’2å€ã—ã¦Window::Size()ã®åŠåˆ†ä¸¦è¡Œç§»å‹•ã•ã›ãŸåº§æ¨™ã‚’è¿”ã—ã¾ã™</param>
 	Point getPointerInWindow(bool shift);
 
 	/// <summary>
-	/// ƒEƒBƒ“ƒhƒEã‚Å‚ÌƒWƒ‡ƒCƒXƒeƒBƒbƒN‚ÌˆÊ’u‚ðŒvŽZ‚µ‚Ä•Ô‚µ‚Ü‚·
+	/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä¸Šã§ã®ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ä½ç½®ã‚’è¨ˆç®—ã—ã¦è¿”ã—ã¾ã™
 	/// </summary>
 	Point getJoystickInWindow();
 
 	/// <summary>
-	/// ‚¢‚¸‚ê‚©‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©
+	/// ã„ãšã‚Œã‹ã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹
 	/// </summary>
 	bool AnyKeyClicked();
 
 	/// <summary>
-	/// ƒ{ƒ^ƒ“
+	/// ãƒœã‚¿ãƒ³
 	/// </summary>
 	wm4s3d::Button buttonA;
 	wm4s3d::Button buttonB;
@@ -232,12 +232,12 @@ public:
 	wm4s3d::Button nunchukZ;
 
 	/// <summary>
-	/// ƒ|ƒCƒ“ƒ^[‚ÌˆÊ’u (—vƒZƒ“ƒT[ƒo[)
+	/// ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã®ä½ç½® (è¦ã‚»ãƒ³ã‚µãƒ¼ãƒãƒ¼)
 	/// </summary>
 	Vec2 pointer;
 
 	/// <summary>
-	///ƒkƒ“ƒ`ƒƒƒN‚ÌƒWƒ‡ƒCƒXƒeƒBƒbƒN (—vƒkƒ“ƒ`ƒƒƒN)
+	///ãƒŒãƒ³ãƒãƒ£ã‚¯ã®ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ (è¦ãƒŒãƒ³ãƒãƒ£ã‚¯)
 	/// </summary>
 	Vec2 joystick;
 

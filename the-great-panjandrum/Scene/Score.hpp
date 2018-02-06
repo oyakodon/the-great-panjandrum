@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 
 #include "GameData.hpp"
 
@@ -7,7 +7,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 //
-//  ÉnÉCÉXÉRÉAàÍóó
+//  „Éè„Ç§„Çπ„Ç≥„Ç¢‰∏ÄË¶ß
 //
 class Score : public MyApp::Scene
 {

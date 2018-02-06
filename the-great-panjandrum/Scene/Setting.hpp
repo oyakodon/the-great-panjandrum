@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "GameData.hpp"
 #include "UI.hpp"
@@ -11,7 +11,7 @@ class Setting : public MyApp::Scene
 private:
 
 	tgpUI::ToggleSwitch toggleDebug = tgpUI::ToggleSwitch(Window::BaseCenter().movedBy(150, 140), 40, false);
-	tgpUI::Button buttonBack = tgpUI::Button(Rect(150, 600, 240, 60), L"< ƒ^ƒCƒgƒ‹‚É–ß‚é", Palette::White);
+	tgpUI::Button buttonBack = tgpUI::Button(Rect(150, 600, 240, 60), L"< ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚‹", Palette::White);
 	tgpUI::Slider sliderVol = tgpUI::Slider(Window::BaseCenter().movedBy(150, -150), 300, 15, 0, 100);
 
 public:
@@ -23,7 +23,7 @@ public:
 
 	void init() override
 	{
-		toggleDebug.setText(L"–³Œø", L"—LŒø");
+		toggleDebug.setText(L"ç„¡åŠ¹", L"æœ‰åŠ¹");
 		toggleDebug.setValue(m_data->debugMode);
 		sliderVol.setValue(static_cast<int>(MasterVoice::GetVolume() * 100));
 	}
@@ -77,12 +77,12 @@ public:
 
 	void draw() const override
 	{
-		FontAsset(L"UI_Large")(L"ƒQ[ƒ€İ’è").drawCenter(Window::BaseCenter().x, 75);
+		FontAsset(L"UI_Large")(L"ã‚²ãƒ¼ãƒ è¨­å®š").drawCenter(Window::BaseCenter().x, 75);
 
-		FontAsset(L"Menu")(L"‰¹—Ê").drawCenter(Window::BaseCenter().movedBy(-150, -150));
+		FontAsset(L"Menu")(L"éŸ³é‡").drawCenter(Window::BaseCenter().movedBy(-150, -150));
 		sliderVol.draw();
 
-		FontAsset(L"Menu")(L"ƒfƒoƒbƒOƒ‚[ƒh").drawCenter(Window::BaseCenter().movedBy(-150, 140));
+		FontAsset(L"Menu")(L"ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰").drawCenter(Window::BaseCenter().movedBy(-150, 140));
 		toggleDebug.draw();
 
 		buttonBack.draw();

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "GameData.hpp"
 
@@ -7,7 +7,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 //
-//  ƒ^ƒCƒgƒ‹‰æ–Ê
+//  ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢
 //
 class Title : public MyApp::Scene
 {
@@ -17,12 +17,12 @@ private:
 
 	Array<String> m_menuTexts =
 	{
-		L"ƒm[ƒ}ƒ‹",
-		L"ƒGƒ“ƒhƒŒƒX",
+		L"ãƒãƒ¼ãƒãƒ«",
+		L"ã‚¨ãƒ³ãƒ‰ãƒ¬ã‚¹",
 		L"VS",
-		L"ƒXƒRƒA",
-		L"İ’è",
-		L"I—¹"
+		L"ã‚¹ã‚³ã‚¢",
+		L"è¨­å®š",
+		L"çµ‚äº†"
 	};
 
 public:

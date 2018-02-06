@@ -1,4 +1,4 @@
-#include <Windows.h>
+ï»¿#include <Windows.h>
 #include <codecvt>
 #include <fstream>
 #include <map>
@@ -53,7 +53,7 @@ enum class InputReport : unsigned char
 };
 
 /// <summary>
-/// IRŠ´“xƒpƒ‰ƒ[ƒ^
+/// IRæ„Ÿåº¦ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 /// </summary>
 const unsigned char IRblock[8][11] =
 {
@@ -81,16 +81,16 @@ static bool removeWiimote(BLUETOOTH_DEVICE_INFO& btdi);
 
 Wiimote::Wiimote()
 {
-	// Bluetoothg—p•s‰Â
+	// Bluetoothä½¿ç”¨ä¸å¯
 	if (!isBluetoothActive())
 	{
 		return;
 	}
 
-	// ƒXƒLƒƒƒ“‚Ì‚Ìˆ×‚É‚Æ‚Á‚Ä‚¨‚­
+	// ã‚¹ã‚­ãƒ£ãƒ³ã®æ™‚ã®ç‚ºã«ã¨ã£ã¦ãŠã
 	m_wm.push_back(this);
 
-	//Šeí•Ï”‰Šú‰»
+	//å„ç¨®å¤‰æ•°åˆæœŸåŒ–
 	wiihandle = nullptr;
 	buttons.One = buttons.Two = buttons.A = buttons.B =
 		buttons.Minus = buttons.Plus = buttons.Home =
@@ -224,7 +224,7 @@ void Wiimote::updateScanThread()
 					}
 					else
 					{
-						// SYNC‚È‚µƒQƒXƒgg—p
+						// SYNCãªã—ã‚²ã‚¹ãƒˆä½¿ç”¨
 						regestWiimote(btdi, false);
 					}
 				}
@@ -259,7 +259,7 @@ bool regestWiimote(BLUETOOTH_DEVICE_INFO& btdi, bool doPair)
 
 	if (doPair)
 	{
-		// SYNC‚Ì‚Æ‚«‚Í©•ª‚ÌMACƒAƒhƒŒƒX‚ğPIN‚É“n‚µ‚Ä‚â‚é‚Æ—Ç‚¢‚ç‚µ‚¢
+		// SYNCã®ã¨ãã¯è‡ªåˆ†ã®MACã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’PINã«æ¸¡ã—ã¦ã‚„ã‚‹ã¨è‰¯ã„ã‚‰ã—ã„
 		BLUETOOTH_FIND_RADIO_PARAMS param;
 		param.dwSize = sizeof(BLUETOOTH_FIND_RADIO_PARAMS);
 		HANDLE hrfind, hradio;
@@ -280,7 +280,7 @@ bool regestWiimote(BLUETOOTH_DEVICE_INFO& btdi, bool doPair)
 		}
 		BluetoothFindRadioClose(hrfind);
 
-		// ”ñ„§‚¾‚¯‚Ç„§‚³‚ê‚Ä‚¢‚é‚â‚è•û‚ª‚í‚©‚ç‚È‚¢‚Ì‚Å‚±‚ê‚Å‚â‚è‚Ü‚·
+		// éæ¨å¥¨ã ã‘ã©æ¨å¥¨ã•ã‚Œã¦ã„ã‚‹ã‚„ã‚Šæ–¹ãŒã‚ã‹ã‚‰ãªã„ã®ã§ã“ã‚Œã§ã‚„ã‚Šã¾ã™
 #pragma warning (disable : 4995)
 		DWORD ret = BluetoothAuthenticateDevice(NULL, NULL, &btdi, pin, 6);
 		if (ret != 0)
@@ -290,7 +290,7 @@ bool regestWiimote(BLUETOOTH_DEVICE_INFO& btdi, bool doPair)
 		}
 	}
 
-	// ƒT[ƒrƒX‚Ì—LŒø‰»
+	// ã‚µãƒ¼ãƒ“ã‚¹ã®æœ‰åŠ¹åŒ–
 	if (!setServiceState(btdi, true))
 	{
 		return false;
@@ -312,7 +312,7 @@ bool setServiceState(BLUETOOTH_DEVICE_INFO& btdi, bool enabled)
 
 bool disconnectWiimote(BLUETOOTH_DEVICE_INFO& btdi)
 {
-	// ƒT[ƒrƒX‚ğ—LŒø‚Ìó‘Ô‚©‚ç–³Œø‚É‚µ‚ÄA‚Ü‚½—LŒø‚É‚·‚é‚ÆAPC‚©‚çØ’f‚³‚ê‚é
+	// ã‚µãƒ¼ãƒ“ã‚¹ã‚’æœ‰åŠ¹ã®çŠ¶æ…‹ã‹ã‚‰ç„¡åŠ¹ã«ã—ã¦ã€ã¾ãŸæœ‰åŠ¹ã«ã™ã‚‹ã¨ã€PCã‹ã‚‰åˆ‡æ–­ã•ã‚Œã‚‹
 	bool ret;
 	ret = setServiceState(btdi, false);
 	ret &= setServiceState(btdi, true);
@@ -407,35 +407,35 @@ int Wiimote::connectedCount()
 
 bool Wiimote::open()
 {
-	//GUID‚ğæ“¾
+	//GUIDã‚’å–å¾—
 	GUID HidGuid;
 	HidD_GetHidGuid(&HidGuid);
 
-	//‘S‚Ä‚ÌHID‚Ìî•ñƒZƒbƒg‚ğæ“¾
+	//å…¨ã¦ã®HIDã®æƒ…å ±ã‚»ãƒƒãƒˆã‚’å–å¾—
 	HDEVINFO hDevInfo;
 	hDevInfo = SetupDiGetClassDevs(&HidGuid, NULL, NULL, DIGCF_DEVICEINTERFACE);
 
-	//HID‚ğ—ñ‹“
+	//HIDã‚’åˆ—æŒ™
 	SP_DEVICE_INTERFACE_DATA DevData;
 	DevData.cbSize = sizeof(SP_DEVICE_INTERFACE_DATA);
 
 	int detect_count = 0;
 	for (int index = 0; SetupDiEnumDeviceInterfaces(hDevInfo, NULL, &HidGuid, index, &DevData); index++)
 	{
-		//Ú×‚ğæ“¾
+		//è©³ç´°ã‚’å–å¾—
 
-		//ƒf[ƒ^ƒTƒCƒY‚Ìæ“¾
+		//ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºã®å–å¾—
 		unsigned long size;
 		SetupDiGetDeviceInterfaceDetail(hDevInfo, &DevData, NULL, 0, &size, NULL);
-		//ƒƒ‚ƒŠ‚ÌŠm•Û
+		//ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
 		PSP_INTERFACE_DEVICE_DETAIL_DATA Detail;
 		Detail = (PSP_INTERFACE_DEVICE_DETAIL_DATA)new char[size];
 		Detail->cbSize = sizeof(SP_INTERFACE_DEVICE_DETAIL_DATA);
 
-		//Šm•Û‚µ‚½ƒƒ‚ƒŠ—Ìˆæ‚Éî•ñ‚ğæ“¾
+		//ç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªé ˜åŸŸã«æƒ…å ±ã‚’å–å¾—
 		SetupDiGetDeviceInterfaceDetail(hDevInfo, &DevData, Detail, size, &size, 0);
 
-		//‚Æ‚è‚ ‚¦‚¸ƒnƒ“ƒhƒ‹‚ğæ“¾
+		//ã¨ã‚Šã‚ãˆãšãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—
 		HANDLE handle = CreateFile(
 			Detail->DevicePath,
 			GENERIC_READ | GENERIC_WRITE,
@@ -446,21 +446,21 @@ bool Wiimote::open()
 			NULL
 		);
 		delete[] Detail;
-		//ƒGƒ‰[ˆ—
+		//ã‚¨ãƒ©ãƒ¼å‡¦ç†
 		if (handle == INVALID_HANDLE_VALUE)
 		{
 			continue;
 		}
 
-		//ƒAƒgƒŠƒrƒ…[ƒg‚ğæ“¾
+		//ã‚¢ãƒˆãƒªãƒ“ãƒ¥ãƒ¼ãƒˆã‚’å–å¾—
 		HIDD_ATTRIBUTES attr;
 		attr.Size = sizeof(attr);
 		if (HidD_GetAttributes(handle, &attr))
 		{
-			//VID‚ÆPID‚ğ”äŠr‚µ‚ÄWiiƒŠƒ‚ƒRƒ“‚©‚Ç‚¤‚©‚ğ’²‚×‚é
+			//VIDã¨PIDã‚’æ¯”è¼ƒã—ã¦Wiiãƒªãƒ¢ã‚³ãƒ³ã‹ã©ã†ã‹ã‚’èª¿ã¹ã‚‹
 			if (attr.VendorID == VID && attr.ProductID == PID)
 			{
-				//Caps‚Ìæ“¾
+				//Capsã®å–å¾—
 				HIDP_CAPS Capabilities;
 				PHIDP_PREPARSED_DATA PreparsedData;
 				NTSTATUS Result = HIDP_STATUS_INVALID_PREPARSED_DATA;
@@ -471,10 +471,10 @@ bool Wiimote::open()
 					HidD_FreePreparsedData(PreparsedData);
 				}
 
-				//Caps‚ğæ“¾‚Å‚«‚½‚©Šm”F
+				//Capsã‚’å–å¾—ã§ããŸã‹ç¢ºèª
 				if (Result == HIDP_STATUS_SUCCESS)
 				{
-					//Ú‘±¬Œ÷
+					//æ¥ç¶šæˆåŠŸ
 					if (detect_count == m_connected)
 					{
 						m_connected++;
@@ -497,7 +497,7 @@ bool Wiimote::open()
 			}
 		}
 
-		//g‚í‚È‚©‚Á‚½ƒnƒ“ƒhƒ‹‚ğƒNƒ[ƒY
+		//ä½¿ã‚ãªã‹ã£ãŸãƒãƒ³ãƒ‰ãƒ«ã‚’ã‚¯ãƒ­ãƒ¼ã‚º
 		CloseHandle(handle);
 	}
 
@@ -825,45 +825,45 @@ void Wiimote::initializeExtension()
 	unsigned char* out = new unsigned char[output_length];
 	unsigned char* in = new unsigned char[input_length];
 
-	// 0xa400f0‚É0x55‚ğ‘‚«‚Ş (EXT INIT 1)
+	// 0xa400f0ã«0x55ã‚’æ›¸ãè¾¼ã‚€ (EXT INIT 1)
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	// ƒŒƒWƒXƒ^‚©‚ç
+	// ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	// ƒAƒhƒŒƒX
+	// ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xa4;
 	out[3] = 0x00;
 	out[4] = 0xf0;
-	// ƒoƒCƒg”
+	// ãƒã‚¤ãƒˆæ•°
 	out[5] = 1;
-	// ƒf[ƒ^(max16byte)
+	// ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = 0x55;
 	write(out);
 	read(in);
 
-	// 0xa400fb‚É0x00‚ğ‘‚«‚Ş (EXT INIT 2)
+	// 0xa400fbã«0x00ã‚’æ›¸ãè¾¼ã‚€ (EXT INIT 2)
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	// ƒŒƒWƒXƒ^‚©‚ç
+	// ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	// ƒAƒhƒŒƒX
+	// ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xa4;
 	out[3] = 0x00;
 	out[4] = 0xfb;
-	// ƒoƒCƒg”
+	// ãƒã‚¤ãƒˆæ•°
 	out[5] = 1;
-	// ƒf[ƒ^(max16byte)
+	// ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = 0x00;
 	write(out);
 	read(in);
 
-	// 0xa400fa‚©‚çƒf[ƒ^‚ğ“Ç‚İ‚Ş (EXT TYPE)
+	// 0xa400faã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€ (EXT TYPE)
 	out[0] = (unsigned char)OutputReport::ReadMemory;
-	// ƒŒƒWƒXƒ^‚©‚ç
+	// ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	// ƒAƒhƒŒƒX
+	// ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xa4;
 	out[3] = 0x00;
 	out[4] = 0xfa;
-	// ƒTƒCƒY
+	// ã‚µã‚¤ã‚º
 	out[5] = 0x00;
 	out[6] = 0x06;
 	write(out);
@@ -881,7 +881,7 @@ void Wiimote::initializeExtension()
 	switch (extensionType)
 	{
 	case ExtensionType::Nunchuk:
-		// ƒkƒ“ƒ`ƒƒƒN
+		// ãƒŒãƒ³ãƒãƒ£ã‚¯
 		// SetReportType
 		out[0] = (unsigned char)OutputReport::DataReportType;
 		out[1] = 0x04;
@@ -892,15 +892,15 @@ void Wiimote::initializeExtension()
 
 		enableIR(IRMode::Basic, m_sensitivityMode);
 
-		// 0x04‚Ì0xa40020‚©‚çƒf[ƒ^‚ğ“Ç‚İ‚Ş (EXT CALIBRATION)
+		// 0x04ã®0xa40020ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€ (EXT CALIBRATION)
 		out[0] = (unsigned char)OutputReport::ReadMemory;
-		// ƒŒƒWƒXƒ^‚©‚ç
+		// ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 		out[1] = 0x04;
-		// ƒAƒhƒŒƒX
+		// ã‚¢ãƒ‰ãƒ¬ã‚¹
 		out[2] = 0xa4;
 		out[3] = 0x00;
 		out[4] = 0x20;
-		// ƒTƒCƒY
+		// ã‚µã‚¤ã‚º
 		out[5] = 0x00;
 		out[6] = 0x10;
 		write(out);
@@ -942,15 +942,15 @@ void Wiimote::updateThread(Wiimote* wii)
 	unsigned char* out = new unsigned char[wii->output_length];
 	unsigned char* in = new unsigned char[wii->input_length];
 
-	// ƒLƒƒƒŠƒuƒŒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ìæ“¾
+	// ã‚­ãƒ£ãƒªãƒ–ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 	out[0] = (unsigned char)OutputReport::ReadMemory;
-	// ƒŒƒWƒXƒ^‚©‚ç
+	// ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x00;
-	// ƒAƒhƒŒƒX
+	// ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0x00;
 	out[3] = 0x00;
 	out[4] = 0x16;
-	// ƒTƒCƒY
+	// ã‚µã‚¤ã‚º
 	out[5] = 0x00;
 	out[6] = 0x07;
 	wii->write(out);
@@ -970,7 +970,7 @@ void Wiimote::updateThread(Wiimote* wii)
 
 	Sleep(60);
 
-	// ‹­§“I‚ÉIRAccel‚ÅƒŒƒ|[ƒg‚³‚¹‚é(ˆÀ’è‰»‚Ìˆ×)
+	// å¼·åˆ¶çš„ã«IRAccelã§ãƒ¬ãƒãƒ¼ãƒˆã•ã›ã‚‹(å®‰å®šåŒ–ã®ç‚º)
 	out[0] = (unsigned char)OutputReport::DataReportType;
 	out[1] = 0x00;
 	out[2] = (unsigned char)InputReport::IRAccel;
@@ -980,7 +980,7 @@ void Wiimote::updateThread(Wiimote* wii)
 
 	Sleep(60);
 
-	// ƒXƒe[ƒ^ƒXî•ñ‚Ìæ“¾
+	// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æƒ…å ±ã®å–å¾—
 	out[0] = (unsigned char)OutputReport::Status;
 	out[1] = 0x00;
 
@@ -1006,7 +1006,7 @@ void Wiimote::enableIR(IRMode mode, unsigned int sensitivity)
 
 	m_IRmode = mode;
 
-	//IRƒJƒƒ‰‚Ì—LŒø‰»
+	//IRã‚«ãƒ¡ãƒ©ã®æœ‰åŠ¹åŒ–
 	out[0] = (unsigned char)OutputReport::IR;
 	out[1] = 0x04 | (m_rumble ? 0x01 : 0x00);
 	write(out);
@@ -1019,17 +1019,17 @@ void Wiimote::enableIR(IRMode mode, unsigned int sensitivity)
 	read(in);
 	Sleep(60);
 
-	//0xb00030‚É0x08‚ğ‘‚«‚Ş
+	//0xb00030ã«0x08ã‚’æ›¸ãè¾¼ã‚€
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	//ƒŒƒWƒXƒ^‚©‚ç
+	//ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	//ƒAƒhƒŒƒX
+	//ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xb0;
 	out[3] = 0x00;
 	out[4] = 0x30;
-	//ƒoƒCƒg”
+	//ãƒã‚¤ãƒˆæ•°
 	out[5] = 1;
-	//ƒf[ƒ^(max16byte)
+	//ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = 0x08;
 	write(out);
 	read(in);
@@ -1037,15 +1037,15 @@ void Wiimote::enableIR(IRMode mode, unsigned int sensitivity)
 
 	//block1
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	//ƒŒƒWƒXƒ^‚©‚ç
+	//ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	//ƒAƒhƒŒƒX
+	//ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xb0;
 	out[3] = 0x00;
 	out[4] = 0x00;
-	//ƒoƒCƒg”
+	//ãƒã‚¤ãƒˆæ•°
 	out[5] = 9;
-	//ƒf[ƒ^(max16byte)
+	//ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = IRblock[sensitivity][0];
 	out[7] = IRblock[sensitivity][1];
 	out[8] = IRblock[sensitivity][2];
@@ -1061,15 +1061,15 @@ void Wiimote::enableIR(IRMode mode, unsigned int sensitivity)
 
 	//block2
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	//ƒŒƒWƒXƒ^‚©‚ç
+	//ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	//ƒAƒhƒŒƒX
+	//ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xb0;
 	out[3] = 0x00;
 	out[4] = 0x1a;
-	//ƒoƒCƒg”
+	//ãƒã‚¤ãƒˆæ•°
 	out[5] = 2;
-	//ƒf[ƒ^(max16byte)
+	//ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = IRblock[sensitivity][9];
 	out[7] = IRblock[sensitivity][10];
 	write(out);
@@ -1078,31 +1078,31 @@ void Wiimote::enableIR(IRMode mode, unsigned int sensitivity)
 
 	//mode number
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	//ƒŒƒWƒXƒ^‚©‚ç
+	//ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	//ƒAƒhƒŒƒX
+	//ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xb0;
 	out[3] = 0x00;
 	out[4] = 0x33;
-	//ƒoƒCƒg”
+	//ãƒã‚¤ãƒˆæ•°
 	out[5] = 1;
-	//ƒf[ƒ^(max16byte)
+	//ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = (unsigned char)mode;
 	write(out);
 	read(in);
 	Sleep(60);
 
-	//0xb00030‚É0x08‚ğ‘‚«‚Ş
+	//0xb00030ã«0x08ã‚’æ›¸ãè¾¼ã‚€
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	//ƒŒƒWƒXƒ^‚©‚ç
+	//ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	//ƒAƒhƒŒƒX
+	//ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xb0;
 	out[3] = 0x00;
 	out[4] = 0x30;
-	//ƒoƒCƒg”
+	//ãƒã‚¤ãƒˆæ•°
 	out[5] = 1;
-	//ƒf[ƒ^(max16byte)
+	//ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = 0x08;
 	write(out);
 	read(in);
@@ -1153,79 +1153,79 @@ void Wiimote::playSound(const char* filename, const int volume, const bool doRep
 
 	mtx.lock();
 
-	// ƒXƒs[ƒJ[—LŒø‰»
+	// ã‚¹ãƒ”ãƒ¼ã‚«ãƒ¼æœ‰åŠ¹åŒ–
 	out[0] = (unsigned char)OutputReport::SpeakerEnable;
 	out[1] = 0x04;
 	write(out);
 
-	// ƒXƒs[ƒJ[‚Ìƒ~ƒ…[ƒg
+	// ã‚¹ãƒ”ãƒ¼ã‚«ãƒ¼ã®ãƒŸãƒ¥ãƒ¼ãƒˆ
 	out[0] = (unsigned char)OutputReport::SpeakerMute;
 	out[1] = 0x04;
 	write(out);
 
-	// 0xa20009‚É0x01 ‚ğ‘‚«‚Ş
+	// 0xa20009ã«0x01 ã‚’æ›¸ãè¾¼ã‚€
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	// ƒŒƒWƒXƒ^‚©‚ç
+	// ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	// ƒAƒhƒŒƒX
+	// ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xa2;
 	out[3] = 0x00;
 	out[4] = 0x09;
-	// ƒoƒCƒg”
+	// ãƒã‚¤ãƒˆæ•°
 	out[5] = 1;
-	// ƒf[ƒ^(max16byte)
+	// ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = 0x01;
 	write(out);
 
-	// 0xa20001‚É0x08 ‚ğ‘‚«‚Ş
+	// 0xa20001ã«0x08 ã‚’æ›¸ãè¾¼ã‚€
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	// ƒŒƒWƒXƒ^‚©‚ç
+	// ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	// ƒAƒhƒŒƒX
+	// ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xa2;
 	out[3] = 0x00;
 	out[4] = 0x01;
-	// ƒoƒCƒg”
+	// ãƒã‚¤ãƒˆæ•°
 	out[5] = 1;
-	// ƒf[ƒ^(max16byte)
+	// ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = 0x08;
 	write(out);
 
-	// 0xa20001‚É7-byte configuration ‚ğ‘‚«‚Ş
+	// 0xa20001ã«7-byte configuration ã‚’æ›¸ãè¾¼ã‚€
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	// ƒŒƒWƒXƒ^‚©‚ç
+	// ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	// ƒAƒhƒŒƒX
+	// ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xa2;
 	out[3] = 0x00;
 	out[4] = 0x01;
-	// ƒoƒCƒg”
+	// ãƒã‚¤ãƒˆæ•°
 	out[5] = 0x07;
-	// ƒf[ƒ^(max16byte)
+	// ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = 0x00;
-	out[7] = 0x40; // ƒtƒH[ƒ}ƒbƒgB0x40‚È‚ç8bitPCMA0x00‚È‚çADPCM
-	out[8] = 0x70; // ƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg
-	out[9] = 0x17; // ƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg
-	out[10] = vol; // ƒ{ƒŠƒ…[ƒ€ 0x00‚©‚ç0xff‚Ì”ÍˆÍ	
+	out[7] = 0x40; // ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã€‚0x40ãªã‚‰8bitPCMã€0x00ãªã‚‰ADPCM
+	out[8] = 0x70; // ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ¬ãƒ¼ãƒˆ
+	out[9] = 0x17; // ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ¬ãƒ¼ãƒˆ
+	out[10] = vol; // ãƒœãƒªãƒ¥ãƒ¼ãƒ  0x00ã‹ã‚‰0xffã®ç¯„å›²	
 	out[11] = 0x00;
 	out[12] = 0x00;
 	write(out);
 
-	// 0xa20008‚É0x01 ‚ğ‘‚«‚Ş
+	// 0xa20008ã«0x01 ã‚’æ›¸ãè¾¼ã‚€
 	out[0] = (unsigned char)OutputReport::WriteMemory;
-	// ƒŒƒWƒXƒ^‚©‚ç
+	// ãƒ¬ã‚¸ã‚¹ã‚¿ã‹ã‚‰
 	out[1] = 0x04;
-	// ƒAƒhƒŒƒX
+	// ã‚¢ãƒ‰ãƒ¬ã‚¹
 	out[2] = 0xa2;
 	out[3] = 0x00;
 	out[4] = 0x08;
-	// ƒoƒCƒg”
+	// ãƒã‚¤ãƒˆæ•°
 	out[5] = 1;
-	// ƒf[ƒ^(max16byte)
+	// ãƒ‡ãƒ¼ã‚¿(max16byte)
 	out[6] = 0x01;
 	write(out);
 
-	// ƒ~ƒ…[ƒg‰ğœ
+	// ãƒŸãƒ¥ãƒ¼ãƒˆè§£é™¤
 	out[0] = (unsigned char)OutputReport::SpeakerMute;
 	out[1] = 0x00;
 	write(out);
@@ -1234,7 +1234,7 @@ void Wiimote::playSound(const char* filename, const int volume, const bool doRep
 
 	Sleep(100);
 
-	// ‰¹ºƒf[ƒ^‘—M
+	// éŸ³å£°ãƒ‡ãƒ¼ã‚¿é€ä¿¡
 	std::ifstream stream(filename, std::ios::binary);
 	std::vector<char> hex;
 	unsigned char data[1];
@@ -1252,7 +1252,7 @@ void Wiimote::playSound(const char* filename, const int volume, const bool doRep
 
 		out[0] = (unsigned char)OutputReport::SpeakerData;
 		out[1] = 0xa0;
-		// ƒf[ƒ^–{‘Ì
+		// ãƒ‡ãƒ¼ã‚¿æœ¬ä½“
 		for (int j = 0; j < 20; j++)
 		{
 			out[2 + j] = hex[i * 20 + j];

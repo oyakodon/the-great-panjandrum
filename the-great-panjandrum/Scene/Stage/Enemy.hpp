@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 
 #include <Siv3D.hpp>
 
 /// <summary>
-/// “G‚Ìí—Ş@(Õ“Ë‚µ‚½‚Ìƒ_ƒ[ƒW)
+/// æ•µã®ç¨®é¡ã€€(è¡çªã—ãŸæ™‚ã®ãƒ€ãƒ¡ãƒ¼ã‚¸)
 /// </summary>
 enum class EnemyType : int
 {
@@ -13,7 +13,7 @@ enum class EnemyType : int
 };
 
 /// <summary>
-/// “G
+/// æ•µ
 /// </summary>
 class Enemy
 {
@@ -51,7 +51,7 @@ public:
 };
 
 /// <summary>
-/// Bunchin, “®‚©‚È‚¢‚¯‚Ç“–‚½‚é‚Æ’É‚¢
+/// Bunchin, å‹•ã‹ãªã„ã‘ã©å½“ãŸã‚‹ã¨ç—›ã„
 /// </summary>
 class EnemyBunchin : public Enemy
 {
@@ -81,17 +81,17 @@ public:
 };
 
 /// <summary>
-/// Yotiyoti, ‚æ‚¿‚æ‚¿ƒuƒƒbƒN‚Ìã‚ğ¶‰E‚É“®‚­B“–‚½‚é‚Æ’É‚¢B
+/// Yotiyoti, ã‚ˆã¡ã‚ˆã¡ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸Šã‚’å·¦å³ã«å‹•ãã€‚å½“ãŸã‚‹ã¨ç—›ã„ã€‚
 /// </summary>
 class EnemyYotiyoti : public Enemy
 {
 private:
 
-	const int m_range; // +/- ‚Ç‚Ì‚­‚ç‚¢ˆÚ“®‚·‚é‚© (À•W)
+	const int m_range; // +/- ã©ã®ãã‚‰ã„ç§»å‹•ã™ã‚‹ã‹ (åº§æ¨™)
 
-	const int m_speed = 3; // ˆÚ“®‘¬“x
+	const int m_speed = 3; // ç§»å‹•é€Ÿåº¦
 
-	int m_relative; // ‘Š‘ÎÀ•W
+	int m_relative; // ç›¸å¯¾åº§æ¨™
 	bool m_faceRight;
 
 public:
@@ -129,7 +129,7 @@ public:
 };
 
 /// <summary>
-/// Danmaku, ‹ó‚É•‚‚©‚Ñ‚È‚ª‚ç’e‚ğ‘Å‚Á‚Ä‚­‚éB’e–‹‚Á‚Ä‚Ù‚Ç‚Å‚à‚È‚¢B
+/// Danmaku, ç©ºã«æµ®ã‹ã³ãªãŒã‚‰å¼¾ã‚’æ‰“ã£ã¦ãã‚‹ã€‚å¼¾å¹•ã£ã¦ã»ã©ã§ã‚‚ãªã„ã€‚
 /// </summary>
 class EnemyDanmaku : public Enemy
 {

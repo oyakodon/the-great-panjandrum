@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 
 #include <Siv3D.hpp>
 
 /// <summary>
-/// ƒXƒe[ƒW‚ğƒ‰ƒ“ƒ_ƒ€‚Å©“®¶¬‚µ‚Ü‚·B
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã§è‡ªå‹•ç”Ÿæˆã—ã¾ã™ã€‚
 /// </summary>
 class StageGenerator
 {

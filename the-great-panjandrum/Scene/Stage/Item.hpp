@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 
 #include <Siv3D.hpp>
 
 /// <summary>
-/// ƒAƒCƒeƒ€‚Ìí—Ş
+/// ã‚¢ã‚¤ãƒ†ãƒ ã®ç¨®é¡
 /// </summary>
 enum class ItemType : int
 {
@@ -12,7 +12,7 @@ enum class ItemType : int
 };
 
 /// <summary>
-/// ƒAƒCƒeƒ€
+/// ã‚¢ã‚¤ãƒ†ãƒ 
 /// </summary>
 class Item
 {
@@ -54,7 +54,7 @@ public:
 
 	void draw() const
 	{
-		// Šm”F—p
+		// ç¢ºèªç”¨
 		m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).draw(Palette::Yellow).drawFrame(1.0, 0.0, Palette::Red);
 
 		/*switch (m_type)

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "GameData.hpp"
 
@@ -7,7 +7,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 //
-//  Œ‹‰Ê‰æ–Ê
+//  çµæœç”»é¢
 //
 class Result : public MyApp::Scene
 {

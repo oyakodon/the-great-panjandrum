@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "GameData.hpp"
 #include "UI.hpp"
@@ -12,9 +12,9 @@ class Wiimgr : public MyApp::Scene
 {
 private:
 	
-	tgpUI::Button buttonCancel = tgpUI::Button(Rect(150, 600, 350, 60), L"WiiƒŠƒ‚ƒRƒ“‚ğg—p‚µ‚È‚¢", Palette::White);
+	tgpUI::Button buttonCancel = tgpUI::Button(Rect(150, 600, 350, 60), L"Wiiãƒªãƒ¢ã‚³ãƒ³ã‚’ä½¿ç”¨ã—ãªã„", Palette::White);
 
-	tgpUI::Dialog dialog = tgpUI::Dialog(Window::BaseCenter(), {700, 250}, L"WiiƒŠƒ‚ƒRƒ“‚ğg—p‚·‚é‚É‚ÍABluetooth‚ğƒIƒ“‚É‚µ‚Ä‚­‚¾‚³‚¢B");
+	tgpUI::Dialog dialog = tgpUI::Dialog(Window::BaseCenter(), {700, 250}, L"Wiiãƒªãƒ¢ã‚³ãƒ³ã‚’ä½¿ç”¨ã™ã‚‹ã«ã¯ã€Bluetoothã‚’ã‚ªãƒ³ã«ã—ã¦ãã ã•ã„ã€‚");
 
 public:
 
@@ -32,7 +32,7 @@ public:
 		}
 		else
 		{
-			dialog.setTitle(L"ƒGƒ‰[");
+			dialog.setTitle(L"ã‚¨ãƒ©ãƒ¼");
 			dialog.show();
 		}
 
@@ -104,21 +104,21 @@ public:
 		// 1P
 		RoundRect(150, 150, Window::BaseWidth() - 300, 75, 10).draw(Palette::Gray).drawFrame(0.0, 2.0, Palette::White);
 		FontAsset(L"UI_Large")(L"1P").drawCenter({350, 182.5}, Palette::Cyan);
-		FontAsset(L"UI")(L"A+Bƒ{ƒ^ƒ“‚ÅƒXƒ^[ƒg").drawCenter({640, 182.5}, Palette::Black);
-		FontAsset(L"UI_Large")(m_data->wii[0].isConnected() ? L"OK" : L"ŒŸõ’†...").drawCenter({ 930, 182.5 }, m_data->wii[0].isConnected() ? Palette::Lime : Palette::Yellow);
+		FontAsset(L"UI")(L"A+Bãƒœã‚¿ãƒ³ã§ã‚¹ã‚¿ãƒ¼ãƒˆ").drawCenter({640, 182.5}, Palette::Black);
+		FontAsset(L"UI_Large")(m_data->wii[0].isConnected() ? L"OK" : L"æ¤œç´¢ä¸­...").drawCenter({ 930, 182.5 }, m_data->wii[0].isConnected() ? Palette::Lime : Palette::Yellow);
 
 		// 2P
 		RoundRect(150, 265, Window::BaseWidth() - 300, 75, 10).draw(Palette::Gray).drawFrame(0.0, 2.0, Palette::White);
 		FontAsset(L"UI_Large")(L"2P").drawCenter({ 350, 297.5 }, Palette::Red);
-		FontAsset(L"UI")(L"A+Bƒ{ƒ^ƒ“‚ÅƒXƒ^[ƒg").drawCenter({ 640, 297.5 }, Palette::Black);
-		FontAsset(L"UI_Large")(m_data->wii[1].isConnected() ? L"OK" : L"ŒŸõ’†...").drawCenter({ 930, 297.5 }, m_data->wii[1].isConnected() ? Palette::Lime : Palette::Yellow);
+		FontAsset(L"UI")(L"A+Bãƒœã‚¿ãƒ³ã§ã‚¹ã‚¿ãƒ¼ãƒˆ").drawCenter({ 640, 297.5 }, Palette::Black);
+		FontAsset(L"UI_Large")(m_data->wii[1].isConnected() ? L"OK" : L"æ¤œç´¢ä¸­...").drawCenter({ 930, 297.5 }, m_data->wii[1].isConnected() ? Palette::Lime : Palette::Yellow);
 
-		// à–¾
-		FontAsset(L"UI_Large")(L"‡@+‡Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢B").drawCenter(Window::BaseCenter() + Vec2(0, 50), Palette::Black);
+		// èª¬æ˜
+		FontAsset(L"UI_Large")(L"â‘ +â‘¡ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã¦ãã ã•ã„ã€‚").drawCenter(Window::BaseCenter() + Vec2(0, 50), Palette::Black);
 
 		dialog.draw();
 
-		// ‰E‰º‚Ì‚­‚é‚­‚é
+		// å³ä¸‹ã®ãã‚‹ãã‚‹
 		Circle(Window::BaseSize() - Vec2(75, 75), 25).drawArc(Time::GetMillisec() * 0.0005, 4.5, 2.0, 2.0);
 
 		buttonCancel.draw();

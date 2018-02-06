@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <Siv3D.hpp>
 
@@ -6,7 +6,7 @@ namespace tgpUI
 {
 
 	/// <summary>
-	/// ƒgƒOƒ‹ƒXƒCƒbƒ`(ON/OFF)
+	/// ãƒˆã‚°ãƒ«ã‚¹ã‚¤ãƒƒãƒ(ON/OFF)
 	/// </summary>
 	class ToggleSwitch
 	{
@@ -113,7 +113,7 @@ namespace tgpUI
 	};
 
 	/// <summary>
-	/// ƒ{ƒ^ƒ“
+	/// ãƒœã‚¿ãƒ³
 	/// </summary>
 	class Button
 	{
@@ -181,7 +181,7 @@ namespace tgpUI
 	};
 
 	/// <summary>
-	/// ƒXƒ‰ƒCƒ_[
+	/// ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼
 	/// </summary>
 	class Slider
 	{
@@ -303,7 +303,7 @@ namespace tgpUI
 	};
 
 	/// <summary>
-	///  ƒ_ƒCƒAƒƒO
+	///  ãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 	/// </summary>
 	class Dialog
 	{
@@ -327,7 +327,7 @@ namespace tgpUI
 			m_text(text),
 			m_shown(false),
 			m_closed(false),
-			m_closeButton(Rect(pos + size / 2 - Point(120, 70), { 100, 50 }), L"•Â‚¶‚é", Palette::White)
+			m_closeButton(Rect(pos + size / 2 - Point(120, 70), { 100, 50 }), L"é–‰ã˜ã‚‹", Palette::White)
 		{
 
 		}
@@ -397,7 +397,7 @@ namespace tgpUI
 	};
 
 	/// <summary>
-	/// ƒ[ƒ^[
+	/// ãƒ¡ãƒ¼ã‚¿ãƒ¼
 	/// </summary>
 	class Meter
 	{
@@ -420,18 +420,18 @@ namespace tgpUI
 		}
 
 		/// <summary>
-		/// ƒ[ƒ^[‚Ì’l‚ğİ’è‚µ‚Ü‚·B
+		/// ãƒ¡ãƒ¼ã‚¿ãƒ¼ã®å€¤ã‚’è¨­å®šã—ã¾ã™ã€‚
 		/// </summary>
-		/// <param name="value">’l(0.0-1.0)</param>
+		/// <param name="value">å€¤(0.0-1.0)</param>
 		void setValue(double value)
 		{
 			m_value = Max(Min(value, 1.0), 0.0);
 		}
 
 		/// <summary>
-		/// ƒ[ƒ^[‚Ì’l‚ğ•Ô‚µ‚Ü‚·B
+		/// ãƒ¡ãƒ¼ã‚¿ãƒ¼ã®å€¤ã‚’è¿”ã—ã¾ã™ã€‚
 		/// </summary>
-		/// <returns>ƒ[ƒ^[‚Ì’l</returns>
+		/// <returns>ãƒ¡ãƒ¼ã‚¿ãƒ¼ã®å€¤</returns>
 		double getValue()
 		{
 			return m_value;
@@ -446,26 +446,26 @@ namespace tgpUI
 		{
 			const double R = m_height / 2;
 
-			// ”wŒi
+			// èƒŒæ™¯
 			RoundRect(m_pos.x - m_width / 2, m_pos.y - R, m_width, m_height, R).draw(Palette::Gray);
 
-			// ƒ[ƒ^[
+			// ãƒ¡ãƒ¼ã‚¿ãƒ¼
 			if (0.0 < m_value)
 			{
-				// ¶’[
+				// å·¦ç«¯
 				Circle({ m_pos.x - m_width / 2 + R, m_pos.y }, R).draw(Palette::Lime);
-				// ”¼‰~‚É‚·‚é
+				// åŠå††ã«ã™ã‚‹
 				RectF(m_pos.x - m_width / 2 + R, m_pos.y - R, R, m_height).draw(Palette::Gray);
-				// ƒ[ƒ^[–„‚ß‚é
+				// ãƒ¡ãƒ¼ã‚¿ãƒ¼åŸ‹ã‚ã‚‹
 				RectF(m_pos.x - m_width / 2 + R / 2, m_pos.y - R, Min(m_width * m_value, m_width - R), m_height).draw(Palette::Lime);
-				// ‰E’[
+				// å³ç«¯
 				if (m_value * m_width >= m_width - R)
 				{
 					Circle({ m_pos.x + m_width / 2 - R, m_pos.y }, R).draw(Palette::Lime);
 				}
 			}
 
-			// ˜g
+			// æ 
 			RoundRect(m_pos.x - m_width / 2, m_pos.y - R, m_width, m_height, R).drawFrame(2.0, 1.0, Palette::Black);
 		}
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "../GameData.hpp"
 #include "Player.hpp"
@@ -7,7 +7,7 @@
 #include <HamFramework.hpp>
 
 /// <summary>
-/// ƒm[ƒ}ƒ‹ƒXƒe[ƒW(ƒXƒg[ƒŠ[ƒ‚[ƒh)
+/// ãƒãƒ¼ãƒãƒ«ã‚¹ãƒ†ãƒ¼ã‚¸(ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ãƒ¢ãƒ¼ãƒ‰)
 /// </summary>
 class StageStory : public MyApp::Scene
 {
@@ -33,7 +33,7 @@ public:
 
 	void update() override
 	{
-		// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ˆ— (ƒtƒF[ƒhƒAƒEƒg)
+		// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³å‡¦ç† (ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ)
 		if (m_swTransition.isActive())
 		{
 			if (m_swTransition.ms() >= 1000)
@@ -48,28 +48,28 @@ public:
 			return;
 		}
 
-		// ƒuƒƒbƒN
+		// ãƒ–ãƒ­ãƒƒã‚¯
 		for (size_t i = 0; i < m_stage.blocks.size(); i++)
 		{
 			m_stage.blocks[i].get()->setPlayerPos(m_player.getPos());
 			m_stage.blocks[i].get()->update();
 		}
 
-		// ƒAƒCƒeƒ€
+		// ã‚¢ã‚¤ãƒ†ãƒ 
 		for (size_t i = 0; i < m_stage.items.size(); i++)
 		{
 			m_stage.items[i].get()->setPlayerPos(m_player.getPos());
 			m_stage.items[i].get()->update();
 		}
 
-		// “G
+		// æ•µ
 		for (size_t i = 0; i < m_stage.enemies.size(); i++)
 		{
 			m_stage.enemies[i].get()->setPlayerPos(m_player.getPos());
 			m_stage.enemies[i].get()->update();
 		}
 
-		// ƒvƒŒƒCƒ„[
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 		m_player.checkGround(m_stage.blocks);
 		m_player.checkItem(m_stage.items);
 		m_player.checkEnemy(m_stage.enemies);
@@ -92,52 +92,52 @@ public:
 			changeScene(L"Title");
 		}
 
-		// TPƒ[ƒ^[XV
+		// TPãƒ¡ãƒ¼ã‚¿ãƒ¼æ›´æ–°
 		m_tpMeter.setValue(m_player.getTP() / 100.0);
 
 	}
 
 	void draw() const override
 	{
-		// ”wŒi
+		// èƒŒæ™¯
 		Window::BaseClientRect()(TextureAsset(L"bg_natural_umi")).draw(ColorF(0.5));
 
-		// ƒuƒƒbƒN
+		// ãƒ–ãƒ­ãƒƒã‚¯
 		for (size_t i = 0; i < m_stage.blocks.size(); i++)
 		{
 			m_stage.blocks[i].get()->draw(m_data->debugMode);
 		}
 
-		// ƒAƒCƒeƒ€
+		// ã‚¢ã‚¤ãƒ†ãƒ 
 		for (size_t i = 0; i < m_stage.items.size(); i++)
 		{
 			m_stage.items[i].get()->draw();
 		}
 
-		// “G
+		// æ•µ
 		for (size_t i = 0; i < m_stage.enemies.size(); i++)
 		{
 			m_stage.enemies[i].get()->draw();
 		}
 
-		// ƒS[ƒ‹‚ÌŠø
+		// ã‚´ãƒ¼ãƒ«ã®æ——
 		RectF(m_stage.goalPos.movedBy(-m_player.getPos() + Vec2(-50, GameInfo::playerPosOffset - 50) + Window::BaseCenter()), 100, 100)(TextureAsset(L"hata")).draw();
 
-		// ƒvƒŒƒCƒ„[
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 		m_player.draw(m_data->debugMode);
 
 		if (m_data->debugMode)
 		{
-			// €–S”»’èƒ‰ƒCƒ“•`‰æ
+			// æ­»äº¡åˆ¤å®šãƒ©ã‚¤ãƒ³æç”»
 			const Vec2 p = { m_player.getPos().x, m_stage.deadLine };
 			const Vec2 w_half = { Window::BaseWidth() / 2, 0 };
 			Line(p.movedBy(-w_half), p.movedBy(w_half)).moveBy(-m_player.getPos() + Vec2(0, GameInfo::playerPosOffset) + Window::BaseCenter()).draw(2.0, Palette::Orange);
 		}
 
-		// TPƒ[ƒ^[
+		// TPãƒ¡ãƒ¼ã‚¿ãƒ¼
 		m_tpMeter.draw();
 
-		// ƒXƒe[ƒW–¼
+		// ã‚¹ãƒ†ãƒ¼ã‚¸å
 		const int nameWidth = FontAsset(L"UI")(m_stage.stageName).region().w;
 		FontAsset(L"UI")(m_stage.stageName).draw({ Window::BaseWidth() - nameWidth - 15, 5 });
 
