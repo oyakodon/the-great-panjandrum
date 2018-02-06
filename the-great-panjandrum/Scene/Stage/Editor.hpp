@@ -148,18 +148,18 @@ public:
 					csv.get<double>(i, 3)
 				};
 
-				if (csv.get<String>(i, 1) == L"IMMOVABLE")
+				if (csv.get<String>(i, 1) == L"BUNCHIN")
 				{
-					stage.enemies.push_back(std::shared_ptr<Enemy>( new EnemyImmovable(pos) ));
+					stage.enemies.push_back(std::shared_ptr<Enemy>( new EnemyBunchin(pos) ));
 				}
-				else if (csv.get<String>(i, 1) == L"TOTTER")
+				else if (csv.get<String>(i, 1) == L"YOTIYOTI")
 				{
 					const int range = csv.get<int>(i, 4);
-					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyTotter(pos, range) ));
+					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyYotiyoti(pos, range) ));
 				}
-				else if (csv.get<String>(i, 1) == L"BARRAGE")
+				else if (csv.get<String>(i, 1) == L"DANMAKU")
 				{
-					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyBarrage(pos) ));
+					stage.enemies.push_back(std::shared_ptr<Enemy>(new EnemyDanmaku(pos) ));
 				}
 			}
 			else if (cmd == L"SETNAME")

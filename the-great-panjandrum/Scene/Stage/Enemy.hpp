@@ -7,9 +7,9 @@
 /// </summary>
 enum class EnemyType : int
 {
-	Immovable = 10,
-	Totter = 15,
-	Barrage = 20
+	Bunchin = 10,
+	Yotiyoti = 15,
+	Danmaku = 20
 };
 
 /// <summary>
@@ -51,13 +51,13 @@ public:
 };
 
 /// <summary>
-/// Immovable, 動かないけど当たると痛い
+/// Bunchin, 動かないけど当たると痛い
 /// </summary>
-class EnemyImmovable : public Enemy
+class EnemyBunchin : public Enemy
 {
 public:
 
-	EnemyImmovable(const Vec2& pos)
+	EnemyBunchin(const Vec2& pos)
 		: Enemy(pos)
 	{
 		
@@ -70,7 +70,7 @@ public:
 
 	int getDamage(bool intersects)
 	{
-		return intersects ? static_cast<int>(EnemyType::Immovable) : 0;
+		return intersects ? static_cast<int>(EnemyType::Bunchin) : 0;
 	}
 
 	void draw() const
@@ -81,31 +81,44 @@ public:
 };
 
 /// <summary>
-/// Totter, よちよちブロックの上を左右に動く。当たると痛い。
+/// Yotiyoti, よちよちブロックの上を左右に動く。当たると痛い。
 /// </summary>
-class EnemyTotter : public Enemy
+class EnemyYotiyoti : public Enemy
 {
 private:
 
 	const int m_range; // +/- どのくらい移動するか (座標)
 
+	const int m_speed = 3; // 移動速度
+
+	int m_relative; // 相対座標
+	bool m_faceRight;
+
 public:
 
-	EnemyTotter(const Vec2& pos, const int range)
+	EnemyYotiyoti(const Vec2& pos, const int range)
 		: Enemy(pos),
-		  m_range(range)
+		  m_range(range),
+		  m_relative(0),
+		  m_faceRight(true)
 	{
 
 	}
 
 	void update()
 	{
+		if (Abs(m_relative) >= m_range)
+		{
+			m_faceRight = !m_faceRight;
+		}
 
+		m_relative += (m_faceRight ? 1 : -1) * m_speed;
+		m_region.moveBy((m_faceRight ? 1 : -1) * m_speed, 0);
 	}
 
 	int getDamage(bool intersects)
 	{
-		return intersects ? static_cast<int>(EnemyType::Totter) : 0;
+		return intersects ? static_cast<int>(EnemyType::Yotiyoti) : 0;
 	}
 
 	void draw() const
@@ -116,14 +129,14 @@ public:
 };
 
 /// <summary>
-/// Barrage, 空に浮かびながら弾を打ってくる。弾幕ってほどでもない。
+/// Danmaku, 空に浮かびながら弾を打ってくる。弾幕ってほどでもない。
 /// </summary>
-class EnemyBarrage : public Enemy
+class EnemyDanmaku : public Enemy
 {
 
 public:
 
-	EnemyBarrage(const Vec2& pos)
+	EnemyDanmaku(const Vec2& pos)
 		: Enemy(pos)
 	{
 
@@ -136,7 +149,7 @@ public:
 
 	int getDamage(bool intersects)
 	{
-		return intersects ? static_cast<int>(EnemyType::Barrage) : 0;
+		return intersects ? static_cast<int>(EnemyType::Danmaku) : 0;
 	}
 
 	void draw() const
