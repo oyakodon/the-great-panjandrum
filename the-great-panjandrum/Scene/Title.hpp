@@ -25,6 +25,8 @@ private:
 		L"終了"
 	};
 
+	int m_cursor = 0;
+
 public:
 
 	~Title()
@@ -52,6 +54,31 @@ public:
 	void update() override
 	{
 		bool handCursor = false;
+		
+		if ((Input::KeyDown | Input::KeyRight).clicked)
+		{
+			m_cursor = m_cursor < 5 ? m_cursor + 1 : 0;
+		}
+
+		if ((Input::KeyUp | Input::KeyLeft).clicked)
+		{
+			m_cursor = m_cursor > 0 ? m_cursor - 1 : 5;
+		}
+
+		if (Input::KeyEnter.clicked)
+		{
+			switch (m_cursor)
+			{
+				case 0: changeScene(L"StageStory"); break;
+				case 1: changeScene(L"StageEndless"); break;
+				case 2: changeScene(L"StageVS"); break;
+				case 3: changeScene(L"Score"); break;
+				case 4: changeScene(L"Setting"); break;
+				default: System::Exit(); break;
+			}
+
+			return;
+		}
 
 		for (auto i : step(m_menuBoxes.size()))
 		{
@@ -87,6 +114,11 @@ public:
 		for (auto i : step(m_menuBoxes.size()))
 		{
 			m_menuBoxes[i].shearedX(20).draw();
+
+			if (m_cursor == i)
+			{
+				m_menuBoxes[i].shearedX(20).drawFrame(3.0, Palette::Red);
+			}
 
 			FontAsset(L"Menu")(m_menuTexts[i]).drawAt(m_menuBoxes[i].center, Color(40));
 		}

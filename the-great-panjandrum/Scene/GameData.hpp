@@ -15,7 +15,7 @@ namespace GameInfo
 	const String Title = L"The Great Panjandrum";
 
 	// ゲームのバージョン
-	const String Version = L"Ver. 0.1.9";
+	const String Version = L"Ver. 0.1.10";
 
 	// セーブデータの保存場所
 	const FilePath SaveFilePath = L"save.dat";

@@ -7,6 +7,14 @@
 
 #include <Siv3D.hpp>
 
+// 左右のブロックとの接触パターン
+enum class BlockIntersectType
+{
+	Left,
+	None,
+	Right
+};
+
 /// <summary>
 /// プレイヤー(パンジャンドラム)
 /// </summary>
@@ -17,7 +25,9 @@ private:
 	Vec2 m_pos;
 
 	bool m_isGrounded;
-	int m_intersectsBlock; // -1: 左, 0: 無し, 1: 右
+	BlockIntersectType m_intersects;
+
+	double m_speed;
 
 	int m_jumpFrame;
 	double m_jumpedY;
@@ -26,18 +36,26 @@ private:
 
 	bool m_isAlive;
 
-	int m_tp; // TeaPoint
+	double m_TP; // TeaPoint
+	double m_earnedTP; // 累計獲得TP
+
+	static constexpr double STEP_TP_DEC = 0.15;
+	static constexpr double STEP_SPEED = 0.3;
+	static constexpr double MAX_SPEED = 15;
 
 public:
 
 	Player() :
 		m_pos(0, 0),
 		m_isGrounded(false),
-		m_intersectsBlock(0),
+		m_speed(0),
+		m_intersects(BlockIntersectType::None),
 		m_jumpFrame(0),
 		m_isAlive(true),
-		m_tp(50)
+		m_TP(TPMAX)
 	{}
+
+	static constexpr double TPMAX = 200;
 
 	Vec2 getPos() const
 	{
@@ -53,7 +71,7 @@ public:
 	void checkGround(const Array<std::shared_ptr<Block>>& blocks)
 	{
 		m_isGrounded = false;
-		m_intersectsBlock = 0;
+		m_intersects = BlockIntersectType::None;
 
 		const Line top(m_pos + Vec2(-90, 0), m_pos + Vec2(90, 0));
 		const RectF player(m_pos + Vec2(-100, -200), Vec2(200, 200));
@@ -63,21 +81,18 @@ public:
 			const RectF region = block.get()->getRect();
 
 			// Top
-			if (top.intersects(RectF(region.pos, Vec2(region.w, 20))))
-			{
-				m_isGrounded = true;
-			}
+			m_isGrounded |= top.intersects(RectF(region.pos, Vec2(region.w, 20)));
 
 			// Right
 			if (player.intersects(region.center + Vec2(-region.w / 2, 0)))
 			{
-				m_intersectsBlock = 1;
+				m_intersects = BlockIntersectType::Right;
 			}
 
 			// Left
 			if (player.intersects(region.center + Vec2(region.w / 2, 0)))
 			{
-				m_intersectsBlock = -1;
+				m_intersects = BlockIntersectType::Left;
 			}
 
 		}
@@ -92,7 +107,9 @@ public:
 		{
 			if (it->get()->intersects(player))
 			{
-				m_tp += static_cast<int>(it->get()->getType());
+				const int tp = static_cast<int>(it->get()->getType());
+				m_TP += tp;
+				m_earnedTP += tp;
 
 				it = items.erase(it);
 			}
@@ -113,7 +130,7 @@ public:
 		{
 			if (it->get()->intersects(player))
 			{
-				m_tp -= it->get()->getDamage(true);
+				m_TP -= it->get()->getDamage(true);
 
 				it = enemies.erase(it);
 			}
@@ -139,9 +156,14 @@ public:
 		return m_pos.y < m_bottom;
 	}
 
-	int getTP() const
+	double getTP() const
 	{
-		return m_tp;
+		return m_TP;
+	}
+
+	double getEarnedTP() const
+	{
+		return m_earnedTP;
 	}
 
 	void update()
@@ -167,16 +189,38 @@ public:
 			m_jumpFrame--;
 		}
 
-		if (Input::KeyRight.pressed && m_intersectsBlock != 1)
+		bool pressed = false;
+
+		if (Input::KeyRight.pressed)
 		{
-			m_pos.x += 7.5;
+			if (m_speed < 0) m_speed = 0;
+			m_speed = Min(MAX_SPEED, m_speed + STEP_SPEED);
+			pressed = true;
 		}
 
-		if (Input::KeyLeft.pressed && m_intersectsBlock != -1)
+		if (Input::KeyLeft.pressed)
 		{
-			m_pos.x -= 7.5;
+			if (m_speed > 0) m_speed = 0;
+			m_speed = Max(-MAX_SPEED, m_speed - STEP_SPEED);
+			pressed = true;
 		}
 
+		if (!pressed)
+		{
+			if (Abs(m_speed) > 0.75)
+			{
+				m_speed += m_speed > 0 ? -0.5 : 0.5;
+			}
+			else
+			{
+				m_speed = 0;
+			}
+		}
+
+		bool intersects = m_speed >= 0 ? m_intersects == BlockIntersectType::Right : m_intersects == BlockIntersectType::Left;
+		m_pos.x += intersects ? 0 : m_speed;
+
+		m_TP -= STEP_TP_DEC;
 	}
 
 	void draw(const bool debugMode) const
@@ -187,7 +231,7 @@ public:
 		{
 			RectF(Vec2(-100, GameInfo::playerPosOffset - 200) + Window::BaseCenter(), 200, 200).drawFrame(1.0, 0.0, Palette::Red);
 		}
-			
+
 	}
 
 };

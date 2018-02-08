@@ -17,6 +17,9 @@ private:
 
 	StageData m_stage;
 
+	// プレー時間
+	Stopwatch m_sw;
+
 	tgpUI::Meter m_tpMeter = tgpUI::Meter({ 315, 20 }, 600, 20);
 
 	const ColorF FadeOutColor = Palette::Black;
@@ -29,6 +32,8 @@ public:
 		StageEditor::LoadStage(L"Stage/stage_1.csv", m_stage);
 		m_player.setBottom(m_stage.deadLine);
 		m_player.setPos(m_stage.initPlayerPos);
+
+		m_sw.start();
 	}
 
 	void update() override
@@ -44,6 +49,8 @@ public:
 				m_stage = stage;
 				m_player.setBottom(m_stage.deadLine);
 				m_player.setPos(m_stage.initPlayerPos);
+
+				m_sw.start();
 			}
 			return;
 		}
@@ -77,6 +84,8 @@ public:
 
 		if (m_player.checkGoal(m_stage.goalPos))
 		{
+			m_sw.pause();
+
 			if (m_stage.nextStage == L"RESULT")
 			{
 				changeScene(L"Title");
@@ -93,7 +102,7 @@ public:
 		}
 
 		// TPメーター更新
-		m_tpMeter.setValue(m_player.getTP() / 100.0);
+		m_tpMeter.setValue(m_player.getTP() / Player::TPMAX);
 
 	}
 
@@ -141,6 +150,19 @@ public:
 		const int nameWidth = FontAsset(L"UI")(m_stage.stageName).region().w;
 		FontAsset(L"UI")(m_stage.stageName).draw({ Window::BaseWidth() - nameWidth - 15, 5 });
 
+		// 累計獲得TP
+		const int earnedTPWidth = FontAsset(L"UI")(L"獲得TP:", m_player.getEarnedTP()).region().w;
+		FontAsset(L"UI")(L"獲得TP:", m_player.getEarnedTP()).draw({ Window::BaseWidth() - earnedTPWidth - 15, 35 });
+
+		// プレー時間
+		const int swWidth = FontAsset(L"UI_Large")(L"00:00:000").region().w;
+		FontAsset(L"UI_Large")(
+			Pad(m_sw.min(),		{ 2, L'0' }), L":",
+			Pad(m_sw.s() % 60,	{ 2, L'0' }), L":",
+			Pad(m_sw.ms() % 1000,{ 2, L'0' })
+		).draw({ Window::BaseCenter().x - swWidth / 2, 30 });
+
+		// フェードアウト
 		if (m_swTransition.isActive())
 		{
 			ColorF fadeColor = FadeOutColor;

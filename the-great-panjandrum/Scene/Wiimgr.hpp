@@ -44,7 +44,7 @@ public:
 
 		if (dialog.isShown())
 		{
-			if (Input::KeyEnter.clicked)
+			if (Input::AnyKeyClicked())
 			{
 				changeScene(L"Title");
 			}
