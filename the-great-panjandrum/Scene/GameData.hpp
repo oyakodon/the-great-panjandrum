@@ -15,7 +15,7 @@ namespace GameInfo
 	const String Title = L"The Great Panjandrum";
 
 	// ゲームのバージョン
-	const String Version = L"Ver. 0.2.2";
+	const String Version = L"Ver. 0.2.3";
 
 	// ロゴ画面中央下部に表示される説明
 	const Array<String> Descriptions = {

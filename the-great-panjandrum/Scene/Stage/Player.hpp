@@ -267,6 +267,15 @@ public:
 	{
 		RectF(Vec2(-100, GameInfo::playerPosOffset - 200) + Window::BaseCenter(), 200, 200)(TextureAsset(L"panjandrum")).draw();
 
+		if (m_speed > 0)
+		{
+			RectF(Vec2(-50, GameInfo::playerPosOffset - 380) + Window::BaseCenter(), 100, 250)(TextureAsset(L"akane01").mirror()).draw();
+		}
+		else
+		{
+			RectF(Vec2(-50, GameInfo::playerPosOffset - 380) + Window::BaseCenter(), 100, 250)(TextureAsset(L"akane01")).draw();
+		}
+
 		if (debugMode)
 		{
 			RectF(Vec2(-100, GameInfo::playerPosOffset - 200) + Window::BaseCenter(), 200, 200).drawFrame(1.0, 0.0, Palette::Red);

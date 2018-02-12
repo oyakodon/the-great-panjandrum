@@ -4,6 +4,12 @@
 
 #include <Siv3D.hpp>
 
+enum class MoveType
+{
+	Vertical,
+	Horizontal
+};
+
 class Block
 {
 protected:
@@ -79,16 +85,44 @@ public:
 
 class MovingBlock : public Block
 {
+private:
+
+	const MoveType m_moveType;
+	const int m_range;
+	const int m_speed;
+
+	Vec2 m_origCenter;
+
 public:
 
-	MovingBlock(const RectF& region)
-		: Block(region)
+	MovingBlock(const RectF& region, MoveType moveType, int range, int speed)
+		: Block(region),
+		  m_moveType(moveType),
+		  m_range(range),
+		  m_speed(speed)
 	{
-
+		m_origCenter = region.center;
 	}
 
 	void update()
 	{
+		if (m_moveType == MoveType::Vertical)
+		{
+			m_region.y += m_speed;
+			if (m_region.y > m_origCenter.y + m_range)
+			{
+				m_region.y = m_origCenter.y - m_range;
+			}
+		}
+		else
+		{
+			m_region.x += m_speed;
+			if (m_region.x > m_origCenter.x + m_range)
+			{
+				m_region.x = m_origCenter.x - m_range;
+			}
+
+		}
 
 	}
 

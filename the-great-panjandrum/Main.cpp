@@ -19,6 +19,8 @@ void Main()
 	Window::Resize(1280, 720);
 	ScalableWindow::Setup(1280, 720);
 
+	MasterVoice::SetVolume(0.25);
+
 	Window::SetTitle(GameInfo::Title);
 	System::SetExitEvent(WindowEvent::CloseButton);
 
@@ -77,6 +79,7 @@ void Main()
 	
 	// Player
 	TextureAsset::Register(L"panjandrum", L"Asset/panjandrum.png");
+	TextureAsset::Register(L"akane01", L"Asset/akane01.png");
 
 
 	// Debugビルドならデバッグモードに

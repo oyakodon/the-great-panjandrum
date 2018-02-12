@@ -98,7 +98,12 @@ struct StageData
 				else if (btype == L"MOVINGBLOCK")
 				{
 					// 移動ブロック
-					stage.blocks.push_back(std::shared_ptr<Block>(new MovingBlock({ x, y, w, h })));
+					MoveType mt = MoveType::Vertical;
+					if (csv.get<String>(i, 6) == L"H")
+					{
+						mt = MoveType::Horizontal;
+					}
+					stage.blocks.push_back(std::shared_ptr<Block>(new MovingBlock({ x, y, w, h }, mt, csv.get<int>(i, 7), csv.get<int>(i, 8))));
 
 					std::cout << "Created block. Type: MovingBlock, x:" << x << ", y:" << y << ", w:" << w << ", h:" << h << std::endl;
 				}
