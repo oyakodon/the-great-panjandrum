@@ -37,6 +37,16 @@ public:
 		
 	}
 
+	RectF getRect() const
+	{
+		return m_region;
+	}
+
+	void setRect(const RectF& rect)
+	{
+		m_region = rect;
+	}
+
 	void setPlayerPos(const Vec2& pos)
 	{
 		m_playerPos = pos;

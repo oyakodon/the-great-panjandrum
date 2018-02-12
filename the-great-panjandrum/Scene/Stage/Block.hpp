@@ -44,6 +44,11 @@ public:
 		return m_region;
 	}
 
+	void setRect(const RectF& rect)
+	{
+		m_region = rect;
+	}
+
 	virtual void draw(const bool debugMode) const = 0;
 
 };

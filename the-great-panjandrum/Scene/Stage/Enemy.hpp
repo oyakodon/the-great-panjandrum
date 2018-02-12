@@ -36,6 +36,16 @@ public:
 
 	virtual int getDamage(bool intersects) = 0;
 
+	RectF getRect() const
+	{
+		return m_region;
+	}
+
+	void setRect(const RectF& rect)
+	{
+		m_region = rect;
+	}
+
 	void setPlayerPos(const Vec2& pos)
 	{
 		m_playerPos = pos;
