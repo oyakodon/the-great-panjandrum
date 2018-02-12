@@ -31,6 +31,9 @@ public:
 
 	void update() override
 	{
+		if (m_data->wii[0].isConnected()) m_data->wii[0].update();
+		if (m_data->wii[1].isConnected()) m_data->wii[1].update();
+
 		m_toggleDebug.update();
 		m_buttonEdit.update();
 		m_buttonBack.update();
@@ -63,10 +66,12 @@ public:
 
 		if (m_sliderVol.isReleased())
 		{
-			SoundAsset(L"one01").playMulti();
+			SoundAsset(L"button70").playMulti();
 		}
 
-		if (m_buttonBack.isClicked() | Input::KeyEscape.clicked)
+		if (m_buttonBack.isClicked() | Input::KeyEscape.clicked |
+			(m_data->wii[0].isConnected() && m_data->wii[0].buttonTwo.clicked) |
+			(m_data->wii[1].isConnected() && m_data->wii[1].buttonTwo.clicked))
 		{
 			changeScene(L"Title");
 		}

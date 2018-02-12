@@ -39,6 +39,11 @@ public:
 
 	void update() override
 	{
+		if (Input::KeyEscape.pressedDuration >= 3000)
+		{
+			changeScene(L"Title");
+		}
+
 		// トランジション処理 (フェードアウト)
 		if (m_swTransition.isActive())
 		{
@@ -51,6 +56,7 @@ public:
 				m_player.setBottom(m_stage.deadLine);
 				m_player.setPos(m_stage.initPlayerPos);
 
+				SoundAsset(L"decision4").playMulti();
 				m_sw.start();
 			}
 			return;
@@ -81,7 +87,7 @@ public:
 		m_player.checkGround(m_stage.blocks);
 		m_player.checkItem(m_stage.items);
 		m_player.checkEnemy(m_stage.enemies);
-		m_player.update();
+		m_player.update(m_data->wii[0]);
 
 		if (m_player.checkGoal(m_stage.goalPos))
 		{
@@ -91,6 +97,7 @@ public:
 			{
 				m_data->lastMode = PlayMode::Story;
 				m_data->lastClearTime = m_sw.elapsed().count();
+				m_data->lastStageFailed = false;
 				changeScene(L"Result");
 			}
 			else
@@ -102,6 +109,14 @@ public:
 		if (!m_player.isAlive())
 		{
 			// 最初に戻る
+			if (m_player.getTP() < 0)
+			{
+				m_data->lastMode = PlayMode::Story;
+				m_data->lastClearTime = m_sw.elapsed().count();
+				m_data->lastStageFailed = true;
+				changeScene(L"Result");
+			}
+
 			m_stage.nextStage = L"Stage/stage_1.csv";
 			m_swTransition.start();
 		}
@@ -166,7 +181,7 @@ public:
 			Pad(m_sw.s() % 60,	{ 2, L'0' }), L":",
 			Pad(m_sw.ms() % 1000,{ 2, L'0' })
 		).draw({ Window::BaseCenter().x - swWidth / 2, 30 });
-
+		
 		// フェードアウト
 		if (m_swTransition.isActive())
 		{

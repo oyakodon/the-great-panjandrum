@@ -65,23 +65,35 @@ public:
 
 	void update() override
 	{
+		if (m_data->wii[0].isConnected()) m_data->wii[0].update();
+		if (m_data->wii[1].isConnected()) m_data->wii[1].update();
+
 		m_buttonBack.update();
 		m_buttonNext.update();
 		m_buttonPrev.update();
 
-		if (Input::KeyEscape.clicked | m_buttonBack.isClicked())
+		if (m_buttonBack.isClicked() | Input::KeyEscape.clicked |
+			(m_data->wii[0].isConnected() && m_data->wii[0].buttonTwo.clicked) |
+			(m_data->wii[1].isConnected() && m_data->wii[1].buttonTwo.clicked))
 		{
+			SoundAsset(L"decision4").play();
 			changeScene(L"Title");
 		}
 
-		if (m_buttonNext.isClicked())
+		if (m_buttonNext.isClicked() |
+			(m_data->wii[0].isConnected() && m_data->wii[0].buttonDown.clicked) |
+			(m_data->wii[1].isConnected() && m_data->wii[1].buttonDown.clicked))
 		{
+			SoundAsset(L"cancel1").playMulti();
 			m_selected = Min(2, m_selected + 1);
 			changeMode(static_cast<PlayMode>(m_selected));
 		}
 
-		if (m_buttonPrev.isClicked())
+		if (m_buttonPrev.isClicked() |
+			(m_data->wii[0].isConnected() && m_data->wii[0].buttonUp.clicked) |
+			(m_data->wii[1].isConnected() && m_data->wii[1].buttonUp.clicked))
 		{
+			SoundAsset(L"cancel1").playMulti();
 			m_selected = Max(0, m_selected - 1);
 			changeMode(static_cast<PlayMode>(m_selected));
 		}
@@ -106,9 +118,11 @@ public:
 
 			rect.draw(ColorF(1.0, 0.2));
 
-			FontAsset(L"UI_Large")(ToStringFromClearTime(m_highScores[i].clearTime)).draw(rect.pos + Point(45, (rect.h - h) / 2 - 15), Palette::Gray);
+			FontAsset(L"UI_Large")((i + 1), L":").draw(rect.pos + Point(30, (rect.h - h) / 2 - 20), Palette::Darkorange);
 
-			FontAsset(L"UI_Large")(ToStringFromClearTime(m_highScores[i].clearTime)).draw(rect.pos + Point(40, (rect.h - h) / 2 - 20));
+			FontAsset(L"UI_Large")(ToStringFromClearTime(m_highScores[i].clearTime)).draw(rect.pos + Point(120, (rect.h - h) / 2 - 15), Palette::Gray);
+
+			FontAsset(L"UI_Large")(ToStringFromClearTime(m_highScores[i].clearTime)).draw(rect.pos + Point(115, (rect.h - h) / 2 - 20));
 
 			const Size dateSize = FontAsset(L"UI_Small")(m_highScores[i].date).region().size;
 

@@ -53,20 +53,33 @@ public:
 
 	void update() override
 	{
+		if (m_data->wii[0].isConnected()) m_data->wii[0].update();
+		if (m_data->wii[1].isConnected()) m_data->wii[1].update();
+
 		bool handCursor = false;
 		
-		if ((Input::KeyDown | Input::KeyRight).clicked)
+		if ((Input::KeyDown | Input::KeyRight).clicked |
+			(m_data->wii[0].isConnected() && (m_data->wii[0].buttonLeft.clicked | m_data->wii[0].buttonDown.clicked)) |
+			(m_data->wii[1].isConnected() && (m_data->wii[1].buttonLeft.clicked | m_data->wii[1].buttonDown.clicked)))
 		{
+			SoundAsset(L"cancel1").playMulti();
 			m_cursor = m_cursor < 5 ? m_cursor + 1 : 0;
 		}
 
-		if ((Input::KeyUp | Input::KeyLeft).clicked)
+		if ((Input::KeyUp | Input::KeyLeft).clicked |
+			(m_data->wii[0].isConnected() && (m_data->wii[0].buttonRight.clicked | m_data->wii[0].buttonUp.clicked)) |
+			(m_data->wii[1].isConnected() && (m_data->wii[1].buttonRight.clicked | m_data->wii[1].buttonUp.clicked)))
 		{
+			SoundAsset(L"cancel1").playMulti();
 			m_cursor = m_cursor > 0 ? m_cursor - 1 : 5;
 		}
 
-		if (Input::KeyEnter.clicked)
+		if (Input::KeyEnter.clicked | 
+				(m_data->wii[0].isConnected() && m_data->wii[0].buttonTwo.clicked) |
+				(m_data->wii[1].isConnected() && m_data->wii[1].buttonTwo.clicked))
 		{
+			SoundAsset(L"decision4").play();
+
 			switch (m_cursor)
 			{
 				case 0: changeScene(L"StageStory"); break;
@@ -76,8 +89,6 @@ public:
 				case 4: changeScene(L"Setting"); break;
 				default: System::Exit(); break;
 			}
-
-			return;
 		}
 
 		for (auto i : step(m_menuBoxes.size()))
@@ -88,6 +99,8 @@ public:
 
 			if (item.leftClicked)
 			{
+				SoundAsset(L"decision4").play();
+
 				switch (i)
 				{
 					case 0: changeScene(L"StageStory"); break;

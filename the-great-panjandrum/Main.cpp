@@ -47,12 +47,21 @@ void Main()
 	FontAsset::Register(L"UI_Small", 14, L"Meiryo UI", FontStyle::Regular);
 	FontAsset::Register(L"UI", 18, L"Meiryo UI", FontStyle::Regular);
 	FontAsset::Register(L"UI_Large", 28, L"Meiryo UI", FontStyle::Bold);
+	FontAsset::Register(L"UI_OutLine", 32, Typeface::Heavy, FontStyle::Outline);
+	FontAsset(L"UI_OutLine").changeOutlineStyle(TextOutlineStyle(Color(60), Color(255), 32 * 0.1));
 
 	//////////////////////////////////////////////////////////////
 	//
 	//  使用する音
 	//
 	SoundAsset::Register(L"one01", L"Asset/one01.mp3");
+	SoundAsset::Register(L"cancel1", L"Asset/cancel1.mp3");
+	SoundAsset::Register(L"decision4", L"Asset/decision4.mp3");
+	SoundAsset::Register(L"decision24", L"Asset/decision24.mp3");
+	SoundAsset::Register(L"button70", L"Asset/button70.mp3");
+	SoundAsset::Register(L"jump", L"Asset/jump.wav");
+	SoundAsset::Register(L"status03", L"Asset/status03.mp3");
+	SoundAsset::Register(L"hit02", L"Asset/hit02.mp3");
 
 	//////////////////////////////////////////////////////////////
 	//

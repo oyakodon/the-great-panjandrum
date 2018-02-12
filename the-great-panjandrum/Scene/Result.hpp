@@ -61,7 +61,7 @@ public:
 		}
 
 		m_updated = m_data->lastMode == PlayMode::Endless ? m_highScores.back().clearTime <= m_data->lastClearTime : m_highScores.back().clearTime >= m_data->lastClearTime;
-		if (m_updated)
+		if (!m_data->lastStageFailed && m_updated)
 		{
 			m_highScores.back() = { m_data->lastClearTime, DateTime::Now() };
 
@@ -71,16 +71,26 @@ public:
 			});
 
 			Serializer<BinaryWriter>{SaveFilePath}(m_highScores);
+
+			std::cout << "SaveData updated." << std::endl;
 		}
+
+		SoundAsset(L"decision24").play();
 
 	}
 
 	void update() override
 	{
+		if (m_data->wii[0].isConnected()) m_data->wii[0].update();
+		if (m_data->wii[1].isConnected()) m_data->wii[1].update();
+
 		m_buttonBack.update();
 
-		if (Input::KeyEscape.clicked | m_buttonBack.isClicked())
+		if (m_buttonBack.isClicked() | Input::KeyEscape.clicked |
+			(m_data->wii[0].isConnected() && m_data->wii[0].buttonTwo.clicked) |
+			(m_data->wii[1].isConnected() && m_data->wii[1].buttonTwo.clicked))
 		{
+			SoundAsset(L"decision4").play();
 			changeScene(L"Title");
 		}
 
@@ -94,8 +104,9 @@ public:
 		// 背景
 		Window::BaseClientRect()(TextureAsset(L"bg_natural_umi")).draw(ColorF(0.5));
 
-		FontAsset(L"UI")(L"リザルト").draw({100, 100});
+		FontAsset(L"UI_Large")(L"リザルト").draw({100, 100});
 
+		FontAsset(L"UI_OutLine")(m_data->lastStageFailed ? L"Stage Failed..." : L"Stage Cleared!").drawCenter(Window::BaseCenter().movedBy(-200, -100), m_data->lastStageFailed ? Palette::Red : Palette::Orange);
 		FontAsset(L"UI_Large")(L"クリア時間: ", ToStringFromClearTime(m_data->lastClearTime)).drawCenter(Window::BaseCenter().movedBy(-200, 0));
 
 		m_buttonBack.draw();

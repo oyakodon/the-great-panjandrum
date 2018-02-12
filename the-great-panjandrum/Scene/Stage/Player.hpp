@@ -39,9 +39,11 @@ private:
 	double m_TP; // TeaPoint
 	double m_earnedTP; // 累計獲得TP
 
-	static constexpr double STEP_TP_DEC = 0.15;
-	static constexpr double STEP_SPEED = 0.3;
-	static constexpr double MAX_SPEED = 15;
+	bool m_isDamaged;
+
+	static constexpr double STEP_TP_DEC = 0.075; // update毎のTPの減少量
+	static constexpr double STEP_SPEED = 0.3; // update毎のキーボード左右入力に対する速度の増加/減少量
+	static constexpr double MAX_SPEED = 15; // プレイヤーの最大速度
 
 public:
 
@@ -52,6 +54,7 @@ public:
 		m_intersects(BlockIntersectType::None),
 		m_jumpFrame(0),
 		m_isAlive(true),
+		m_isDamaged(false),
 		m_TP(TPMAX)
 	{}
 
@@ -111,6 +114,8 @@ public:
 				m_TP += tp;
 				m_earnedTP += tp;
 
+				SoundAsset(L"status03").playMulti();
+
 				it = items.erase(it);
 			}
 			else
@@ -123,14 +128,28 @@ public:
 
 	void checkEnemy(Array<std::shared_ptr<Enemy>>& enemies)
 	{
+		m_isDamaged = false;
 		const RectF player(m_pos + Vec2(-100, -200), Vec2(200, 200));
 
 		auto it = enemies.begin();
 		while (it != enemies.end())
 		{
+			if (it->get()->getDamage(false) != 0)
+			{
+				m_TP -= it->get()->getDamage(false);
+
+				m_isDamaged = true;
+
+				SoundAsset(L"hit02").playMulti();
+			}
+
 			if (it->get()->intersects(player))
 			{
 				m_TP -= it->get()->getDamage(true);
+
+				m_isDamaged = true;
+
+				SoundAsset(L"hit02").playMulti();
 
 				it = enemies.erase(it);
 			}
@@ -153,7 +172,7 @@ public:
 
 	bool isAlive()
 	{
-		return m_pos.y < m_bottom;
+		return m_pos.y < m_bottom && m_TP >= 0;
 	}
 
 	double getTP() const
@@ -166,14 +185,20 @@ public:
 		return m_earnedTP;
 	}
 
-	void update()
+	void update(Wii& wii)
 	{
+		if (wii.isConnected())
+		{
+			wii.update();
+		}
+
 		if (m_isGrounded)
 		{
 			m_jumpFrame = 0;
 
-			if (Input::KeySpace.clicked && m_jumpFrame <= 0)
+			if ((Input::KeySpace.clicked || (wii.isConnected() && wii.buttonTwo.clicked)) && m_jumpFrame <= 0)
 			{
+				SoundAsset(L"jump").playMulti();
 				m_jumpFrame = 48;
 				m_jumpedY = m_pos.y;
 			}
@@ -205,7 +230,7 @@ public:
 			pressed = true;
 		}
 
-		if (!pressed)
+		if (!wii.isConnected() && !pressed)
 		{
 			if (Abs(m_speed) > 0.75)
 			{
@@ -217,10 +242,25 @@ public:
 			}
 		}
 
+		if (wii.isConnected())
+		{
+			if (m_isDamaged)
+			{
+				wii.rumble(200);
+			}
+
+			if (abs(wii.acc().y) >= 0.1)
+			{
+				m_speed = -wii.acc().y * 2 * MAX_SPEED;
+				m_speed = Max(-MAX_SPEED, m_speed - STEP_SPEED);
+				m_speed = Min(MAX_SPEED, m_speed + STEP_SPEED);
+			}
+		}
+
 		bool intersects = m_speed >= 0 ? m_intersects == BlockIntersectType::Right : m_intersects == BlockIntersectType::Left;
 		m_pos.x += intersects ? 0 : m_speed;
 
-		m_TP -= STEP_TP_DEC;
+		m_TP -= STEP_TP_DEC + (abs(m_speed) / MAX_SPEED * STEP_TP_DEC);
 	}
 
 	void draw(const bool debugMode) const

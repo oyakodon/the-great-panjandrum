@@ -14,7 +14,7 @@ private:
 	
 	tgpUI::Button buttonCancel = tgpUI::Button(Rect(150, 600, 350, 60), L"Wiiリモコンを使用しない", Palette::White);
 
-	tgpUI::Dialog dialog = tgpUI::Dialog(Window::BaseCenter(), {700, 250}, L"Wiiリモコンを使用するには、Bluetoothをオンにしてください。");
+	tgpUI::Dialog dialog = tgpUI::Dialog(Window::BaseCenter(), {700, 250}, L"Wiiリモコンを使用するには、Bluetoothを有効にしてください。");
 
 public:
 
@@ -51,7 +51,6 @@ public:
 		}
 		else
 		{
-
 			buttonCancel.update();
 
 			if (buttonCancel.isClicked())
@@ -71,6 +70,7 @@ public:
 						System::Sleep(500);
 						m_data->wii[num].controller.playSound("wii_sound.raw", 65);
 					}).detach();
+					SoundAsset(L"button70").playMulti();
 				}
 
 				if (m_data->wii[i].isConnected())

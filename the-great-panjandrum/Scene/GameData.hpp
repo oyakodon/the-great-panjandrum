@@ -15,7 +15,7 @@ namespace GameInfo
 	const String Title = L"The Great Panjandrum";
 
 	// ゲームのバージョン
-	const String Version = L"Ver. 0.1.10";
+	const String Version = L"Ver. 0.2.2";
 
 	// ロゴ画面中央下部に表示される説明
 	const Array<String> Descriptions = {
@@ -48,6 +48,8 @@ struct GameData
 	Wii wii[2];
 	PlayMode lastMode;
 	long long lastClearTime;
+	bool lastStageFailed;
+
 	bool debugMode = false;
 };
 
