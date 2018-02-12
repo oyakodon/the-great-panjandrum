@@ -7,8 +7,8 @@
 /// </summary>
 enum class ItemType : int
 {
-	Tea = 5,
-	Marmite = 10
+	Tea = 10,
+	Marmite = 20
 };
 
 /// <summary>
@@ -54,14 +54,12 @@ public:
 
 	void draw() const
 	{
-		// 確認用
-		m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).draw(Palette::Yellow).drawFrame(1.0, 0.0, Palette::Red);
-
-		/*switch (m_type)
+		switch (m_type)
 		{
+			case ItemType::Marmite: m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset))(TextureAsset(L"cooking_marmite")).draw(); break;
+			case ItemType::Tea: m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset))(TextureAsset(L"tea_straight")).draw(); break;
 			default: break;
-		}*/
-
+		}
 	}
 
 };

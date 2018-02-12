@@ -54,7 +54,7 @@ public:
 		{
 			for (const int i : step(10))
 			{
-				m_highScores[i] = { m_data->lastMode ==  PlayMode::Endless ? 30'000 : 300'000, DateTime(2011, 5, 31, 12, 0, 0, 0) };
+				m_highScores[i] = { m_data->lastMode == PlayMode::Endless ? 30'000 : 300'000, DateTime(2011, 5, 31, 12, 0, 0, 0) };
 			}
 
 			Serializer<BinaryWriter>{SaveFilePath}(m_highScores);
@@ -104,10 +104,20 @@ public:
 		// 背景
 		Window::BaseClientRect()(TextureAsset(L"bg_natural_umi")).draw(ColorF(0.5));
 
-		FontAsset(L"UI_Large")(L"リザルト").draw({100, 100});
+		if (m_data->lastMode == PlayMode::Story)
+		{
+			Rect(Window::BaseWidth() - 400, 10, 300, 700)(TextureAsset(L"akane01")).draw();
+		}
+
+		FontAsset(L"UI_Large")(L"リザルト").draw({ 100, 100 });
 
 		FontAsset(L"UI_OutLine")(m_data->lastStageFailed ? L"Stage Failed..." : L"Stage Cleared!").drawCenter(Window::BaseCenter().movedBy(-200, -100), m_data->lastStageFailed ? Palette::Red : Palette::Orange);
 		FontAsset(L"UI_Large")(L"クリア時間: ", ToStringFromClearTime(m_data->lastClearTime)).drawCenter(Window::BaseCenter().movedBy(-200, 0));
+
+		if (m_updated)
+		{
+			FontAsset(L"UI")(L"< New Score! >").drawCenter(Window::BaseCenter().movedBy(-100, 75), Palette::Lightblue);
+		}
 
 		m_buttonBack.draw();
 

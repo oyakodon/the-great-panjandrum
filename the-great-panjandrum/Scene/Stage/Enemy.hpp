@@ -21,13 +21,15 @@ protected:
 
 	RectF m_region;
 
+	PlayMode m_mode;
+
 	Vec2 m_playerPos;
 
 public:
 
 	Enemy(const Vec2& pos)
 	{
-		m_region = RectF(120).setCenter(pos);
+		m_region = RectF(180).setCenter(pos);
 	}
 
 	virtual ~Enemy() {}
@@ -37,6 +39,11 @@ public:
 	void setPlayerPos(const Vec2& pos)
 	{
 		m_playerPos = pos;
+	}
+
+	void setPlayMode(const PlayMode mode)
+	{
+		m_mode = mode;
 	}
 
 	bool intersects(const RectF& region)
@@ -75,7 +82,7 @@ public:
 
 	void draw() const
 	{
-		m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).draw(Palette::Yellow).drawFrame(1.0, 0.0, Palette::Red);
+		m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset))(TextureAsset(L"juujigun")).draw();
 	}
 
 };
@@ -123,7 +130,7 @@ public:
 
 	void draw() const
 	{
-		m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).draw(Palette::Yellow).drawFrame(1.0, 0.0, Palette::Red);
+		m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset))(TextureAsset(L"chusei_heishi_tetsukabuto")).draw();
 	}
 
 };
@@ -133,28 +140,96 @@ public:
 /// </summary>
 class EnemyDanmaku : public Enemy
 {
+private:
+
+	static constexpr int BULLET_DAMAGE = 10;
+
+	Array<std::pair<Vec2, Vec2>> m_bullets;
+	Stopwatch m_swInterval;
+
+	static constexpr int BULLET_SPEED = 3;
 
 public:
 
 	EnemyDanmaku(const Vec2& pos)
 		: Enemy(pos)
 	{
-
+		
 	}
 
 	void update()
 	{
+		if (m_swInterval.ms() >= 300)
+		{
+			m_swInterval.reset();
+		}
+
+		if (!m_swInterval.isActive() && m_region.center.distanceFrom(m_playerPos + Vec2(0, -100)) <= 500)
+		{
+			m_bullets.emplace_back(std::make_pair(m_region.center, m_playerPos + Vec2(0, -100)));
+			m_swInterval.start();
+		}
+
+		auto it = m_bullets.begin();
+		while (it != m_bullets.end())
+		{
+			double dx = it->second.x - it->first.x;
+			double dy = it->second.y - it->first.y;
+
+			double prevDist = it->first.distanceFrom(it->second);
+			it->first.moveBy(BULLET_SPEED * Cos(Atan2(dy, dx)), BULLET_SPEED * Sin(Atan2(dy, dx)));
+
+			if (prevDist <= it->first.distanceFrom(it->second))
+			{
+				it = m_bullets.erase(it);
+			}
+			else
+			{
+				it++;
+			}
+		}
 
 	}
 
 	int getDamage(bool intersects)
 	{
-		return intersects ? static_cast<int>(EnemyType::Danmaku) : 0;
+		if (intersects)
+		{
+			return static_cast<int>(EnemyType::Danmaku);
+		}
+
+		const RectF player(m_playerPos + Vec2(-100, -200), Vec2(200, 200));
+
+		int damage = 0;
+
+		auto it = m_bullets.begin();
+		while (it != m_bullets.end())
+		{
+			if (Circle(it->first, 10).intersects(player))
+			{
+				damage += BULLET_DAMAGE;
+				it = m_bullets.erase(it);
+			}
+			else
+			{
+				it++;
+			}
+		}
+
+		return damage;
 	}
 
 	void draw() const
 	{
-		m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).draw(Palette::Yellow).drawFrame(1.0, 0.0, Palette::Red);
+		// 敵
+		m_region.movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset))(TextureAsset(L"war_sensya_noman")).draw();
+
+		// 弾
+		for (const auto p : m_bullets)
+		{
+			Circle(p.first, 10).movedBy(-m_playerPos + Window::BaseCenter() + Vec2(0, GameInfo::playerPosOffset)).draw(Palette::Red);
+		}
+
 	}
 
 };

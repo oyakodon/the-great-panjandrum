@@ -121,9 +121,7 @@ public:
 			{
 				m_region.x = m_origCenter.x - m_range;
 			}
-
 		}
-
 	}
 
 	void draw(const bool debugMode) const

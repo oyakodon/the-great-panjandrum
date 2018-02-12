@@ -27,6 +27,8 @@ private:
 	bool m_isGrounded;
 	BlockIntersectType m_intersects;
 
+	PlayMode m_mode;
+
 	double m_speed;
 
 	int m_jumpFrame;
@@ -47,7 +49,7 @@ private:
 
 public:
 
-	Player() :
+	Player(const PlayMode mode) :
 		m_pos(0, 0),
 		m_isGrounded(false),
 		m_speed(0),
@@ -55,6 +57,7 @@ public:
 		m_jumpFrame(0),
 		m_isAlive(true),
 		m_isDamaged(false),
+		m_mode(mode),
 		m_TP(TPMAX)
 	{}
 

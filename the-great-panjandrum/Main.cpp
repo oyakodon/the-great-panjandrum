@@ -81,6 +81,15 @@ void Main()
 	TextureAsset::Register(L"panjandrum", L"Asset/panjandrum.png");
 	TextureAsset::Register(L"akane01", L"Asset/akane01.png");
 
+	// Item
+	TextureAsset::Register(L"cooking_marmite", L"Asset/cooking_marmite.png");
+	TextureAsset::Register(L"tea_straight", L"Asset/tea_straight.png");
+
+	// Enemy
+	TextureAsset::Register(L"war_sensya_noman", L"Asset/war_sensya_noman.png");
+	TextureAsset::Register(L"chusei_heishi_tetsukabuto", L"Asset/chusei_heishi_tetsukabuto.png");
+	TextureAsset::Register(L"juujigun", L"Asset/juujigun.png");
+
 
 	// Debugビルドならデバッグモードに
 #ifdef _DEBUG

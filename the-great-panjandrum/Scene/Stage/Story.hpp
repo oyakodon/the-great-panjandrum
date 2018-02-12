@@ -14,7 +14,7 @@ class StageStory : public MyApp::Scene
 {
 private:
 
-	Player m_player;
+	Player m_player = Player(PlayMode::Story);
 
 	StageData m_stage;
 
@@ -80,6 +80,7 @@ public:
 		for (size_t i = 0; i < m_stage.enemies.size(); i++)
 		{
 			m_stage.enemies[i].get()->setPlayerPos(m_player.getPos());
+			m_stage.enemies[i].get()->setPlayMode(PlayMode::Story);
 			m_stage.enemies[i].get()->update();
 		}
 
