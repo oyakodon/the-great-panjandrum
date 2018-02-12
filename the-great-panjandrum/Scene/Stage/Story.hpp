@@ -2,6 +2,7 @@
 
 #include "../GameData.hpp"
 #include "Player.hpp"
+#include "Stage.hpp"
 
 #include <Siv3D.hpp>
 #include <HamFramework.hpp>
@@ -29,7 +30,7 @@ public:
 
 	void init() override
 	{
-		StageEditor::LoadStage(L"Stage/stage_1.csv", m_stage);
+		StageData::LoadStage(L"Stage/stage_1.csv", m_stage);
 		m_player.setBottom(m_stage.deadLine);
 		m_player.setPos(m_stage.initPlayerPos);
 
@@ -45,7 +46,7 @@ public:
 			{
 				m_swTransition.reset();
 				StageData stage;
-				StageEditor::LoadStage(m_stage.nextStage, stage);
+				StageData::LoadStage(m_stage.nextStage, stage);
 				m_stage = stage;
 				m_player.setBottom(m_stage.deadLine);
 				m_player.setPos(m_stage.initPlayerPos);

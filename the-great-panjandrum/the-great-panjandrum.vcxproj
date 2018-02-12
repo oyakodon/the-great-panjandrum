@@ -291,6 +291,7 @@
     <ClInclude Include="Scene\Stage\Generator.hpp" />
     <ClInclude Include="Scene\Stage\Item.hpp" />
     <ClInclude Include="Scene\Stage\Player.hpp" />
+    <ClInclude Include="Scene\Stage\Stage.hpp" />
     <ClInclude Include="Scene\Stage\Story.hpp" />
     <ClInclude Include="Scene\Stage\VS.hpp" />
     <ClInclude Include="Scene\Title.hpp" />

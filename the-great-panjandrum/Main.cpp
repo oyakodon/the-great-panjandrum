@@ -31,6 +31,7 @@ void Main()
 	manager.add<Wiimgr>(L"Wiimgr");
 	manager.add<Title>(L"Title");
 	manager.add<StageStory>(L"StageStory");
+	manager.add<StageEditor>(L"StageEditor");
 	manager.add<Result>(L"Result");
 	manager.add<Score>(L"Score");
 	manager.add<Setting>(L"Setting");

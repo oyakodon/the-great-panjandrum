@@ -10,9 +10,10 @@ class Setting : public MyApp::Scene
 {
 private:
 
-	tgpUI::ToggleSwitch toggleDebug = tgpUI::ToggleSwitch(Window::BaseCenter().movedBy(150, 140), 40, false);
-	tgpUI::Button buttonBack = tgpUI::Button(Rect(150, 600, 240, 60), L"< タイトルに戻る", Palette::White);
 	tgpUI::Slider sliderVol = tgpUI::Slider(Window::BaseCenter().movedBy(150, -150), 300, 15, 0, 100);
+	tgpUI::ToggleSwitch toggleDebug = tgpUI::ToggleSwitch(Window::BaseCenter().movedBy(150, 85), 40, false);
+	tgpUI::Button buttonEdit = tgpUI::Button(Rect(Window::BaseCenter().movedBy(50, 140), 240, 60), L"ステージエディター", Palette::White);
+	tgpUI::Button buttonBack = tgpUI::Button(Rect(150, 600, 240, 60), L"< タイトルに戻る", Palette::White);
 
 public:
 
@@ -31,6 +32,7 @@ public:
 	void update() override
 	{
 		toggleDebug.update();
+		buttonEdit.update();
 		buttonBack.update();
 		sliderVol.update();
 
@@ -49,6 +51,11 @@ public:
 
 		}
 
+		if (buttonEdit.isClicked())
+		{
+			changeScene(L"StageEditor");
+		}
+
 		if (sliderVol.isChanged())
 		{
 			MasterVoice::SetVolume(sliderVol.getValue() / 100.0);
@@ -64,7 +71,7 @@ public:
 			changeScene(L"Title");
 		}
 
-		if (toggleDebug.mouseOver() | buttonBack.mouseOver() | sliderVol.mouseOver())
+		if (toggleDebug.mouseOver() | buttonBack.mouseOver() | sliderVol.mouseOver() | buttonEdit.mouseOver())
 		{
 			Cursor::SetStyle(CursorStyle::Hand);
 		}
@@ -82,8 +89,11 @@ public:
 		FontAsset(L"Menu")(L"音量").drawCenter(Window::BaseCenter().movedBy(-150, -150));
 		sliderVol.draw();
 
-		FontAsset(L"Menu")(L"デバッグモード").drawCenter(Window::BaseCenter().movedBy(-150, 140));
+		FontAsset(L"Menu")(L"デバッグモード").drawCenter(Window::BaseCenter().movedBy(-150, 85));
 		toggleDebug.draw();
+
+		FontAsset(L"Menu")(L"ステージの編集").drawCenter(Window::BaseCenter().movedBy(-150, 170));
+		buttonEdit.draw();
 
 		buttonBack.draw();
 

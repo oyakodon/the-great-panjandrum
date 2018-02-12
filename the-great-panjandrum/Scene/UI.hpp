@@ -181,128 +181,6 @@ namespace tgpUI
 	};
 
 	/// <summary>
-	/// スライダー
-	/// </summary>
-	class Slider
-	{
-	private:
-		const Point m_pos;
-		const int m_width;
-
-		RoundRect m_gauge;
-		Circle m_knob;
-
-		Color m_gaugeColor;
-		Color m_knobColor;
-
-		const int m_min;
-		const int m_max;
-
-		int m_value;
-		bool m_changed = false;
-		bool m_mouseOver = false;
-		bool m_pressing = false;
-		bool m_released = false;
-
-	public:
-
-		Slider(const Point& pos, const int w, const int h, const int min, const int max)
-			: m_pos(pos), m_width(w), m_min(min), m_max(max)
-		{
-			m_value = min;
-
-			m_gauge = RoundRect(pos.x - w / 2, pos.y - h / 2, w, h, 15);
-			m_knob = Circle(pos.x - w / 2, pos.y, h / 2 + 3);
-
-			m_gaugeColor = Palette::Gray;
-			m_knobColor = Palette::White;
-		}
-
-		void setColor(const Color& gauge, const Color& knob)
-		{
-			m_gaugeColor = gauge;
-			m_knobColor = knob;
-		}
-
-		void setValue(const int value)
-		{
-			m_value = value;
-			m_knob.setPos(m_pos.x - m_width / 2 + m_width * m_value / (m_max - m_min), m_knob.y);
-		}
-
-		int getValue()
-		{
-			return m_value;
-		}
-
-		bool isChanged()
-		{
-			return m_changed;
-		}
-
-		bool mouseOver()
-		{
-			return m_mouseOver;
-		}
-
-		bool isReleased()
-		{
-			return m_released;
-		}
-
-		void update()
-		{
-			m_changed = false;
-			m_released = false;
-			m_mouseOver = m_knob.mouseOver;
-
-			if (m_knob.leftPressed | m_pressing)
-			{
-				m_pressing = true;
-
-				const int oldval = m_value;
-				double x = Mouse::PosF().x;
-
-				if (x < m_pos.x - m_width / 2)
-				{
-					x = m_pos.x - m_width / 2;
-				}
-
-				if (x > m_pos.x + m_width / 2)
-				{
-					x = m_pos.x + m_width / 2;
-				}
-
-				m_knob.setPos(x, m_knob.y);
-				m_value = static_cast<int>((m_knob.x - m_pos.x + m_width / 2) / m_width * (m_max - m_min));
-
-				if (oldval != m_value)
-				{
-					m_changed = true;
-				}
-			}
-
-			if (m_pressing & Input::MouseL.released)
-			{
-				m_released = true;
-				m_pressing = false;
-			}
-
-		}
-
-		void draw() const
-		{
-			m_gauge.draw(m_gaugeColor);
-			m_knob.draw(m_knobColor);
-
-			const RectF region = FontAsset(L"UI_Small")(m_value).region();
-			FontAsset(L"UI_Small")(m_value).drawCenter(m_pos.x - m_width / 2 - region.w / 2 - 5 - m_knob.r, m_pos.y);
-
-		}
-
-	};
-
-	/// <summary>
 	///  ダイアログ
 	/// </summary>
 	class Dialog
@@ -423,7 +301,7 @@ namespace tgpUI
 		/// メーターの値を設定します。
 		/// </summary>
 		/// <param name="value">値(0.0-1.0)</param>
-		void setValue(double value)
+		void setValue(const double value)
 		{
 			m_value = Max(Min(value, 1.0), 0.0);
 		}
@@ -471,5 +349,125 @@ namespace tgpUI
 
 	};
 
+	/// <summary>
+	/// スライダー
+	/// </summary>
+	class Slider
+	{
+	private:
+
+		const Point m_pos;
+		const int m_width;
+
+		Circle m_knob;
+
+		const int m_min;
+		const int m_max;
+
+		double m_value;
+		bool m_changed = false;
+		bool m_mouseOver = false;
+		bool m_pressing = false;
+		bool m_released = false;
+
+		std::shared_ptr<Meter> p_meter;
+
+	public:
+
+		Slider(const Point& pos, const int w, const int h, const int min, const int max)
+			: m_pos(pos), m_width(w), m_min(min), m_max(max)
+		{
+			m_value = 0.0;
+
+			m_knob = Circle(pos.x - w / 2, pos.y, h / 2 + 3);
+			p_meter = std::shared_ptr<Meter>(new Meter({ pos.x , pos.y }, w, h));
+		}
+
+		void setValue(const int value)
+		{
+			m_value = (double)value / (m_max - m_min);
+			p_meter.get()->setValue(m_value);
+			m_knob.setPos(m_pos.x - m_width / 2 + m_width * m_value, m_knob.y);
+		}
+
+		void setValue(const double value)
+		{
+			m_value = value;
+			p_meter.get()->setValue(m_value);
+			m_knob.setPos(m_pos.x - m_width / 2 + m_width * m_value, m_knob.y);
+		}
+
+		int getValue()
+		{
+			return static_cast<int>(m_value * (m_max - m_min));
+		}
+
+		bool isChanged()
+		{
+			return m_changed;
+		}
+
+		bool mouseOver()
+		{
+			return m_mouseOver;
+		}
+
+		bool isReleased()
+		{
+			return m_released;
+		}
+
+		void update()
+		{
+			m_changed = false;
+			m_released = false;
+			m_mouseOver = m_knob.mouseOver;
+
+			if (m_knob.leftPressed | m_pressing)
+			{
+				m_pressing = true;
+
+				const double oldval = m_value;
+				double x = Mouse::PosF().x;
+
+				if (x < m_pos.x - m_width / 2)
+				{
+					x = m_pos.x - m_width / 2;
+				}
+
+				if (x > m_pos.x + m_width / 2)
+				{
+					x = m_pos.x + m_width / 2;
+				}
+
+				m_knob.setPos(x, m_knob.y);
+				m_value = (m_knob.x - m_pos.x + m_width / 2) / m_width;
+				p_meter.get()->setValue(m_value);
+
+				if (oldval != m_value)
+				{
+					m_changed = true;
+				}
+			}
+
+			if (m_pressing & Input::MouseL.released)
+			{
+				m_released = true;
+				m_pressing = false;
+			}
+
+		}
+
+		void draw() const
+		{
+			p_meter.get()->draw();
+			m_knob.draw(Palette::White);
+
+			const RectF region = FontAsset(L"UI_Small")(static_cast<int>(m_value * (m_max - m_min))).region();
+			FontAsset(L"UI_Small")(static_cast<int>(m_value * (m_max - m_min))).drawCenter(m_pos.x - m_width / 2 - region.w / 2 - 5 - m_knob.r, m_pos.y);
+
+		}
+
+	};
 
 }
