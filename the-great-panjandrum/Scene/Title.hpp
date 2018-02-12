@@ -107,6 +107,9 @@ public:
 
 	void draw() const override
 	{
+		// 背景
+		Window::BaseClientRect()(TextureAsset(L"bg_natural_umi")).draw(ColorF(0.5));
+
 		const double titleHeight = FontAsset(L"Title")(GameInfo::Title).region().h;
 
 		FontAsset(L"Title")(GameInfo::Title).drawAt(Window::BaseCenter().x, titleHeight);

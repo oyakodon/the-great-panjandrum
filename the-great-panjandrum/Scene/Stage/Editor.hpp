@@ -24,7 +24,7 @@ public:
 	{
 		if (Input::AnyKeyClicked())
 		{
-			changeScene(L"Title");
+			changeScene(L"Setting");
 		}
 
 	}

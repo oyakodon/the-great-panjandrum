@@ -89,7 +89,9 @@ public:
 
 			if (m_stage.nextStage == L"RESULT")
 			{
-				changeScene(L"Title");
+				m_data->lastMode = PlayMode::Story;
+				m_data->lastClearTime = m_sw.elapsed().count();
+				changeScene(L"Result");
 			}
 			else
 			{
@@ -99,7 +101,9 @@ public:
 
 		if (!m_player.isAlive())
 		{
-			changeScene(L"Title");
+			// 最初に戻る
+			m_stage.nextStage = L"Stage/stage_1.csv";
+			m_swTransition.start();
 		}
 
 		// TPメーター更新

@@ -17,9 +17,6 @@ namespace GameInfo
 	// ゲームのバージョン
 	const String Version = L"Ver. 0.1.10";
 
-	// セーブデータの保存場所
-	const FilePath SaveFilePath = L"save.dat";
-
 	// ロゴ画面中央下部に表示される説明
 	const Array<String> Descriptions = {
 		L"プログラミング部 部内プロコン2017",
@@ -32,6 +29,16 @@ namespace GameInfo
 
 }
 
+/// <summary>
+/// ゲームモード
+/// </summary>
+enum class PlayMode : int
+{
+	Story = 0,
+	Endless,
+	VS
+};
+
 ///////////////////////////////////////////////////////////////////////
 //
 //  全てのシーンからアクセスできるデータ
@@ -39,17 +46,12 @@ namespace GameInfo
 struct GameData
 {
 	Wii wii[2];
+	PlayMode lastMode;
+	long long lastClearTime;
 	bool debugMode = false;
 };
 
 using MyApp = SceneManager<String, GameData>;
-
-enum class PlayMode
-{
-	Story,
-	Endless,
-	VS
-};
 
 ///////////////////////////////////////////////////////////////////////
 //
@@ -57,28 +59,14 @@ enum class PlayMode
 //
 struct ScoreData
 {
-	int32 score;
+	long long clearTime;
 
 	DateTime date;
-
-	PlayMode mode;
 
 	template <class Archive>
 	void serialize(Archive& archive)
 	{
-		archive(score, date, mode);
+		archive(clearTime, date);
 	}
 };
 
-///////////////////////////////////////////////////////////////////////
-//
-//  デフォルトのハイスコア
-//
-const std::array<ScoreData, 5> defaultHighScores
-{
-	ScoreData{ 50, DateTime(2018,1,1), PlayMode::Story },
-	ScoreData{ 40, DateTime(2018,1,1), PlayMode::Story },
-	ScoreData{ 30, DateTime(2018,1,1), PlayMode::Story },
-	ScoreData{ 20, DateTime(2018,1,1), PlayMode::Endless },
-	ScoreData{ 10, DateTime(2018,1,1), PlayMode::VS },
-};
