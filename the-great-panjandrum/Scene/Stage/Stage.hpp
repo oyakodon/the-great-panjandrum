@@ -27,7 +27,7 @@ struct StageData
 	/// アイテム
 	/// </summary>
 	Array<std::shared_ptr<Item>> items;
-	
+
 	/// <summary>
 	/// 敵
 	/// </summary>
@@ -72,7 +72,7 @@ struct StageData
 		// 最下点, y反対なので注意
 		double lowest = 0;
 
-		for (auto i : step(csv.rows))
+		for (const auto i : step(csv.rows))
 		{
 			const String cmd = csv.get<String>(i, 0);
 
@@ -164,6 +164,67 @@ struct StageData
 
 		stage.deadLine = lowest + StageData::DEADLINE_MARGIN;
 
+	}
+
+	/// <summary>
+	/// CSVファイルにステージ情報を書き込みます。
+	/// </summary>
+	/// <param name="filepath">CSVファイルへのパス</param>
+	/// <param name="stage">ステージデータ</param>
+	static void SaveStage(const String& filepath, StageData& stage)
+	{
+		CSVWriter csv(filepath);
+
+		if (!csv)
+		{
+			throw "Cannot load csv file!";
+		}
+
+		csv.writeRow(L"SETPOS", (int32)stage.initPlayerPos.x, (int32)stage.initPlayerPos.y);
+
+		csv.writeRow(L"SETGOAL", (int32)stage.goalPos.x, (int32)stage.goalPos.y, stage.nextStage);
+
+		csv.writeRow(L"SETNAME", stage.stageName);
+
+		for (const auto& block : stage.blocks)
+		{
+			if (block->getType() == BlockType::Normal)
+			{
+				csv.writeRow(L"CREATEBLOCK", L"BLOCK", block->getRect().x, block->getRect().y, block->getRect().w, block->getRect().h);
+			}
+			else
+			{
+				csv.writeRow(L"CREATEBLOCK", L"MOVINGBLOCK", block->getRect().x, block->getRect().y, block->getRect().w, block->getRect().h, ((MovingBlock *)block.get())->getMoveType() == MoveType::Horizontal ? L"H" : L"V", ((MovingBlock *)block.get())->getRange(), ((MovingBlock *)block.get())->getSpeed());
+			}
+		}
+
+		for (const auto& item : stage.items)
+		{
+			csv.writeRow(L"CREATEITEM", item->getType() == ItemType::Tea ? L"TEA" : L"MARMITE", item->getRect().center.x, item->getRect().center.y);
+		}
+
+		for (const auto& enemy : stage.enemies)
+		{
+			String eType = L"BUNCHIN";
+
+			if (enemy->getType() == EnemyType::Yotiyoti)
+			{
+				eType = L"YOTIYOTI";
+			}
+			else if (enemy->getType() == EnemyType::Danmaku)
+			{
+				eType = L"DANMAKU";
+			}
+
+			if (eType == L"YOTIYOTI")
+			{
+				csv.writeRow(L"CREATEENEMY", eType, enemy->getRect().center.x, enemy->getRect().center.y, ((EnemyYotiyoti *)enemy.get())->getRange());
+			}
+			else
+			{
+				csv.writeRow(L"CREATEENEMY", eType, enemy->getRect().center.x, enemy->getRect().center.y);
+			}
+		}
 	}
 
 };

@@ -36,6 +36,8 @@ public:
 
 	virtual int getDamage(bool intersects) = 0;
 
+	virtual EnemyType getType() const = 0;
+
 	RectF getRect() const
 	{
 		return m_region;
@@ -85,6 +87,11 @@ public:
 
 	}
 
+	EnemyType getType() const
+	{
+		return EnemyType::Bunchin;
+	}
+
 	int getDamage(bool intersects)
 	{
 		return intersects ? static_cast<int>(EnemyType::Bunchin) : 0;
@@ -104,7 +111,7 @@ class EnemyYotiyoti : public Enemy
 {
 private:
 
-	const int m_range; // +/- どのくらい移動するか (座標)
+	int m_range; // +/- どのくらい移動するか (座標)
 
 	const int m_speed = 3; // 移動速度
 
@@ -131,6 +138,21 @@ public:
 
 		m_relative += (m_faceRight ? 1 : -1) * m_speed;
 		m_region.moveBy((m_faceRight ? 1 : -1) * m_speed, 0);
+	}
+
+	EnemyType getType() const
+	{
+		return EnemyType::Yotiyoti;
+	}
+
+	void setRange(const int range)
+	{
+		m_range = range;
+	}
+
+	int getRange()
+	{
+		return m_range;
 	}
 
 	int getDamage(bool intersects)
@@ -199,6 +221,11 @@ public:
 			}
 		}
 
+	}
+
+	EnemyType getType() const
+	{
+		return EnemyType::Danmaku;
 	}
 
 	int getDamage(bool intersects)

@@ -10,6 +10,12 @@ enum class MoveType
 	Horizontal
 };
 
+enum class BlockType
+{
+	Normal,
+	Moving
+};
+
 class Block
 {
 protected:
@@ -39,6 +45,8 @@ public:
 
 	virtual void update() = 0;
 
+	virtual BlockType getType() const = 0;
+
 	RectF getRect() const
 	{
 		return m_region;
@@ -61,6 +69,11 @@ public:
 		: Block(region)
 	{
 		
+	}
+
+	BlockType getType() const
+	{
+		return BlockType::Normal;
 	}
 
 	void update()
@@ -92,9 +105,9 @@ class MovingBlock : public Block
 {
 private:
 
-	const MoveType m_moveType;
-	const int m_range;
-	const int m_speed;
+	MoveType m_moveType;
+	int m_range;
+	int m_speed;
 
 	Vec2 m_origCenter;
 
@@ -107,6 +120,41 @@ public:
 		  m_speed(speed)
 	{
 		m_origCenter = region.center;
+	}
+
+	BlockType getType() const
+	{
+		return BlockType::Moving;
+	}
+
+	void setRange(const int range)
+	{
+		m_range = range;
+	}
+
+	int getRange()
+	{
+		return m_range;
+	}
+
+	void setSpeed(const int speed)
+	{
+		m_speed = speed;
+	}
+
+	int getSpeed()
+	{
+		return m_speed;
+	}
+
+	void setMoveType(const MoveType type)
+	{
+		m_moveType = type;
+	}
+
+	const MoveType getMoveType()
+	{
+		return m_moveType;
 	}
 
 	void update()
