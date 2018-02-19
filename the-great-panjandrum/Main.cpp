@@ -5,6 +5,7 @@
 #include "Scene\Setting.hpp"
 #include "Scene\Result.hpp"
 #include "Scene\Score.hpp"
+#include "Scene\UITest.hpp"
 
 #include "Scene\Stage\Editor.hpp"
 #include "Scene\Stage\Endless.hpp"
@@ -29,6 +30,7 @@ void Main()
 	//  使用するシーン
 	//
 	MyApp manager;
+	manager.add<Logo>(L"UITest");
 	manager.add<Logo>(L"Logo");
 	manager.add<Wiimgr>(L"Wiimgr");
 	manager.add<Title>(L"Title");

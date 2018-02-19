@@ -470,4 +470,60 @@ namespace tgpUI
 
 	};
 
+	/// <summary>
+	/// テキストボックス
+	/// </summary>
+	class TextBox
+	{
+	private:
+
+		RoundRect m_region;
+		String m_text;
+
+		bool m_selected = false;
+		bool m_changed = false;
+		bool m_mouseOver = false;
+
+	public:
+
+		TextBox(const Vec2& pos, const int width, const int height)
+		{
+			m_region = RoundRect(pos.movedBy(-width / 2, -height / 2), { width, height }, height / 3);
+		}
+
+		void setText(const String& value)
+		{
+			m_text = value;
+		}
+
+		const String& getText()
+		{
+			return m_text;
+		}
+
+		bool isChanged()
+		{
+			return m_changed;
+		}
+
+		bool mouseOver()
+		{
+			return m_mouseOver;
+		}
+
+		void update()
+		{
+			
+
+
+		}
+
+		void draw() const
+		{
+			m_region.draw(Palette::White).drawFrame(1.0, 1.0, Palette::Black);
+			FontAsset(L"UI")(m_text).drawCenter(m_region.center);
+		}
+
+	};
+
 }

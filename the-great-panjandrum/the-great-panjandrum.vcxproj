@@ -296,6 +296,7 @@
     <ClInclude Include="Scene\Stage\VS.hpp" />
     <ClInclude Include="Scene\Title.hpp" />
     <ClInclude Include="Scene\UI.hpp" />
+    <ClInclude Include="Scene\UITest.hpp" />
     <ClInclude Include="Scene\Wiimgr.hpp" />
     <ClInclude Include="Wiimote\Wiimote.hpp" />
     <ClInclude Include="Wiimote\wm4s3d.hpp" />
